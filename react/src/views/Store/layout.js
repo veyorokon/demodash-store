@@ -20,13 +20,13 @@ const ScrollContainer = styled(Flex)`
 const Left = styled(ScrollContainer)`
   height: 100vh;
   justify-content: space-around;
-  flex-basis: 27rem;
+  flex-basis: 18rem;
   overflow: auto;
-  flex-grow: 25;
+  flex-grow: 20;
   border-right: 2px solid #ecedf1;
 `;
 const Right = styled(ScrollContainer)`
-  flex-grow: 80;
+  flex-grow: 82;
   height: 100vh;
   flex-basis: 44rem;
   overflow: auto;
