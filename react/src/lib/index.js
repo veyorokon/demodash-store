@@ -19,7 +19,9 @@ import {
   getEventVal,
   validateToken,
   formatErrorMessage,
-  formatGQLErrorMessage
+  formatGQLErrorMessage,
+  getDemoerHandle,
+  getAnchor
 } from "./utility";
 import {STATES} from "./constants";
 
@@ -35,5 +37,7 @@ export {
   validateToken,
   formatErrorMessage,
   formatGQLErrorMessage,
+  getDemoerHandle,
+  getAnchor,
   STATES
 };

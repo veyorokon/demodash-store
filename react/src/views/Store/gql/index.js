@@ -7,53 +7,59 @@ export const DEMODASH_STORE = gql`
       description
       name
       uid
-      demoerInventory {
+      account {
         id
-        demoCampaign {
+        profile {
           id
-          demoBox {
+          address {
             id
-            name
-          }
-          account {
-            id
-            profile {
-              id
-              name
-            }
+            line1
+            line2
+            country
+            city
+            zip
+            state
           }
         }
-        demoCommission {
+      }
+    }
+  }
+`;
+
+export const DEMODASH_STORE_INVENTORY = gql`
+  query demodashStoreInventory($demodashStoreId: Int!) {
+    demodashStoreInventory(demodashStoreId: $demodashStoreId) {
+      id
+      demoCommission {
+        id
+        amount
+        demoBoxItem {
           id
-          amount
-          demoBoxItem {
+          product {
             id
-            product {
+            name
+            price
+            description
+            images {
               id
-              name
-              price
-              description
-              images {
+              image
+              variationOption {
                 id
-                image
-                variationOption {
+                image {
                   id
-                  image {
-                    id
-                    image
-                  }
+                  image
                 }
               }
-              variations {
+            }
+            variations {
+              id
+              name
+              options {
                 id
-                name
-                options {
+                option
+                image {
                   id
-                  option
-                  image {
-                    id
-                    image
-                  }
+                  image
                 }
               }
             }

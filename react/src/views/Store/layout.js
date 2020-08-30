@@ -1,5 +1,6 @@
 import React from "react";
 import {Flex} from "components";
+
 import {responsive as r} from "lib";
 import styled from "styled-components";
 
@@ -22,8 +23,8 @@ const Left = styled(ScrollContainer)`
   justify-content: space-around;
   flex-basis: 18rem;
   overflow: auto;
-  flex-grow: 20;
-  border-right: 2px solid #ecedf1;
+  flex-grow: 10;
+  /* border-right: 2px solid #ecedf1; */
 `;
 const Right = styled(ScrollContainer)`
   flex-grow: 82;
