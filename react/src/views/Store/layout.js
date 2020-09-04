@@ -24,7 +24,6 @@ const Left = styled(ScrollContainer)`
   flex-basis: 18rem;
   overflow: auto;
   flex-grow: 10;
-  /* border-right: 2px solid #ecedf1; */
 `;
 const Right = styled(ScrollContainer)`
   flex-grow: 82;
@@ -60,7 +59,6 @@ export function RightColumn(props) {
     <Right
       id={"rightContainer"}
       bg={"whites.0"}
-      h="fit-content"
       justifyContent="flex-start"
       {...props}
     >

@@ -86,6 +86,7 @@ const padding = compose(
   paddingRight
 );
 
+const transition = configure("transition", "transition");
 const transitionDuration = configure("transitionDuration", "duration");
 const transitionTimingFunction = configure("transitionTimingFunction");
 const transitionDelay = configure("transitionDelay", "delay");
@@ -145,6 +146,7 @@ const generics = compose(
   color,
   width,
   height,
+  transition,
   transitionFields,
   positionFields,
   minHeight,
