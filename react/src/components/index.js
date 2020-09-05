@@ -23,8 +23,7 @@ import {
   VertTabs,
   TabPanel,
   DropDown,
-  ProductCard,
-  LogoTitle
+  ProductCard
 } from "./composite";
 
 import Animate, {appear} from "./core/animation";
@@ -35,7 +34,8 @@ import {
   CallToActionButton,
   SearchInput,
   SearchButton,
-  TableWrapper
+  TableWrapper,
+  LogoIcon
 } from "./styled";
 export {
   Text,
@@ -69,6 +69,6 @@ export {
   SearchInput,
   SearchButton,
   TableWrapper,
-  LogoTitle,
+  LogoIcon,
   appear
 };

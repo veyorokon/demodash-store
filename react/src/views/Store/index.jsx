@@ -1,48 +1,54 @@
-import React from "react";
-import {Text, Box, Icon} from "components";
+import React, {useState} from "react";
+import {Text, Box, Icon, LogoIcon} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
-import {Products, Header} from "./Sections";
+import {Products, Header, Nav} from "./Sections";
 import {Query} from "@apollo/react-components";
 import {DEMODASH_STORE} from "views/Store/gql";
-import LogoIcon from "assets/svg/logo.js";
 import Dots from "assets/svg/dots.js";
 
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 import {responsive as r, getDemoerHandle} from "lib";
 
-const Logo = styled(Text)`
-  text-align: center;
-  font-weight: 600;
-  position: relative;
-  letter-spacing: -0.8px;
+const BrandIcon = styled(Icon)`
+  transition: transform 0.4s;
+  ${props =>
+    props.isActive &&
+    css`
+      transform: rotate(180deg);
+    `}
 `;
 
-const Dot = styled(Box)`
-  position: absolute;
-  /* top: -57%; */
-  /* left: 50%; */
-  transform: translate(-50%, 25%);
-  border-radius: 50%;
-  opacity: 0.4;
-`;
+const Brand = props => {
+  const [isActive, setActive] = useState(false);
 
-const LogoTitle = props => (
-  <Flex h={4} w="fit-content" flexGrow={0} alignItems="center" {...props}>
-    <Icon justifyContent="center" mr={3} h={"3rem"}>
-      <LogoIcon />
-    </Icon>
-    <Box position="relative">
-      <Dot top="85%" h="1rem" w="1rem" bg={"oranges.0"} />
-      <Dot left="50%" top="-57%" h="4rem" w="4rem" bg={"lightBlues.0"} />
-      <Dot right="-10%" top="-25%" h="1rem" w="1rem" bg={"yellows.0"} />
-      <Logo as="h2" fs={r("2.2rem")} color="navys.0">
-        demodash
-      </Logo>
-    </Box>
-  </Flex>
-);
+  return (
+    <Flex
+      cursor="pointer"
+      pt={2}
+      pb={2}
+      alignItems="center"
+      flexGrow={0}
+      mt={4}
+      h="fit-content"
+      w="fit-content"
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+    >
+      <BrandIcon isActive={isActive} mr={3} h={3}>
+        <Dots
+          fill1={isActive ? "oranges.2" : "currentColor"}
+          fill2={isActive ? "yellows.1" : "currentColor"}
+          fill3={isActive ? "lightBlues.0" : "currentColor"}
+        />
+      </BrandIcon>
+      <Text h="fit-content" color="navys.1" fs={"1.6rem"}>
+        {props.children}
+      </Text>
+    </Flex>
+  );
+};
 
 export default () => {
   return (
@@ -76,40 +82,37 @@ export default () => {
                 <Flex
                   transition="padding 0.34s"
                   w={"100%"}
-                  pl={r("4 --------> 5")}
+                  pl={r("4 ---------> 5")}
                   pr={3}
                   pt={4}
                   pb={4}
                   flexDirection="column"
                 >
-                  <LogoTitle />
-                  <Text fw={"600"} fs={"2.6rem"} color="navys.0" mt={5}>
+                  <LogoIcon />
+                  <Text
+                    letterSpacing="1px"
+                    fw={"600"}
+                    fs={"2.6rem"}
+                    color="navys.0"
+                    mt={5}
+                  >
                     Brands
                   </Text>
-                  <Flex
-                    pt={2}
-                    pb={2}
-                    alignItems="center"
-                    flexGrow={0}
-                    mt={4}
-                    h="fit-content"
-                  >
-                    <Icon mr={3} h={3}>
-                      <Dots />
-                    </Icon>
-                    <Text h="fit-content" color="navys.1" fs={"1.6rem"}>
-                      Bromane
-                    </Text>
-                  </Flex>
+                  <Brand>Bromane</Brand>
                 </Flex>
               </LeftColumn>
-              <RightColumn
-                transition="padding 0.34s"
-                pl={r("3 --------> 4")}
-                bg={"whites.0"}
-              >
-                <Header demodashStore={demodashStore} />
-                <Products demodashStoreId={demodashStore.id} />
+              <RightColumn bg={"blues.3"}>
+                <Flex
+                  transition="padding 0.34s"
+                  flexDirection="column"
+                  pl={r("3 ---------> 4")}
+                  pr={r("3 ---------> 4")}
+                  pt={r("4")}
+                >
+                  <Nav demodashStore={demodashStore} />
+                  <Header demodashStore={demodashStore} />
+                  <Products demodashStoreId={demodashStore.id} />
+                </Flex>
               </RightColumn>
             </Flex>
           );

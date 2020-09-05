@@ -10,9 +10,7 @@ const Products = props => {
         justifyContent="flex-start"
         flexDirection="column"
         alignItems="center"
-      >
-        test
-      </Flex>
+      ></Flex>
     </Box>
   );
 };

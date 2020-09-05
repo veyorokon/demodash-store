@@ -33,7 +33,7 @@ const backgroundSize = configure("backgroundSize");
 const boxShadow = configure("boxShadow", [], "shadows");
 
 const color = configure("color", "color", "colors");
-const fill = configure("fill");
+const fill = configure("fill", [], "colors");
 
 const fontWeight = configure("fontWeight", "fw", "fontWeights");
 const fontSize = configure("fontSize", "fs", "fontSizes");
@@ -117,6 +117,7 @@ const borderLeft = configure("borderLeft");
 const borderBottom = configure("borderBottom");
 const borderTop = configure("borderTop");
 const borderColor = configure("borderColor", [], "colors");
+const borderWidth = configure("borderWidth");
 
 const borderFields = compose(
   border,
@@ -125,7 +126,8 @@ const borderFields = compose(
   borderLeft,
   borderBottom,
   borderTop,
-  borderColor
+  borderColor,
+  borderWidth
 );
 
 const borderRightColor = configure("borderRightColor", [], "colors");

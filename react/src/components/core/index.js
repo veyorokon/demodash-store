@@ -30,6 +30,7 @@ Box.defaultProps = {};
 const Button = themedComponent(
   styled.button`
     ${borderRadius}
+    ${borderFields}
     &:hover {
       color: ${props => props.hoverColor || "currentColor"};
       background: ${props => props.hoverBackground && props.hoverBackground};
