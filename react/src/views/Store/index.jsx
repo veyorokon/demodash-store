@@ -4,7 +4,8 @@ import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
 import {
   Nav,
-  MenuBar
+  MenuBar,
+  MobileBrandsNav
   //Products, Header,
 } from "./Sections";
 import {Query} from "@apollo/react-components";
@@ -119,7 +120,7 @@ export default () => {
                   transition="padding 0.3s, color 0.2s"
                   pl={r("1 3 --------> 4")}
                   pr={r("1 3 --------> 4")}
-                  pb={2}
+                  pb={3}
                   pt={r("1 -------> 4")}
                   bg={r("whites.0  -------> unset")}
                   borderBottom={"1px solid"}
@@ -134,6 +135,7 @@ export default () => {
                   pr={r("1 3 --------> 4")}
                   pt={r("3 -------> 4")}
                 >
+                  <MobileBrandsNav display={r("flex -------> none")} />
                   {/*<Header demodashStore={demodashStore} />
                   <Products demodashStoreId={demodashStore.id} />*/}
                 </Flex>

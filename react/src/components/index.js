@@ -16,7 +16,9 @@ import {
   Tr,
   Th,
   Td,
-  Label
+  Label,
+  Svg,
+  BorderButton
 } from "./core";
 import {
   FeatureLink,
@@ -70,5 +72,7 @@ export {
   SearchButton,
   TableWrapper,
   LogoIcon,
+  Svg,
+  BorderButton,
   appear
 };

@@ -1,15 +1,7 @@
 import React, {useState} from "react";
-import {Button, Flex, Icon, Text} from "components";
+import {Flex, Icon, Text, BorderButton} from "components";
 import {Cart} from "@styled-icons/boxicons-regular/Cart";
-import styled from "styled-components";
 import {responsive as r} from "lib";
-
-const BorderButton = styled(Button)`
-  border-width: 2px;
-  border-style: solid;
-  background: transparent;
-  cursor: pointer;
-`;
 
 export default props => {
   const [isHover, setHover] = useState(false);

@@ -16,7 +16,7 @@ import {
   fill,
   borderFields
 } from "theme";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const Box = themedComponent(
   styled.div`
@@ -164,6 +164,23 @@ const Icon = props => (
   </IconBox>
 );
 
+const Svg = themedComponent(styled.svg`
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  ${props =>
+    props.fill &&
+    css`
+      fill: ${props.fill ? props.fill : "current-color"};
+    `}
+  ${props =>
+    props.src &&
+    css`
+      background-image: url(${props.src});
+    `}
+`);
+
 const Table = themedComponent(
   styled.table`
     ${borderRadius}
@@ -185,6 +202,13 @@ const Td = themedComponent(
   `
 );
 
+const BorderButton = styled(Button)`
+  border-width: 2px;
+  border-style: solid;
+  background: transparent;
+  cursor: pointer;
+`;
+
 export {
   Text,
   Grid,
@@ -203,5 +227,7 @@ export {
   Table,
   Tr,
   Th,
-  Td
+  Td,
+  Svg,
+  BorderButton
 };
