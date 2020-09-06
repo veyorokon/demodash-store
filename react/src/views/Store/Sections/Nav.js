@@ -1,51 +1,10 @@
-import React, {useState} from "react";
-import {Flex, Button, Text, Icon} from "components";
-import {Cart} from "@styled-icons/boxicons-regular/Cart";
-// import {responsive as r} from "lib";
-import styled from "styled-components";
-
-const BorderButton = styled(Button)`
-  border-width: 2px;
-  border-style: solid;
-  background: transparent;
-  cursor: pointer;
-`;
-
-const FlexText = styled(Text)`
-  flex-grow: 1;
-`;
-
-const CartButton = props => {
-  const [isHover, setHover] = useState(false);
-  return (
-    <BorderButton
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      br={2}
-      borderColor={isHover ? "navys.3" : "whites.3"}
-    >
-      <Flex p={1} alignItems="center" flexGrow={0}>
-        <Icon color={isHover ? "navys.0" : "navys.1"} h={4}>
-          <Cart />
-        </Icon>
-        <Text color={isHover ? "navys.0" : "navys.1"} fw={600} fs={2} ml={2}>
-          Cart:
-        </Text>
-        <Text
-          color={isHover ? "navys.0" : "navys.1"}
-          fw={600}
-          fs={2}
-          ml={1}
-          mr={1}
-        >
-          3
-        </Text>
-      </Flex>
-    </BorderButton>
-  );
-};
+import React from "react";
+import {Flex, Text} from "components";
+import {CartButton} from "views/Store/Components";
 
 const Nav = props => {
+  const {demodashStore} = props;
+  const {address} = demodashStore.account.profile;
   return (
     <Flex
       justifyContent="space-between"
@@ -58,20 +17,32 @@ const Nav = props => {
         4
       ]}
       flexWrap={["wrap", "wrap", "wrap", "wrap", "unset"]}
+      {...props}
     >
-      <FlexText
-        mt={2}
-        mb={2}
-        minWidth={"29rem"}
-        h="fit-content"
-        as="h1"
-        fs={3}
-        fw={"600"}
-        color="navys.0"
-      >
-        {props.demodashStore.name}
-      </FlexText>
-      <CartButton />
+      <Flex flexGrow={0} flexDirection="column">
+        <Text
+          maxWidth={"100%"}
+          h="fit-content"
+          as="h1"
+          fs={3}
+          fw={"600"}
+          color="navys.0"
+          mb={1}
+        >
+          {demodashStore.name}
+        </Text>
+        <Text
+          mt={1}
+          h="fit-content"
+          as="h2"
+          fw={"400"}
+          fs={"1.4rem"}
+          color="navys.1"
+        >
+          {address.city} {address.state}, {address.zip}
+        </Text>
+      </Flex>
+      <CartButton display={props.cartButtonDisplay} count={2} />
     </Flex>
   );
 };

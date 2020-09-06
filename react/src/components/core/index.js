@@ -151,7 +151,7 @@ const Option = themedComponent(styled.option`
 `);
 
 const IconBox = styled(Flex)`
-  transition: color 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   flex-grow: 0;
 `;
 

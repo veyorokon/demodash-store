@@ -136,6 +136,7 @@ const borderBottomColor = configure("borderBottomColor", [], "colors");
 const borderTopColor = configure("borderTopColor", [], "colors");
 
 const display = configure("display");
+const opacity = configure("opacity");
 
 const generics = compose(
   borderStyle,
@@ -163,7 +164,8 @@ const generics = compose(
   borderRight,
   borderLeft,
   borderBottom,
-  borderTop
+  borderTop,
+  opacity
 );
 
 const animationDuration = configure("animationDuration");
@@ -198,7 +200,6 @@ const flexFields = compose(
 );
 
 const borderRadius = configure("borderRadius", "br", "radii");
-const opacity = configure("opacity");
 
 const gridTemplateColumns = configure("gridTemplateColumns");
 const gridColumnGap = configure("gridColumnGap");

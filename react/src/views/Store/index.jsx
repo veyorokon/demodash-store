@@ -4,7 +4,7 @@ import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
 import {
   Nav,
-  Menu
+  MenuBar
   //Products, Header,
 } from "./Sections";
 import {Query} from "@apollo/react-components";
@@ -97,7 +97,7 @@ export default () => {
                   pb={4}
                   flexDirection="column"
                 >
-                  <LogoIcon />
+                  <LogoIcon showAllDots={false} />
                   <Text
                     letterSpacing="1px"
                     fw={"600"}
@@ -111,9 +111,21 @@ export default () => {
                 </Flex>
               </LeftColumn>
               <RightColumn bg={"blues.3"}>
-                <Menu
+                <MenuBar
                   demodashStore={demodashStore}
                   display={r("flex -------> none")}
+                />
+                <Nav
+                  transition="padding 0.3s, color 0.2s"
+                  pl={r("1 3 --------> 4")}
+                  pr={r("1 3 --------> 4")}
+                  pb={2}
+                  pt={r("1 -------> 4")}
+                  bg={r("whites.0  -------> unset")}
+                  borderBottom={"1px solid"}
+                  borderBottomColor={r("whites.3  -------> transparent")}
+                  demodashStore={demodashStore}
+                  cartButtonDisplay={r("none -------> flex")}
                 />
                 <Flex
                   transition="padding 0.3s"
@@ -122,7 +134,6 @@ export default () => {
                   pr={r("1 3 --------> 4")}
                   pt={r("3 -------> 4")}
                 >
-                  <Nav demodashStore={demodashStore} />
                   {/*<Header demodashStore={demodashStore} />
                   <Products demodashStoreId={demodashStore.id} />*/}
                 </Flex>
