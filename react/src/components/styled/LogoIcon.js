@@ -19,7 +19,15 @@ const Logo = styled(Text)`
 `;
 
 export default props => (
-  <Flex h={4} w="fit-content" flexGrow={0} alignItems="center" {...props}>
+  <Flex
+    mt={2}
+    mb={2}
+    h={4}
+    w="fit-content"
+    flexGrow={0}
+    alignItems="center"
+    {...props}
+  >
     <Icon justifyContent="center" mr={3} h={"3rem"} {...props.iconProps}>
       <LogoIcon />
     </Icon>
@@ -28,7 +36,7 @@ export default props => (
         <Dot top="85%" h="1rem" w="1rem" bg={"oranges.0"} />
         <Dot right="-10%" top="-25%" h="1rem" w="1rem" bg={"yellows.0"} />
     */}
-      <Dot left="50%" top="-57%" h="4rem" w="4rem" bg={"lightBlues.0"} />
+      <Dot left="50%" top="-48%" h="4rem" w="4rem" bg={"lightBlues.0"} />
       <Logo as="h2" fs={r("2.2rem")} color="navys.0">
         demodash
       </Logo>

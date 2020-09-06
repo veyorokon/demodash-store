@@ -2,7 +2,11 @@ import React, {useState} from "react";
 import {Text, Box, Icon, LogoIcon} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
-import {Products, Header, Nav} from "./Sections";
+import {
+  Nav,
+  Menu
+  //Products, Header,
+} from "./Sections";
 import {Query} from "@apollo/react-components";
 import {DEMODASH_STORE} from "views/Store/gql";
 import Dots from "assets/svg/dots.js";
@@ -78,9 +82,14 @@ export default () => {
           console.log(demodashStore);
           return (
             <Flex h={"100vh"}>
-              <LeftColumn bg={"whites.0"} display={r("none -------> flex")}>
+              <LeftColumn
+                borderRight={"1px solid"}
+                borderRightColor={"whites.3"}
+                bg={"whites.0"}
+                display={r("none -------> flex")}
+              >
                 <Flex
-                  transition="padding 0.34s"
+                  transition="padding 0.3s"
                   w={"100%"}
                   pl={r("4 ---------> 5")}
                   pr={3}
@@ -102,16 +111,20 @@ export default () => {
                 </Flex>
               </LeftColumn>
               <RightColumn bg={"blues.3"}>
+                <Menu
+                  demodashStore={demodashStore}
+                  display={r("flex -------> none")}
+                />
                 <Flex
-                  transition="padding 0.34s"
+                  transition="padding 0.3s"
                   flexDirection="column"
-                  pl={r("3 ---------> 4")}
-                  pr={r("3 ---------> 4")}
-                  pt={r("4")}
+                  pl={r("1 3 --------> 4")}
+                  pr={r("1 3 --------> 4")}
+                  pt={r("3 -------> 4")}
                 >
                   <Nav demodashStore={demodashStore} />
-                  <Header demodashStore={demodashStore} />
-                  <Products demodashStoreId={demodashStore.id} />
+                  {/*<Header demodashStore={demodashStore} />
+                  <Products demodashStoreId={demodashStore.id} />*/}
                 </Flex>
               </RightColumn>
             </Flex>

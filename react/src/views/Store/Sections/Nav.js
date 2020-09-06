@@ -11,6 +11,10 @@ const BorderButton = styled(Button)`
   cursor: pointer;
 `;
 
+const FlexText = styled(Text)`
+  flex-grow: 1;
+`;
+
 const CartButton = props => {
   const [isHover, setHover] = useState(false);
   return (
@@ -46,12 +50,27 @@ const Nav = props => {
     <Flex
       justifyContent="space-between"
       alignItems="center"
-      h={["fit-content", "fit-content", "fit-content", "fit-content", 4]}
+      minHeight={[
+        "fit-content",
+        "fit-content",
+        "fit-content",
+        "fit-content",
+        4
+      ]}
       flexWrap={["wrap", "wrap", "wrap", "wrap", "unset"]}
     >
-      <Text h="fit-content" as="h1" fs={3} fw={"600"} color="navys.0">
+      <FlexText
+        mt={2}
+        mb={2}
+        minWidth={"29rem"}
+        h="fit-content"
+        as="h1"
+        fs={3}
+        fw={"600"}
+        color="navys.0"
+      >
         {props.demodashStore.name}
-      </Text>
+      </FlexText>
       <CartButton />
     </Flex>
   );

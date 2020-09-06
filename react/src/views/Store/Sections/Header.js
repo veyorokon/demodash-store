@@ -5,7 +5,7 @@ import {responsive as r} from "lib";
 const Header = props => {
   const {demodashStore} = props;
   return (
-    <Flex mt={1}>
+    <Flex>
       <Flex flexGrow={0} flexDirection="column">
         <Text
           h="fit-content"
@@ -13,6 +13,7 @@ const Header = props => {
           fw={r("400")}
           fs={"1.4rem"}
           color="navys.0"
+          mt={2}
         >
           {demodashStore.description}
         </Text>
