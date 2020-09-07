@@ -28,7 +28,8 @@
     "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^4.4.0",
     "styled-icons": "^10.2.1",
-    "styled-system": "^5.1.2"
+    "styled-system": "^5.1.2",
+    "svg-inline-react": "^3.2.0"
   },
   "scripts": {
     "start": "PORT=3030 react-scripts start",

@@ -26,44 +26,52 @@ export const DEMODASH_STORE = gql`
   }
 `;
 
-export const DEMODASH_STORE_INVENTORY = gql`
+export const BRAND_INVENTORY = gql`
   query demodashStoreInventory($demodashStoreId: Int!) {
     demodashStoreInventory(demodashStoreId: $demodashStoreId) {
-      id
-      demoCommission {
-        id
-        amount
-        demoBoxItem {
+      inventory {
+        demoCommission {
           id
-          product {
+          amount
+          demoBoxItem {
             id
-            name
-            price
-            description
-            images {
-              id
-              image
-              variationOption {
-                id
-                image {
-                  id
-                  image
-                }
-              }
-            }
-            variations {
+            product {
               id
               name
-              options {
+              price
+              description
+              images {
                 id
-                option
-                image {
+                image
+                variationOption {
                   id
-                  image
+                  image {
+                    id
+                    image
+                  }
+                }
+              }
+              variations {
+                id
+                name
+                options {
+                  id
+                  option
+                  image {
+                    id
+                    image
+                  }
                 }
               }
             }
           }
+        }
+      }
+      brand {
+        id
+        profile {
+          id
+          name
         }
       }
     }

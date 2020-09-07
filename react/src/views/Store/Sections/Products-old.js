@@ -31,11 +31,12 @@ const Products = props => {
 
         const {demodashStoreInventory} = data;
         console.log(demodashStoreInventory);
-        const inventory = demodashStoreInventory[0];
         return (
           <Flex>
             <Box maxWidth="100%" br={"4px"}>
-              <Text>{inventory.brand.profile.name}</Text>
+              <Flex mt={3}>
+                <Text mt={2}>Test</Text>
+              </Flex>
             </Box>
           </Flex>
         );

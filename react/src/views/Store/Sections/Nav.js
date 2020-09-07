@@ -27,6 +27,7 @@ const Nav = props => {
           fs={3}
           fw={"600"}
           color="navys.0"
+          letterSpacing={"0.3px"}
           mb={1}
         >
           {demodashStore.name}

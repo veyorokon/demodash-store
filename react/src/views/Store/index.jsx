@@ -2,12 +2,7 @@ import React, {useState} from "react";
 import {Text, Box, Icon, LogoIcon} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
-import {
-  Nav,
-  MenuBar,
-  MobileBrandsNav
-  //Products, Header,
-} from "./Sections";
+import {Nav, MenuBar, MobileBrandsNav, Products} from "./Sections";
 import {Query} from "@apollo/react-components";
 import {DEMODASH_STORE} from "views/Store/gql";
 import Dots from "assets/svg/dots.js";
@@ -136,8 +131,7 @@ export default () => {
                   pt={r("3 -------> 4")}
                 >
                   <MobileBrandsNav display={r("flex -------> none")} />
-                  {/*<Header demodashStore={demodashStore} />
-                  <Products demodashStoreId={demodashStore.id} />*/}
+                  <Products demodashStoreId={demodashStore.id} />
                 </Flex>
               </RightColumn>
             </Flex>
