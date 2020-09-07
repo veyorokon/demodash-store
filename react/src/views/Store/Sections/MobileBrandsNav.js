@@ -4,9 +4,9 @@ import bromane from "assets/svg/test/bromane.svg";
 
 const MobileBrandNav = props => {
   return (
-    <Flex flexDirection="column" {...props}>
+    <Flex mb={3} flexDirection="column" {...props}>
       <Text letterSpacing="0.83px" fw={600} fs={2} mb={2}>
-        Brands:
+        Brands in inventory:
       </Text>
       <Flex>
         <BorderButton borderColor={"whites.3"} br={2} p={1}>

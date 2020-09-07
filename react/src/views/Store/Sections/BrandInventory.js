@@ -4,7 +4,7 @@ import {Query} from "@apollo/react-components";
 
 import {BRAND_INVENTORY} from "views/Store/gql";
 
-const Products = props => {
+const Brands = props => {
   // const {demodashStore} = props;
   return (
     <Query
@@ -34,8 +34,8 @@ const Products = props => {
         const inventory = demodashStoreInventory[0];
         return (
           <Flex>
-            <Box maxWidth="100%" br={"4px"}>
-              <Text>{inventory.brand.profile.name}</Text>
+            <Box mt={3} maxWidth="100%" br={"4px"}>
+              <Text fs={3}>{inventory.brand.profile.name}</Text>
             </Box>
           </Flex>
         );
@@ -43,4 +43,4 @@ const Products = props => {
     </Query>
   );
 };
-export default Products;
+export default Brands;
