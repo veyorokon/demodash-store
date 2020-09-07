@@ -1,7 +1,7 @@
 import React from "react";
 import {Flex, Box, Text} from "components";
 import {Query} from "@apollo/react-components";
-
+import {ImageCard} from "views/Store/Components";
 import {BRAND_INVENTORY} from "views/Store/gql";
 
 const Brands = props => {
@@ -31,11 +31,31 @@ const Brands = props => {
 
         const {demodashStoreInventory} = data;
         console.log(demodashStoreInventory);
-        const inventory = demodashStoreInventory[0];
+        const brandInventory = demodashStoreInventory[0];
+        const product =
+          brandInventory.inventory[0].demoCommission.demoBoxItem.product;
         return (
-          <Flex>
-            <Box mt={3} maxWidth="100%" br={"4px"}>
-              <Text fs={3}>{inventory.brand.profile.name}</Text>
+          <Flex w="100%" {...props}>
+            <Box mt={3} w="100%" maxWidth="100%" br={"4px"}>
+              <Text mb={4} fs={3}>
+                {brandInventory.brand.profile.name}
+              </Text>
+              <ImageCard
+                key={product.id}
+                ml={"auto"}
+                mr={"auto"}
+                brand={
+                  (brandInventory.brand && brandInventory.brand.profile.name) ||
+                  null
+                }
+                productId={product.id}
+                title={product.name}
+                description={product.description}
+                images={product.images}
+                variations={product.variations}
+                price={product.price}
+                shippingPrice={product.shippingPrice}
+              />
             </Box>
           </Flex>
         );

@@ -129,6 +129,7 @@ export default () => {
                   pl={r("1 3 --------> 4")}
                   pr={r("1 3 --------> 4")}
                   pt={r("3 -------> 4")}
+                  mb={5}
                 >
                   <MobileBrandsNav display={r("flex -------> none")} />
                   <BrandInventory demodashStoreId={demodashStore.id} />
