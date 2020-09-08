@@ -31,32 +31,56 @@ const Brands = props => {
 
         const {demodashStoreInventory} = data;
         console.log(demodashStoreInventory);
-        const brandInventory = demodashStoreInventory[0];
-        const product =
-          brandInventory.inventory[0].demoCommission.demoBoxItem.product;
         return (
           <Flex w="100%" {...props}>
-            <Box mt={3} w="100%" maxWidth="100%" br={"4px"}>
-              <Text mb={4} fs={3}>
-                {brandInventory.brand.profile.name}
-              </Text>
-              <ImageCard
-                key={product.id}
-                ml={"auto"}
-                mr={"auto"}
-                brand={
-                  (brandInventory.brand && brandInventory.brand.profile.name) ||
-                  null
-                }
-                productId={product.id}
-                title={product.name}
-                description={product.description}
-                images={product.images}
-                variations={product.variations}
-                price={product.price}
-                shippingPrice={product.shippingPrice}
-              />
-            </Box>
+            {demodashStoreInventory.length ? (
+              demodashStoreInventory.map(brandInventory => (
+                <Box
+                  key={brandInventory.brand.id}
+                  mt={3}
+                  w="100%"
+                  maxWidth="100%"
+                  br={"4px"}
+                >
+                  <Text mb={4} fs={3}>
+                    {brandInventory.brand.profile.name}
+                  </Text>
+                  <Flex flexWrap="wrap">
+                    {brandInventory.inventory.length ? (
+                      brandInventory.inventory.map(inventory => {
+                        const product =
+                          inventory.demoCommission.demoBoxItem.product;
+                        return (
+                          <ImageCard
+                            key={product.id}
+                            ml={"auto"}
+                            mr={"auto"}
+                            brand={
+                              (brandInventory.brand &&
+                                brandInventory.brand.profile.name) ||
+                              null
+                            }
+                            productId={product.id}
+                            title={product.name}
+                            description={product.description}
+                            images={product.images}
+                            variations={product.variations}
+                            price={product.price}
+                            shippingPrice={product.shippingPrice}
+                          />
+                        );
+                      })
+                    ) : (
+                      <Text color={"black"}>
+                        No {brandInventory.brand.profile.name} products yet...
+                      </Text>
+                    )}
+                  </Flex>
+                </Box>
+              ))
+            ) : (
+              <Text color={"black"}>No brands yet...</Text>
+            )}
           </Flex>
         );
       }}

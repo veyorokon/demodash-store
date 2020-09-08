@@ -6,7 +6,7 @@ const MobileBrandNav = props => {
   return (
     <Flex mt={3} mb={3} flexDirection="column" {...props}>
       <Text letterSpacing="0.83px" fw={600} fs={2} mb={2}>
-        Brands in inventory:
+        Brands:
       </Text>
       <Flex>
         <BorderButton borderColor={"whites.3"} br={2} p={1}>
