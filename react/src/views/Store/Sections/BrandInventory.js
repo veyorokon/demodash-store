@@ -2,6 +2,7 @@ import React from "react";
 import {Flex, Box, Text} from "components";
 import {Query} from "@apollo/react-components";
 import {ImageCard} from "views/Store/Components";
+import {responsive as r} from "lib";
 import {BRAND_INVENTORY} from "views/Store/gql";
 
 const Brands = props => {
@@ -45,7 +46,7 @@ const Brands = props => {
                   <Text mb={4} fs={3}>
                     {brandInventory.brand.profile.name}
                   </Text>
-                  <Flex flexWrap="wrap">
+                  <Flex justifyContent="space-evenly" flexWrap="wrap">
                     {brandInventory.inventory.length ? (
                       brandInventory.inventory.map(inventory => {
                         const product =
@@ -53,8 +54,6 @@ const Brands = props => {
                         return (
                           <ImageCard
                             key={product.id}
-                            ml={"auto"}
-                            mr={"auto"}
                             brand={
                               (brandInventory.brand &&
                                 brandInventory.brand.profile.name) ||
@@ -67,6 +66,8 @@ const Brands = props => {
                             variations={product.variations}
                             price={product.price}
                             shippingPrice={product.shippingPrice}
+                            maxWidth={r("unset --> 33rem ----> 30rem 33rem")}
+                            minWidth={r("unset --> 33rem ----> 30rem 33rem")}
                           />
                         );
                       })

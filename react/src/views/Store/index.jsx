@@ -2,7 +2,13 @@ import React, {useState} from "react";
 import {Text, Box, Icon, LogoIcon} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
-import {Nav, MenuBar, MobileBrandsNav, BrandInventory} from "./Sections";
+import {
+  Nav,
+  MenuBar,
+  MobileBrandsNav,
+  BrandInventory,
+  StoreDescription
+} from "./Sections";
 import {Query} from "@apollo/react-components";
 import {DEMODASH_STORE} from "views/Store/gql";
 import Dots from "assets/svg/dots.js";
@@ -116,13 +122,23 @@ export default () => {
                   pl={r("1 3 --------> 4")}
                   pr={r("1 3 --------> 4")}
                   pb={3}
-                  pt={r("1 -------> 4")}
+                  pt={r("3 -------> 4")}
                   bg={r("whites.0  -------> unset")}
                   borderBottom={"1px solid"}
                   borderBottomColor={r("whites.3  -------> transparent")}
                   demodashStore={demodashStore}
                   cartButtonDisplay={r("none -------> flex")}
                 />
+                {demodashStore.description && (
+                  <StoreDescription
+                    transition="padding 0.3s"
+                    pl={r("1 3 --------> 4")}
+                    pr={r("1 3 --------> 4")}
+                    borderBottom={"1px solid"}
+                    borderBottomColor={r("whites.3 ")}
+                    demodashStore={demodashStore}
+                  />
+                )}
                 <Flex
                   transition="padding 0.3s"
                   flexDirection="column"

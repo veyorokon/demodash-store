@@ -140,9 +140,6 @@ export default class ImageCard extends React.Component {
     return (
       <Card
         p={3}
-        maxWidth={r(
-          "26rem 28rem 30rem 33rem  30rem 28rem 29rem 32rem 25rem 29rem 27rem"
-        )}
         mr={1}
         ml={1}
         mt={3}
@@ -245,7 +242,6 @@ export default class ImageCard extends React.Component {
                   defaultOption={`Choose ${
                     avAn ? "an" : "a"
                   } ${variation.name.toLowerCase()}`}
-                  {...props}
                 />
               </Flex>
             );

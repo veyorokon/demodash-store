@@ -24,7 +24,7 @@ const Nav = props => {
           maxWidth={"100%"}
           h="fit-content"
           as="h1"
-          fs={3}
+          fs={4}
           fw={"600"}
           color="navys.0"
           letterSpacing={"0.3px"}

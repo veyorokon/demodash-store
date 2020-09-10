@@ -21,7 +21,7 @@ const ScrollContainer = styled(Flex)`
 const Left = styled(ScrollContainer)`
   height: 100vh;
   justify-content: space-around;
-  flex-basis: 20rem;
+  flex-basis: 27rem;
   overflow: auto;
   flex-grow: 10;
 `;
