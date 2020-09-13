@@ -72,6 +72,22 @@ export const BRAND_INVENTORY = gql`
         profile {
           id
           name
+          logo
+        }
+      }
+    }
+  }
+`;
+
+export const BRANDS = gql`
+  query demodashStoreInventory($demodashStoreId: Int!) {
+    demodashStoreInventory(demodashStoreId: $demodashStoreId) {
+      brand {
+        id
+        profile {
+          id
+          name
+          logo
         }
       }
     }

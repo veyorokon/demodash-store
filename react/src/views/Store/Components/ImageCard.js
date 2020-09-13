@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Flex, Text, DropDown, CallToActionButton} from "components";
+import {Box, Svg, Flex, Text, DropDown, CallToActionButton} from "components";
 import {responsive as r, getToken} from "lib";
 import {Card} from "views/Store/Components";
 import SwipeableViews from "react-swipeable-views";
@@ -183,15 +183,19 @@ export default class ImageCard extends React.Component {
 
         <Flex flexDirection="column" justifyContent="flex-start">
           {props.brand && (
-            <Text
-              letterSpacing="0.5px"
-              color={"greys.0"}
-              mb={2}
-              fw={400}
-              w={"100%"}
-            >
-              {props.brand}
-            </Text>
+            <Flex mb={2} alignItems="center">
+              {props.brandIcon && (
+                <Svg
+                  mr={2}
+                  w={"2.8rem"}
+                  h={"2.8rem"}
+                  src={API_MEDIA + props.brandIcon}
+                />
+              )}
+              <Text letterSpacing="0.5px" color={"greys.0"} fw={400} w={"100%"}>
+                {props.brand}
+              </Text>
+            </Flex>
           )}
           <Text
             mt="2"
