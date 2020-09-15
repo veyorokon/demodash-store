@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Text, Box, Icon, LogoIcon} from "components";
+import React from "react";
+import {Text, Box, Svg, LogoIcon} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
 import {
@@ -12,6 +12,7 @@ import {
 import {useQuery} from "@apollo/client";
 import {DEMODASH_STORE, BRANDS} from "views/Store/gql";
 import {responsive as r, getDemoerHandle} from "lib";
+import bromane from "assets/svg/test/bromane.svg";
 
 function withdemodashStore(WrappedComponent) {
   return () => {
@@ -35,20 +36,9 @@ function withdemodashStore(WrappedComponent) {
 }
 
 const Brand = props => (
-  <Flex
-    transition="padding 0.3s"
-    w={"100%"}
-    pl={r("4 ---------> 5")}
-    pr={3}
-    pt={4}
-    pb={4}
-    flexDirection="column"
-  >
-    <LogoIcon showAllDots={false} />
-    <Text letterSpacing="1px" fw={"600"} fs={"2.6rem"} color="navys.0" mt={5}>
-      Brands
-    </Text>
-    <Text>Bromane</Text>
+  <Flex flexGrow={0} alignItems="center">
+    <Svg mr={2} w={4} h={4} src={bromane} />
+    <Text>{props.children}</Text>
   </Flex>
 );
 
@@ -88,7 +78,7 @@ const Store = props => {
             >
               Brands
             </Text>
-            <Text>Bromane</Text>
+            <Brand>Bromane</Brand>
           </Flex>
         </LeftColumn>
         <RightColumn bg={"blues.3"}>

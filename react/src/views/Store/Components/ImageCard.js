@@ -183,7 +183,7 @@ export default class ImageCard extends React.Component {
 
         <Flex flexDirection="column" justifyContent="flex-start">
           {props.brand && (
-            <Flex mb={2} alignItems="center">
+            <Flex mt={2} mb={2} alignItems="center">
               {props.brandIcon && (
                 <Svg
                   mr={2}
