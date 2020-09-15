@@ -1,6 +1,6 @@
 import React from "react";
 import {Flex, Box, Text} from "components";
-import {Query} from "@apollo/react-components";
+import {Query} from "@apollo/client/react/components";
 import {ImageCard} from "views/Store/Components";
 import {responsive as r} from "lib";
 import {BRAND_INVENTORY} from "views/Store/gql";

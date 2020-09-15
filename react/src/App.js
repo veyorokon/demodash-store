@@ -8,7 +8,7 @@ import {Provider} from "react-redux";
 import store from "redux/store";
 import theme from "theme";
 import {client} from "./api";
-import {ApolloProvider} from "@apollo/react-hooks";
+import {ApolloProvider} from "@apollo/client";
 import smoothscroll from "smoothscroll-polyfill";
 
 const hist = createBrowserHistory();

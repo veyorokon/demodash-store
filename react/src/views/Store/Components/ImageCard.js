@@ -140,8 +140,8 @@ export default class ImageCard extends React.Component {
     return (
       <Card
         p={3}
-        mr={1}
-        ml={1}
+        mr={2}
+        ml={2}
         mt={3}
         mb={3}
         bg={"whites.0"}

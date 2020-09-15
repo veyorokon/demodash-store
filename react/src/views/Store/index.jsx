@@ -9,8 +9,8 @@ import {
   BrandInventory,
   StoreDescription
 } from "./Sections";
-import {Query} from "@apollo/react-components";
-import {DEMODASH_STORE} from "views/Store/gql";
+import {useQuery} from "@apollo/client";
+import {DEMODASH_STORE, BRANDS} from "views/Store/gql";
 import Dots from "assets/svg/dots.js";
 
 import styled, {css} from "styled-components";
@@ -56,105 +56,189 @@ const Brand = props => {
   );
 };
 
-export default () => {
-  return (
-    <Section height={"fit-content"} overflow="hidden">
-      <Query
-        query={DEMODASH_STORE}
-        variables={{
-          handle: getDemoerHandle()
-        }}
-        // pollInterval={1000}
-      >
-        {({loading, error, data}) => {
-          if (loading)
-            return (
-              <Box h="3.5rem" mb={4}>
-                <Text>Loading...</Text>
-              </Box>
-            );
-          if (error)
-            return (
-              <Box h="3.5rem" mb={4}>
-                <Text>HERE</Text>
-                <Text>Error! {error.message}</Text>
-              </Box>
-            );
-          const {demodashStore} = data;
-          console.log(demodashStore);
-          return (
-            <Flex h={"100vh"}>
-              <LeftColumn
-                borderRight={"1px solid"}
-                borderRightColor={"whites.3"}
-                bg={"whites.0"}
-                display={r("none -------> flex")}
+const DemodashStore = props => {
+  let {
+    data
+    // error: demodashStoreError,
+    // loading: demodashStoreLoading
+  } = useQuery(DEMODASH_STORE, {
+    variables: {handle: getDemoerHandle()}
+  });
+  if (data) {
+    const {demodashStore} = data;
+    console.log(demodashStore);
+    return (
+      <Section height={"fit-content"} overflow="hidden">
+        <Flex h={"100vh"}>
+          <LeftColumn
+            borderRight={"1px solid"}
+            borderRightColor={"whites.3"}
+            bg={"whites.0"}
+            display={r("none -------> flex")}
+          >
+            <Flex
+              transition="padding 0.3s"
+              w={"100%"}
+              pl={r("4 ---------> 5")}
+              pr={3}
+              pt={4}
+              pb={4}
+              flexDirection="column"
+            >
+              <LogoIcon showAllDots={false} />
+              <Text
+                letterSpacing="1px"
+                fw={"600"}
+                fs={"2.6rem"}
+                color="navys.0"
+                mt={5}
               >
-                <Flex
-                  transition="padding 0.3s"
-                  w={"100%"}
-                  pl={r("4 ---------> 5")}
-                  pr={3}
-                  pt={4}
-                  pb={4}
-                  flexDirection="column"
-                >
-                  <LogoIcon showAllDots={false} />
-                  <Text
-                    letterSpacing="1px"
-                    fw={"600"}
-                    fs={"2.6rem"}
-                    color="navys.0"
-                    mt={5}
-                  >
-                    Brands
-                  </Text>
-                  <Brand>Bromane</Brand>
-                </Flex>
-              </LeftColumn>
-              <RightColumn bg={"blues.3"}>
-                <MenuBar
-                  demodashStore={demodashStore}
-                  display={r("flex -------> none")}
-                />
-                <Nav
-                  transition="padding 0.3s, color 0.2s"
-                  pl={r("1 3 --------> 4")}
-                  pr={r("1 3 --------> 4")}
-                  pb={3}
-                  pt={r("3 -------> 4")}
-                  bg={r("whites.0  -------> unset")}
-                  borderBottom={"1px solid"}
-                  borderBottomColor={r("whites.3  -------> transparent")}
-                  demodashStore={demodashStore}
-                  cartButtonDisplay={r("none -------> flex")}
-                />
-                {demodashStore.description && (
-                  <StoreDescription
-                    transition="padding 0.3s"
-                    pl={r("1 3 --------> 4")}
-                    pr={r("1 3 --------> 4")}
-                    borderBottom={"1px solid"}
-                    borderBottomColor={r("whites.3 ")}
-                    demodashStore={demodashStore}
-                  />
-                )}
-                <Flex
-                  transition="padding 0.3s"
-                  flexDirection="column"
-                  pl={r("1 3 --------> 4")}
-                  pr={r("1 3 --------> 4")}
-                  pt={r("3 -------> 4")}
-                  mb={5}
-                >
-                  <MobileBrandsNav display={r("flex -------> none")} />
-                  <BrandInventory demodashStoreId={demodashStore.id} />
-                </Flex>
-              </RightColumn>
+                Brands
+              </Text>
+              <Brand>Bromane</Brand>
             </Flex>
-          );
-        }}
-      </Query>
-    </Section>
+          </LeftColumn>
+          <RightColumn bg={"blues.3"}>
+            <MenuBar
+              demodashStore={demodashStore}
+              display={r("flex -------> none")}
+            />
+            <Nav
+              transition="padding 0.3s, color 0.2s"
+              pl={r("1 3 --------> 4")}
+              pr={r("1 3 --------> 4")}
+              pb={3}
+              pt={r("3 -------> 4")}
+              bg={r("whites.0  -------> unset")}
+              borderBottom={"1px solid"}
+              borderBottomColor={r("whites.3  -------> transparent")}
+              demodashStore={demodashStore}
+              cartButtonDisplay={r("none -------> flex")}
+            />
+            {demodashStore.description && (
+              <StoreDescription
+                transition="padding 0.3s"
+                pl={r("1 3 --------> 4")}
+                pr={r("1 3 --------> 4")}
+                borderBottom={"1px solid"}
+                borderBottomColor={r("whites.3 ")}
+                demodashStore={demodashStore}
+              />
+            )}
+            <MobileBrandsNav display={r("flex -------> none")} />
+            <Flex
+              transition="padding 0.3s"
+              flexDirection="column"
+              pl={r("1 3 --------> 4")}
+              pr={r("1 3 --------> 4")}
+              pt={r("3 -------> 4")}
+              mb={5}
+            >
+              <BrandInventory demodashStoreId={demodashStore.id} />
+            </Flex>
+          </RightColumn>
+        </Flex>
+      </Section>
+    );
+  }
+  return <Box>Test</Box>;
+};
+
+function withdemodashStore(WrappedComponent) {
+  return () => {
+    let {
+      data
+      // error: demodashStoreError,
+      // loading: demodashStoreLoading
+    } = useQuery(DEMODASH_STORE, {
+      variables: {handle: getDemoerHandle()}
+    });
+    if (data) {
+      const {demodashStore} = data;
+      console.log(demodashStore);
+      return (
+        <Section height={"fit-content"} overflow="hidden">
+          <WrappedComponent demodashStore={demodashStore} />
+        </Section>
+      );
+    }
+    return <Box>Test</Box>;
+  };
+}
+
+const Store = props => {
+  const {demodashStore} = props;
+  return (
+    <>
+      <LeftColumn
+        borderRight={"1px solid"}
+        borderRightColor={"whites.3"}
+        bg={"whites.0"}
+        display={r("none -------> flex")}
+      >
+        <Flex
+          transition="padding 0.3s"
+          w={"100%"}
+          pl={r("4 ---------> 5")}
+          pr={3}
+          pt={4}
+          pb={4}
+          flexDirection="column"
+        >
+          <LogoIcon showAllDots={false} />
+          <Text
+            letterSpacing="1px"
+            fw={"600"}
+            fs={"2.6rem"}
+            color="navys.0"
+            mt={5}
+          >
+            Brands
+          </Text>
+          <Brand>Bromane</Brand>
+        </Flex>
+      </LeftColumn>
+      <RightColumn bg={"blues.3"}>
+        <MenuBar
+          demodashStore={demodashStore}
+          display={r("flex -------> none")}
+        />
+        <Nav
+          transition="padding 0.3s, color 0.2s"
+          pl={r("1 3 --------> 4")}
+          pr={r("1 3 --------> 4")}
+          pb={3}
+          pt={r("3 -------> 4")}
+          bg={r("whites.0  -------> unset")}
+          borderBottom={"1px solid"}
+          borderBottomColor={r("whites.3  -------> transparent")}
+          demodashStore={demodashStore}
+          cartButtonDisplay={r("none -------> flex")}
+        />
+        {demodashStore.description && (
+          <StoreDescription
+            transition="padding 0.3s"
+            pl={r("1 3 --------> 4")}
+            pr={r("1 3 --------> 4")}
+            borderBottom={"1px solid"}
+            borderBottomColor={r("whites.3 ")}
+            demodashStore={demodashStore}
+          />
+        )}
+        <MobileBrandsNav display={r("flex -------> none")} />
+        <Flex
+          transition="padding 0.3s"
+          flexDirection="column"
+          pl={r("1 3 --------> 4")}
+          pr={r("1 3 --------> 4")}
+          pt={r("3 -------> 4")}
+          mb={5}
+        >
+          <BrandInventory demodashStoreId={demodashStore.id} />
+        </Flex>
+      </RightColumn>
+    </>
   );
 };
+
+export default withdemodashStore(Store);
