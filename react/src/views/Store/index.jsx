@@ -38,11 +38,13 @@ function withdemodashStore(WrappedComponent) {
 const Brand = props => {
   const {brand} = props;
   return (
-    <Flex flexGrow={0} alignItems="center" {...props}>
+    <Flex cursor="pointer" flexGrow={0} alignItems="center" {...props}>
       {brand.profile.logo && (
-        <Svg mr={2} w={4} h={4} src={API_MEDIA + brand.profile.logo} />
+        <Svg mr={3} w={4} h={4} src={API_MEDIA + brand.profile.logo} />
       )}
-      <Text>{brand.profile.name}</Text>
+      <Text h="fit-content" color="navys.1" fs={"1.8rem"}>
+        {brand.profile.name}
+      </Text>
     </Flex>
   );
 };
