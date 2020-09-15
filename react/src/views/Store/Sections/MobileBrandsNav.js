@@ -1,9 +1,23 @@
 import React from "react";
 import {Flex, Text, Svg, BorderButton} from "components";
 import {responsive as r} from "lib";
-import bromane from "assets/svg/test/bromane.svg";
+import {API_MEDIA} from "api";
 
+const Brand = props => {
+  const {brand} = props;
+  return (
+    <Flex flexGrow={0} alignItems="center" {...props}>
+      {brand.profile.logo && (
+        <Svg mr={2} w={4} h={4} src={API_MEDIA + brand.profile.logo} />
+      )}
+      <Text letterSpacing={"0.45px"} mr={2} fw={500}>
+        {brand.profile.name}
+      </Text>
+    </Flex>
+  );
+};
 const MobileBrandNav = props => {
+  const {demodashStoreInventory} = props;
   return (
     <Flex mt={3} mb={3} flexDirection="column" {...props}>
       <Text
@@ -19,12 +33,10 @@ const MobileBrandNav = props => {
       </Text>
       <Flex pl={1} pr={1}>
         <BorderButton borderColor={"whites.3"} br={2} p={1}>
-          <Flex alignItems="center">
-            <Svg mr={2} w={4} h={4} src={bromane} />
-            <Text letterSpacing={"0.45px"} mr={2} fw={500}>
-              Bromane
-            </Text>
-          </Flex>
+          {demodashStoreInventory.length &&
+            demodashStoreInventory.map(brandInventory => (
+              <Brand {...brandInventory} />
+            ))}
         </BorderButton>
       </Flex>
     </Flex>

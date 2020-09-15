@@ -12,7 +12,7 @@ import {
 import {useQuery} from "@apollo/client";
 import {DEMODASH_STORE, BRANDS} from "views/Store/gql";
 import {responsive as r, getDemoerHandle} from "lib";
-import bromane from "assets/svg/test/bromane.svg";
+import {API_MEDIA} from "api";
 
 function withdemodashStore(WrappedComponent) {
   return () => {
@@ -35,12 +35,17 @@ function withdemodashStore(WrappedComponent) {
   };
 }
 
-const Brand = props => (
-  <Flex flexGrow={0} alignItems="center">
-    <Svg mr={2} w={4} h={4} src={bromane} />
-    <Text>{props.children}</Text>
-  </Flex>
-);
+const Brand = props => {
+  const {brand} = props;
+  return (
+    <Flex flexGrow={0} alignItems="center" {...props}>
+      {brand.profile.logo && (
+        <Svg mr={2} w={4} h={4} src={API_MEDIA + brand.profile.logo} />
+      )}
+      <Text>{brand.profile.name}</Text>
+    </Flex>
+  );
+};
 
 const Store = props => {
   const {demodashStore} = props;
@@ -78,7 +83,13 @@ const Store = props => {
             >
               Brands
             </Text>
-            <Brand>Bromane</Brand>
+            {demodashStoreInventory.length ? (
+              demodashStoreInventory.map(brandInventory => (
+                <Brand {...brandInventory} />
+              ))
+            ) : (
+              <Text>No inventory</Text>
+            )}
           </Flex>
         </LeftColumn>
         <RightColumn bg={"blues.3"}>
@@ -108,7 +119,10 @@ const Store = props => {
               demodashStore={demodashStore}
             />
           )}
-          <MobileBrandsNav display={r("flex -------> none")} />
+          <MobileBrandsNav
+            demodashStoreInventory={demodashStoreInventory}
+            display={r("flex -------> none")}
+          />
           <Flex
             transition="padding 0.3s"
             flexDirection="column"
