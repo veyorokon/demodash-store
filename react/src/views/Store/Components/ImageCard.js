@@ -93,7 +93,9 @@ export default class ImageCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: this.props.index || 0
+      index: this.props.index || 0,
+      missingVariations: [],
+      variationChoices: {}
     };
   }
 
@@ -140,14 +142,50 @@ export default class ImageCard extends React.Component {
     });
   };
 
-  test = () => {
-    console.log("test");
-    return false;
+  updateVariationChoice = (variation, choice) => {
+    let variationChoices = this.state.variationChoices;
+    let missingVariations = this.state.missingVariations;
+    if (choice !== "-1") {
+      variationChoices[variation.id] = parseInt(choice);
+      //Remove variation from missing variations
+      missingVariations = missingVariations.filter(item =>
+        missingVariations.every(item2 => item2 !== parseInt(variation.id))
+      );
+    } else {
+      delete variationChoices[parseInt(variation.id)];
+      // missingVariations = [parseInt(variation.id)];
+    }
+    this.setState({
+      variationChoices: {
+        ...variationChoices
+      },
+      missingVariations: [...missingVariations]
+    });
+  };
+
+  checkHasAllVariations = () => {
+    const {props} = this;
+    const {variationChoices} = this.state;
+    let missingVariations = [];
+    props.variations.forEach(function(variation) {
+      let variationId = parseInt(variation.id);
+      if (!variationChoices[variationId]) {
+        missingVariations.push(variationId);
+      }
+    });
+    if (missingVariations.length) {
+      this.setState({
+        missingVariations: [...missingVariations]
+      });
+      return false;
+    }
+    return true;
   };
 
   render() {
     const {props} = this;
     const {index} = this.state;
+    console.log(this.state);
     return (
       <Card
         p={3}
@@ -231,29 +269,44 @@ export default class ImageCard extends React.Component {
         {props.variations &&
           props.variations.map((variation, indx) => {
             let avAn = checkIfStartsVowel(variation.name);
+            const isMissing = this.state.missingVariations.includes(
+              parseInt(variation.id)
+            );
+
             return (
               <Flex
                 flexGrow={0}
                 flexDirection="column"
                 key={`variation-${indx}`}
               >
-                <Text
-                  letterSpacing="0.5px"
-                  color={"navys.0"}
-                  mb={2}
-                  fw={500}
-                  w={"100%"}
-                >
-                  {variation.name}:
-                </Text>
+                <Flex>
+                  <Text letterSpacing="0.5px" color={"navys.0"} mb={2} fw={500}>
+                    {variation.name}:
+                  </Text>
+                  {isMissing && (
+                    <Text
+                      letterSpacing="0.5px"
+                      color={"oranges.0"}
+                      mb={2}
+                      ml={2}
+                      fw={400}
+                    >
+                      Please choose {avAn ? "an" : "a"}{" "}
+                      {variation.name.toLowerCase()}
+                    </Text>
+                  )}
+                </Flex>
                 <DropDown
                   mb={2}
                   options={this.getVariationOptions(variation)}
-                  onChange={evt => this.checkVariationImage(evt)}
+                  onChange={evt => {
+                    this.checkVariationImage(evt);
+                    this.updateVariationChoice(variation, evt.target.value);
+                  }}
                   br={2}
                   maxWidth="100%"
                   w="100%"
-                  border={"1px solid lightslategrey"}
+                  borderColor={isMissing ? "oranges.0" : "lightslategrey"}
                   defaultOption={`Choose ${
                     avAn ? "an" : "a"
                   } ${variation.name.toLowerCase()}`}
@@ -302,7 +355,10 @@ export default class ImageCard extends React.Component {
             </Text>
           </Flex>
         </Flex>
-        <CardButton callback={this.test} demoCommission={props.demoCommission}>
+        <CardButton
+          callback={this.checkHasAllVariations}
+          demoCommission={props.demoCommission}
+        >
           Add to cart
         </CardButton>
       </Card>

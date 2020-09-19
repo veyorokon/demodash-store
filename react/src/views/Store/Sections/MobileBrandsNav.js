@@ -19,7 +19,7 @@ const Brand = props => {
 const MobileBrandNav = props => {
   const {demodashStoreInventory} = props;
   return (
-    <Flex mt={3} mb={3} flexDirection="column" {...props}>
+    <Flex mt={4} mb={3} flexDirection="column" {...props}>
       <Text
         transition="padding 0.3s"
         pl={r("1 3 --------> 4")}
