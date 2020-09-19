@@ -6,7 +6,7 @@ import SwipeableViews from "react-swipeable-views";
 import styled, {css} from "styled-components";
 import {connect} from "react-redux";
 import {API_MEDIA} from "api";
-import {updatePanel} from "redux/actions";
+import {updateCart} from "redux/actions";
 
 const NavigationBullet = styled(Flex)`
   cursor: pointer;
@@ -63,7 +63,13 @@ const _CardButton = props => (
     mt={2}
     bg={"yellows.1"}
     w="100%"
-    onClick={() => props.updatePanel("myDemoBoxes")}
+    onClick={() => {
+      if (props.callback())
+        props.updateCart({
+          demoCommissionId: parseInt(props.demoCommission.id),
+          amount: 1
+        });
+    }}
     {...props}
   >
     <Text ml="auto" mr="auto">
@@ -74,7 +80,7 @@ const _CardButton = props => (
 
 function mapDispatchToProps(dispatch) {
   return {
-    updatePanel: payload => dispatch(updatePanel(payload))
+    updateCart: payload => dispatch(updateCart(payload))
   };
 }
 
@@ -132,6 +138,11 @@ export default class ImageCard extends React.Component {
         productId: parseInt(productId)
       }
     });
+  };
+
+  test = () => {
+    console.log("test");
+    return false;
   };
 
   render() {
@@ -291,7 +302,9 @@ export default class ImageCard extends React.Component {
             </Text>
           </Flex>
         </Flex>
-        <CardButton>Add to cart</CardButton>
+        <CardButton callback={this.test} demoCommission={props.demoCommission}>
+          Add to cart
+        </CardButton>
       </Card>
     );
   }

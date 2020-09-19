@@ -54,6 +54,7 @@ const Brands = props => {
                         return (
                           <ImageCard
                             key={product.id}
+                            demoCommission={inventory.demoCommission}
                             brandIcon={brandInventory.brand.profile.logo}
                             brand={
                               (brandInventory.brand &&

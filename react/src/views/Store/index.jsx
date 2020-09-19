@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, Box, Svg, LogoIcon} from "components";
+import {Text, Box, Svg, LogoIcon, Link} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex, Section} from "components";
 import {
@@ -38,16 +38,60 @@ function withdemodashStore(WrappedComponent) {
 const Brand = props => {
   const {brand} = props;
   return (
-    <Flex cursor="pointer" flexGrow={0} alignItems="center" {...props}>
+    <Flex
+      w="fit-content"
+      cursor="pointer"
+      flexGrow={0}
+      alignItems="center"
+      {...props}
+      p={1}
+    >
       {brand.profile.logo && (
-        <Svg mr={3} w={4} h={4} src={API_MEDIA + brand.profile.logo} />
+        <Svg mr={2} w={4} h={4} src={API_MEDIA + brand.profile.logo} />
       )}
-      <Text h="fit-content" color="navys.1" fs={"1.8rem"}>
+      <Text p={1} h="fit-content" color="navys.1" fs={"1.8rem"}>
         {brand.profile.name}
       </Text>
     </Flex>
   );
 };
+
+const Footer = props => (
+  <Flex
+    mb={4}
+    alignItems={"flex-end"}
+    w={"fit-content"}
+    ml={"auto"}
+    mr={"auto"}
+    flexGrow={0}
+    {...props}
+  >
+    <Link target="_blank" mr={3} h="fit-content" href="https://demodash.com">
+      <Text hoverColor={"#212C39"} fw={500} color="navys.2">
+        &copy; demodash
+      </Text>
+    </Link>
+    <Link
+      target="_blank"
+      mr={3}
+      h="fit-content"
+      href="https://demodash.com/legal/privacy"
+    >
+      <Text hoverColor={"#212C39"} fw={500} color="navys.2">
+        Privacy
+      </Text>
+    </Link>
+    <Link
+      target="_blank"
+      h="fit-content"
+      href="https://demodash.com/legal/terms"
+    >
+      <Text hoverColor={"#212C39"} fw={500} color="navys.2">
+        Terms
+      </Text>
+    </Link>
+  </Flex>
+);
 
 const Store = props => {
   const {demodashStore} = props;
@@ -135,6 +179,7 @@ const Store = props => {
           >
             <BrandInventory demodashStoreId={demodashStore.id} />
           </Flex>
+          <Footer mt={5} />
         </RightColumn>
       </Flex>
     );
