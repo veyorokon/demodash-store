@@ -48,13 +48,15 @@ const Brands = props => {
                   </Text>
                   <Flex justifyContent="space-evenly" flexWrap="wrap">
                     {brandInventory.inventory.length ? (
-                      brandInventory.inventory.map(inventory => {
+                      brandInventory.inventory.map((inventory, index) => {
                         const product =
                           inventory.demoCommission.demoBoxItem.product;
                         return (
                           <ImageCard
-                            key={product.id}
+                            key={index}
                             demoCommission={inventory.demoCommission}
+                            product={product}
+                            brandId={brandInventory.brand.id}
                             brandIcon={brandInventory.brand.profile.logo}
                             brand={
                               (brandInventory.brand &&
