@@ -1,6 +1,6 @@
 import React from "react";
 import {Box, Svg, Flex, Text, DropDown, CallToActionButton} from "components";
-import {responsive as r, getToken} from "lib";
+import {responsive as r} from "lib";
 import {Card} from "views/Store/Components";
 import SwipeableViews from "react-swipeable-views";
 import styled, {css} from "styled-components";
@@ -131,17 +131,6 @@ export default class ImageCard extends React.Component {
     if (index) return this.setState({index: parseInt(index)});
   };
 
-  deleteProductMutation = deleteProduct => {
-    const {productId, currentAccountUser} = this.props;
-    return deleteProduct({
-      variables: {
-        token: getToken().token,
-        accountUserId: parseInt(currentAccountUser),
-        productId: parseInt(productId)
-      }
-    });
-  };
-
   updateVariationChoice = (variation, choice) => {
     let variationChoices = this.state.variationChoices;
     let missingVariations = this.state.missingVariations;
@@ -185,7 +174,6 @@ export default class ImageCard extends React.Component {
   render() {
     const {props} = this;
     const {index} = this.state;
-    console.log(this.state);
     return (
       <Card
         p={3}
@@ -358,6 +346,8 @@ export default class ImageCard extends React.Component {
         <CardButton
           callback={this.checkHasAllVariations}
           demoCommission={props.demoCommission}
+          variationChoices={this.state.variationChoices}
+          product={props.product}
         >
           Add to cart
         </CardButton>
