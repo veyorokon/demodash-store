@@ -56,7 +56,7 @@ const Brands = props => {
                             key={index}
                             demoCommission={inventory.demoCommission}
                             product={product}
-                            brandId={brandInventory.brand.id}
+                            brandId={parseInt(brandInventory.brand.id)}
                             brandIcon={brandInventory.brand.profile.logo}
                             brand={
                               (brandInventory.brand &&

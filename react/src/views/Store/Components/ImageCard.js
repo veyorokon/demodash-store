@@ -66,8 +66,14 @@ const _CardButton = props => (
     onClick={() => {
       if (props.callback())
         props.updateCart({
-          demoCommissionId: parseInt(props.demoCommission.id),
-          amount: 1
+          update: {
+            product: props.product,
+            amount: 1,
+            variationsChosen: props.variationsChosen
+          },
+          brandId: props.brandId,
+          productId: parseInt(props.product.id),
+          demoCommissionId: parseInt(props.demoCommission.id)
         });
     }}
     {...props}
@@ -95,7 +101,7 @@ export default class ImageCard extends React.Component {
     this.state = {
       index: this.props.index || 0,
       missingVariations: [],
-      variationChoices: {}
+      variationsChosen: {}
     };
   }
 
@@ -132,21 +138,22 @@ export default class ImageCard extends React.Component {
   };
 
   updateVariationChoice = (variation, choice) => {
-    let variationChoices = this.state.variationChoices;
+    let variationsChosen = this.state.variationsChosen;
     let missingVariations = this.state.missingVariations;
     if (choice !== "-1") {
-      variationChoices[variation.id] = parseInt(choice);
+      variationsChosen[variation.id] = parseInt(choice);
       //Remove variation from missing variations
-      missingVariations = missingVariations.filter(item =>
-        missingVariations.every(item2 => item2 !== parseInt(variation.id))
-      );
+      const index = missingVariations.indexOf(parseInt(variation.id));
+      if (index > -1) {
+        missingVariations.splice(index, 1);
+      }
     } else {
-      delete variationChoices[parseInt(variation.id)];
+      delete variationsChosen[parseInt(variation.id)];
       // missingVariations = [parseInt(variation.id)];
     }
     this.setState({
-      variationChoices: {
-        ...variationChoices
+      variationsChosen: {
+        ...variationsChosen
       },
       missingVariations: [...missingVariations]
     });
@@ -154,11 +161,11 @@ export default class ImageCard extends React.Component {
 
   checkHasAllVariations = () => {
     const {props} = this;
-    const {variationChoices} = this.state;
+    const {variationsChosen} = this.state;
     let missingVariations = [];
     props.variations.forEach(function(variation) {
       let variationId = parseInt(variation.id);
-      if (!variationChoices[variationId]) {
+      if (!variationsChosen[variationId]) {
         missingVariations.push(variationId);
       }
     });
@@ -174,6 +181,7 @@ export default class ImageCard extends React.Component {
   render() {
     const {props} = this;
     const {index} = this.state;
+    console.log(this.state);
     return (
       <Card
         p={3}
@@ -267,7 +275,7 @@ export default class ImageCard extends React.Component {
                 flexDirection="column"
                 key={`variation-${indx}`}
               >
-                <Flex>
+                <Flex alignItems="center">
                   <Text letterSpacing="0.5px" color={"navys.0"} mb={2} fw={500}>
                     {variation.name}:
                   </Text>
@@ -346,8 +354,9 @@ export default class ImageCard extends React.Component {
         <CardButton
           callback={this.checkHasAllVariations}
           demoCommission={props.demoCommission}
-          variationChoices={this.state.variationChoices}
+          variationsChosen={this.state.variationsChosen}
           product={props.product}
+          brandId={props.brandId}
         >
           Add to cart
         </CardButton>
