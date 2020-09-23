@@ -34,8 +34,8 @@ const MobileBrandNav = props => {
       <Flex pl={1} pr={1}>
         <BorderButton borderColor={"whites.3"} br={2} p={1}>
           {demodashStoreInventory.length &&
-            demodashStoreInventory.map(brandInventory => (
-              <Brand {...brandInventory} />
+            demodashStoreInventory.map((brandInventory, index) => (
+              <Brand key={"mBrand_" + index} {...brandInventory} />
             ))}
         </BorderButton>
       </Flex>

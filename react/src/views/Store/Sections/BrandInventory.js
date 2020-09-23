@@ -37,7 +37,7 @@ const Brands = props => {
             {demodashStoreInventory.length ? (
               demodashStoreInventory.map(brandInventory => (
                 <Box
-                  key={brandInventory.brand.id}
+                  key={"brand_" + brandInventory.brand.id}
                   mt={3}
                   w="100%"
                   maxWidth="100%"
@@ -53,7 +53,7 @@ const Brands = props => {
                           inventory.demoCommission.demoBoxItem.product;
                         return (
                           <ImageCard
-                            key={index}
+                            key={`${brandInventory.brand}_${index}`}
                             demoCommission={inventory.demoCommission}
                             product={product}
                             brandId={parseInt(brandInventory.brand.id)}

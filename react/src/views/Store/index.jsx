@@ -130,8 +130,8 @@ const Store = props => {
               Brands
             </Text>
             {demodashStoreInventory.length ? (
-              demodashStoreInventory.map(brandInventory => (
-                <Brand {...brandInventory} />
+              demodashStoreInventory.map((brandInventory, index) => (
+                <Brand key={"dBrand_" + index} {...brandInventory} />
               ))
             ) : (
               <Text>No inventory</Text>
