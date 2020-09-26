@@ -31,7 +31,6 @@ const Brands = props => {
           );
 
         const {demodashStoreInventory} = data;
-        console.log(demodashStoreInventory);
         return (
           <Flex w="100%" {...props}>
             {demodashStoreInventory.length ? (

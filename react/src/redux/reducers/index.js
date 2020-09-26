@@ -1,9 +1,9 @@
 import {updateState} from "lib";
-import {UPDATE_CART} from "redux/constants";
+import {UPDATE_CART, TOGGLE_CHECKOUT_DRAWER} from "redux/constants";
 
 const initialState = {
   navOpen: false,
-  checkoutOpen: false,
+  checkoutDrawerOpen: false,
   cart: {}
 };
 
@@ -101,10 +101,16 @@ export default function rootReducer(state = initialState, action) {
   let newState;
   const {payload} = action;
   switch (action.type) {
+    case TOGGLE_CHECKOUT_DRAWER:
+      console.log("here");
+      return updateState(
+        state,
+        ["checkoutDrawerOpen"],
+        !state.checkoutDrawerOpen
+      );
     case UPDATE_CART:
       let cart = updateCart(state, payload);
       newState = updateState(state, ["cart"], cart, false);
-      console.log(newState);
       return Object.assign({}, state, newState);
     default:
       return state;

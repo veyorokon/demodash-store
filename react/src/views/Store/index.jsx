@@ -9,6 +9,7 @@ import {
   BrandInventory,
   StoreDescription
 } from "./Sections";
+import {Checkout} from "./Components";
 import {useQuery} from "@apollo/client";
 import {DEMODASH_STORE, BRANDS} from "views/Store/gql";
 import {responsive as r, getDemoerHandle} from "lib";
@@ -100,7 +101,6 @@ const Store = props => {
   });
   if (data) {
     const {demodashStoreInventory} = data;
-    console.log(demodashStoreInventory);
     return (
       <Flex>
         <LeftColumn
@@ -161,10 +161,11 @@ const Store = props => {
               pl={r("1 3 --------> 4")}
               pr={r("1 3 --------> 4")}
               borderBottom={"1px solid"}
-              borderBottomColor={r("whites.3 ")}
+              borderBottomColor={"whites.3"}
               demodashStore={demodashStore}
             />
           )}
+          <Checkout />
           <MobileBrandsNav
             demodashStoreInventory={demodashStoreInventory}
             display={r("flex -------> none")}

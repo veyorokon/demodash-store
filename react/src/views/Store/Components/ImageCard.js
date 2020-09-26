@@ -1,6 +1,5 @@
 import React from "react";
 import {Box, Svg, Flex, Text, DropDown, CallToActionButton} from "components";
-import {responsive as r} from "lib";
 import {Card} from "views/Store/Components";
 import SwipeableViews from "react-swipeable-views";
 import styled, {css} from "styled-components";
@@ -64,7 +63,7 @@ const _CardButton = props => (
     bg={"yellows.1"}
     w="100%"
     onClick={() => {
-      if (props.callback())
+      if (props.callback()) {
         props.updateCart({
           update: {
             product: props.product,
@@ -75,6 +74,8 @@ const _CardButton = props => (
           productId: parseInt(props.product.id),
           demoCommissionId: parseInt(props.demoCommission.id)
         });
+        console.log("here");
+      }
     }}
     {...props}
   >
@@ -181,7 +182,6 @@ export default class ImageCard extends React.Component {
   render() {
     const {props} = this;
     const {index} = this.state;
-    console.log(this.state);
     return (
       <Card
         p={3}
@@ -210,13 +210,13 @@ export default class ImageCard extends React.Component {
           ))}
         </SwipeableViews>
         {props.images.length > 1 && (
-          <PanelNavigation mt={2} mb={2}>
+          <PanelNavigation mt={2}>
             {props.images.map((image, indx) => (
               <NavigationBullet
                 alignItems="center"
                 justifyContent="center"
-                w={r("1rem")}
-                h={r("1rem")}
+                w={"1rem"}
+                h={"1rem"}
                 onClick={() => this.handleChangeIndex(indx)}
                 color={"blacks.0"}
                 key={indx}
@@ -228,7 +228,7 @@ export default class ImageCard extends React.Component {
 
         <Flex flexDirection="column" justifyContent="flex-start">
           {props.brand && (
-            <Flex mt={2} mb={2} alignItems="center">
+            <Flex mt={1} mb={2} alignItems="center">
               {props.brandIcon && (
                 <Svg
                   mr={2}
