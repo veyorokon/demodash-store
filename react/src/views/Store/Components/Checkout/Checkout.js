@@ -2,6 +2,7 @@ import {Box, Text} from "components";
 import React from "react";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
+import {mapStateToProps} from "lib";
 
 const Hide = styled(Box)`
   transition: opacity 0.8s ease-in-out;
@@ -23,6 +24,7 @@ const Hide = styled(Box)`
 `;
 
 function _Checkout(props) {
+  console.log(props);
   return (
     <Hide isShowing={props.checkoutDrawerOpen}>
       <Text>Test</Text>
@@ -30,20 +32,7 @@ function _Checkout(props) {
   );
 }
 
-const mapStateToProps = state => {
-  const {checkoutDrawerOpen} = state;
-  return {
-    checkoutDrawerOpen
-  };
-};
-//
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     updateDemoCheckoutForm: payload => dispatch(updateDemoCheckoutForm(payload))
-//   };
-// }
-
 export default connect(
-  mapStateToProps,
+  state => mapStateToProps(state, ["checkoutDrawerOpen"]),
   null
 )(_Checkout);

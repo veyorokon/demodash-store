@@ -102,7 +102,6 @@ export default function rootReducer(state = initialState, action) {
   const {payload} = action;
   switch (action.type) {
     case TOGGLE_CHECKOUT_DRAWER:
-      console.log("here");
       return updateState(
         state,
         ["checkoutDrawerOpen"],
@@ -111,6 +110,7 @@ export default function rootReducer(state = initialState, action) {
     case UPDATE_CART:
       let cart = updateCart(state, payload);
       newState = updateState(state, ["cart"], cart, false);
+      console.log(newState.cart);
       return Object.assign({}, state, newState);
     default:
       return state;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Box, Svg, Flex, Text, DropDown, CallToActionButton} from "components";
 import {Card} from "views/Store/Components";
 import SwipeableViews from "react-swipeable-views";
@@ -6,6 +6,7 @@ import styled, {css} from "styled-components";
 import {connect} from "react-redux";
 import {API_MEDIA} from "api";
 import {updateCart} from "redux/actions";
+import {useSpring, animated} from "react-spring";
 
 const NavigationBullet = styled(Flex)`
   cursor: pointer;
@@ -54,36 +55,66 @@ function checkIfStartsVowel(word) {
   return false;
 }
 
-const _CardButton = props => (
-  <CallToActionButton
-    hoverBackground="#FFC651"
-    cursor="pointer"
-    br={2}
-    mt={2}
-    bg={"yellows.1"}
-    w="100%"
-    onClick={() => {
-      if (props.callback()) {
-        props.updateCart({
-          update: {
-            product: props.product,
-            amount: 1,
-            variationsChosen: props.variationsChosen
-          },
-          brandId: props.brandId,
-          productId: parseInt(props.product.id),
-          demoCommissionId: parseInt(props.demoCommission.id)
-        });
-        console.log("here");
-      }
-    }}
-    {...props}
-  >
-    <Text ml="auto" mr="auto">
-      {props.children}
-    </Text>
-  </CallToActionButton>
-);
+const ClapCount = styled(animated.span)`
+  position: absolute;
+  left: 4;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  line-height: 1.5;
+`;
+
+function _CardButton(props) {
+  const [isClicked, setClicked] = useState(false);
+  const countSpring = useSpring({
+    opacity: isClicked ? 1 : 0,
+    top: !isClicked ? -10 : -50,
+    from: {opacity: 0, top: 0}
+  });
+
+  return (
+    <Box position="relative">
+      <ClapCount style={countSpring}>+1</ClapCount>
+      <CallToActionButton
+        hoverBackground="#FFC651"
+        cursor="pointer"
+        br={2}
+        mt={2}
+        bg={"yellows.1"}
+        w="100%"
+        onClick={() => {
+          if (props.callback()) {
+            props.updateCart({
+              update: {
+                product: props.product,
+                amount: 1,
+                variationsChosen: props.variationsChosen
+              },
+              brandId: props.brandId,
+              productId: parseInt(props.product.id),
+              demoCommissionId: parseInt(props.demoCommission.id)
+            });
+            setClicked(true);
+            setTimeout(function() {
+              setClicked(false);
+            }, 700);
+            console.log("Trigger animation");
+          }
+        }}
+        {...props}
+      >
+        <Text ml="auto" mr="auto">
+          {props.children}
+        </Text>
+      </CallToActionButton>
+    </Box>
+  );
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -95,6 +126,19 @@ const CardButton = connect(
   null,
   mapDispatchToProps
 )(_CardButton);
+
+// const countAnimation = new mojs.Html({
+//   el: "#clap--count",
+//   isShowStart: false,
+//   isShowEnd: true,
+//   y: {0: -30},
+//   opacity: {0: 1},
+//   duration: 300
+// }).then({
+//   opacity: {1: 0},
+//   y: -80,
+//   delay: 150
+// });
 
 export default class ImageCard extends React.Component {
   constructor(props) {
@@ -182,6 +226,7 @@ export default class ImageCard extends React.Component {
   render() {
     const {props} = this;
     const {index} = this.state;
+
     return (
       <Card
         p={3}
@@ -351,6 +396,7 @@ export default class ImageCard extends React.Component {
             </Text>
           </Flex>
         </Flex>
+
         <CardButton
           callback={this.checkHasAllVariations}
           demoCommission={props.demoCommission}

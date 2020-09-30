@@ -209,6 +209,12 @@ const BorderButton = styled(Button)`
   cursor: pointer;
 `;
 
+const Span = themedComponent(
+  styled.span`
+    ${borderRadius}
+  `
+);
+
 export {
   Text,
   Grid,
@@ -229,5 +235,6 @@ export {
   Th,
   Td,
   Svg,
-  BorderButton
+  BorderButton,
+  Span
 };

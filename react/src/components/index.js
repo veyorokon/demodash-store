@@ -18,7 +18,8 @@ import {
   Td,
   Label,
   Svg,
-  BorderButton
+  BorderButton,
+  Span
 } from "./core";
 import {
   FeatureLink,
@@ -74,5 +75,6 @@ export {
   LogoIcon,
   Svg,
   BorderButton,
+  Span,
   appear
 };

@@ -24,6 +24,7 @@ import {
   getAnchor
 } from "./utility";
 import {STATES} from "./constants";
+import {mapStateToProps} from "./redux";
 
 export {
   updateState,
@@ -39,5 +40,6 @@ export {
   formatGQLErrorMessage,
   getDemoerHandle,
   getAnchor,
+  mapStateToProps,
   STATES
 };

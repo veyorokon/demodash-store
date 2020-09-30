@@ -11,6 +11,7 @@
     "apollo-client": "^2.6.9",
     "apollo-link-http": "^1.5.15",
     "graphql": "^15.0.0",
+    "mo-js": "^0.288.2",
     "moment": "^2.27.0",
     "public-ip": "^4.0.2",
     "rc-collapse": "^2.0.0",
