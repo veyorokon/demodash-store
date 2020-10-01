@@ -57,29 +57,56 @@ function checkIfStartsVowel(word) {
 
 const ClapCount = styled(animated.span)`
   position: absolute;
-  left: 4;
-  font-size: 1rem;
-  font-weight: 500;
-  color: white;
-  background: red;
-  color: white;
-  border-radius: 50%;
-  height: 2rem;
-  width: 2rem;
-  line-height: 1.5;
+  cursor: pointer;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
 function _CardButton(props) {
   const [isClicked, setClicked] = useState(false);
   const countSpring = useSpring({
     opacity: isClicked ? 1 : 0,
-    top: !isClicked ? -10 : -50,
+    top: !isClicked ? 25 : -50,
     from: {opacity: 0, top: 0}
   });
 
   return (
     <Box position="relative">
-      <ClapCount style={countSpring}>+1</ClapCount>
+      <ClapCount style={countSpring}>
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          position="relative"
+          br="50%"
+          w="4rem"
+          h="4rem"
+          bg={"yellows.0"}
+          onClick={() => {
+            if (props.callback()) {
+              props.updateCart({
+                update: {
+                  product: props.product,
+                  amount: 1,
+                  variationsChosen: props.variationsChosen
+                },
+                brandId: props.brandId,
+                productId: parseInt(props.product.id),
+                demoCommissionId: parseInt(props.demoCommission.id)
+              });
+              setClicked(true);
+              setTimeout(function() {
+                setClicked(false);
+              }, 700);
+            }
+          }}
+        >
+          <Text fw={500} color="blacks.0">
+            +1
+          </Text>
+        </Flex>
+      </ClapCount>
       <CallToActionButton
         hoverBackground="#FFC651"
         cursor="pointer"
@@ -103,7 +130,6 @@ function _CardButton(props) {
             setTimeout(function() {
               setClicked(false);
             }, 700);
-            console.log("Trigger animation");
           }
         }}
         {...props}
@@ -126,19 +152,6 @@ const CardButton = connect(
   null,
   mapDispatchToProps
 )(_CardButton);
-
-// const countAnimation = new mojs.Html({
-//   el: "#clap--count",
-//   isShowStart: false,
-//   isShowEnd: true,
-//   y: {0: -30},
-//   opacity: {0: 1},
-//   duration: 300
-// }).then({
-//   opacity: {1: 0},
-//   y: -80,
-//   delay: 150
-// });
 
 export default class ImageCard extends React.Component {
   constructor(props) {

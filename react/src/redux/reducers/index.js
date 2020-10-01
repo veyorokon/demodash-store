@@ -110,7 +110,6 @@ export default function rootReducer(state = initialState, action) {
     case UPDATE_CART:
       let cart = updateCart(state, payload);
       newState = updateState(state, ["cart"], cart, false);
-      console.log(newState.cart);
       return Object.assign({}, state, newState);
     default:
       return state;
