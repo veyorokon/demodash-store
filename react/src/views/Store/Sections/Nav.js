@@ -48,7 +48,6 @@ function _Nav(props) {
       <CartButton
         onClick={() => toggleCheckoutDrawer()}
         display={props.cartButtonDisplay}
-        count={2}
       />
     </Flex>
   );

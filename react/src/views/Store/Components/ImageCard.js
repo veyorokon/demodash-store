@@ -74,39 +74,41 @@ function _CardButton(props) {
 
   return (
     <Box position="relative">
-      <ClapCount style={countSpring}>
-        <Flex
-          alignItems="center"
-          justifyContent="center"
-          position="relative"
-          br="50%"
-          w="4rem"
-          h="4rem"
-          bg={"yellows.0"}
-          onClick={() => {
-            if (props.callback()) {
-              props.updateCart({
-                update: {
-                  product: props.product,
-                  amount: 1,
-                  variationsChosen: props.variationsChosen
-                },
-                brandId: props.brandId,
-                productId: parseInt(props.product.id),
-                demoCommissionId: parseInt(props.demoCommission.id)
-              });
-              setClicked(true);
-              setTimeout(function() {
-                setClicked(false);
-              }, 700);
-            }
-          }}
-        >
-          <Text fw={500} color="blacks.0">
-            +1
-          </Text>
-        </Flex>
-      </ClapCount>
+      {isClicked && (
+        <ClapCount style={countSpring}>
+          <Flex
+            alignItems="center"
+            justifyContent="center"
+            position="relative"
+            br="50%"
+            w="4rem"
+            h="4rem"
+            bg={"yellows.0"}
+            onClick={() => {
+              if (props.callback() && !isClicked) {
+                props.updateCart({
+                  update: {
+                    product: props.product,
+                    amount: 1,
+                    variationsChosen: props.variationsChosen
+                  },
+                  brandId: props.brandId,
+                  productId: parseInt(props.product.id),
+                  demoCommissionId: parseInt(props.demoCommission.id)
+                });
+                setClicked(true);
+                setTimeout(function() {
+                  setClicked(false);
+                }, 700);
+              }
+            }}
+          >
+            <Text fw={500} color="blacks.0">
+              +1
+            </Text>
+          </Flex>
+        </ClapCount>
+      )}
       <CallToActionButton
         hoverBackground="#FFC651"
         cursor="pointer"
@@ -284,7 +286,15 @@ export default class ImageCard extends React.Component {
           </PanelNavigation>
         )}
 
-        <Flex flexDirection="column" justifyContent="flex-start">
+        <Flex
+          // padding={1}
+          // br={2}
+          // bg={"blues.2"}
+          mt={1}
+          mb={1}
+          flexDirection="column"
+          justifyContent="flex-start"
+        >
           {props.brand && (
             <Flex mt={1} mb={2} alignItems="center">
               {props.brandIcon && (

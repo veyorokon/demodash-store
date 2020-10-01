@@ -2,9 +2,22 @@ import React, {useState} from "react";
 import {Flex, Icon, Text, BorderButton} from "components";
 import {Cart} from "@styled-icons/boxicons-regular/Cart";
 import {responsive as r} from "lib";
+import {connect} from "react-redux";
+import {mapStateToProps} from "lib";
 
-export default props => {
+function calculateCartTotal(cart) {
+  let amount = 0;
+  for (const [, checkoutItem] of Object.entries(cart)) {
+    for (const [, item] of Object.entries(checkoutItem)) {
+      amount += item.amount;
+    }
+  }
+  return amount;
+}
+
+function _CartButton(props) {
   const [isHover, setHover] = useState(false);
+  const total = calculateCartTotal(props.cart);
   return (
     <BorderButton
       onMouseEnter={() => setHover(true)}
@@ -29,9 +42,14 @@ export default props => {
           ml={1}
           mr={1}
         >
-          {props.count}
+          {total}
         </Text>
       </Flex>
     </BorderButton>
   );
-};
+}
+
+export default connect(
+  state => mapStateToProps(state, ["cart"]),
+  null
+)(_CartButton);

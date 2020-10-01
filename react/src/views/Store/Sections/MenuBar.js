@@ -23,7 +23,7 @@ const MenuBar = props => {
         smallDotProps={{opacity: r("0.4 --> 0")}}
         mr={2}
       />
-      <CartButton count={33} />
+      <CartButton />
     </Flex>
   );
 };
