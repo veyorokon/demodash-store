@@ -1,7 +1,7 @@
 import React from "react";
 import {Text, Box, Svg, LogoIcon, Link} from "components";
 import {LeftColumn, RightColumn} from "./layout";
-import {Flex, Section} from "components";
+import {Flex} from "components";
 import {
   Nav,
   MenuBar,
@@ -10,31 +10,13 @@ import {
   StoreDescription
 } from "./Sections";
 import {Checkout} from "./Components";
-import {useQuery} from "@apollo/client";
-import {DEMODASH_STORE, BRANDS} from "views/Store/gql";
-import {responsive as r, getDemoerHandle} from "lib";
 import {API_MEDIA} from "api";
-
-function withdemodashStore(WrappedComponent) {
-  return () => {
-    let {
-      data
-      // error: demodashStoreError,
-      // loading: demodashStoreLoading
-    } = useQuery(DEMODASH_STORE, {
-      variables: {handle: getDemoerHandle()}
-    });
-    if (data) {
-      const {demodashStore} = data;
-      return (
-        <Section height={"fit-content"} overflow="hidden">
-          <WrappedComponent demodashStore={demodashStore} />
-        </Section>
-      );
-    }
-    return <Box>Test</Box>;
-  };
-}
+import {BRANDS} from "views/Store/gql";
+import {useQuery} from "@apollo/client";
+import {responsive as r} from "lib";
+import withdemodashStore from "./higherOrder";
+import {connect} from "react-redux";
+import {mapStateToProps} from "lib";
 
 const Brand = props => {
   const {brand} = props;
@@ -94,8 +76,9 @@ const Footer = props => (
   </Flex>
 );
 
-const Store = props => {
-  const {demodashStore} = props;
+const _Store = props => {
+  const {demodashStore, checkoutDrawerOpen} = props;
+  console.log(checkoutDrawerOpen);
   let {data} = useQuery(BRANDS, {
     variables: {demodashStoreId: parseInt(demodashStore.id)}
   });
@@ -138,54 +121,63 @@ const Store = props => {
             )}
           </Flex>
         </LeftColumn>
-        <RightColumn bg={"blues.3"}>
-          <MenuBar
-            demodashStore={demodashStore}
-            display={r("flex -------> none")}
-          />
-          <Nav
-            transition="padding 0.3s, color 0.2s"
-            pl={r("1 3 --------> 4")}
-            pr={r("1 3 --------> 4")}
-            pb={3}
-            pt={r("3 -------> 4")}
-            bg={r("whites.0  -------> unset")}
-            borderBottom={"1px solid"}
-            borderBottomColor={r("whites.3  -------> transparent")}
-            demodashStore={demodashStore}
-            cartButtonDisplay={r("none -------> flex")}
-          />
-          {demodashStore.description && (
-            <StoreDescription
-              transition="padding 0.3s"
-              pl={r("1 3 --------> 4")}
-              pr={r("1 3 --------> 4")}
-              borderBottom={"1px solid"}
-              borderBottomColor={"whites.3"}
-              demodashStore={demodashStore}
-            />
-          )}
+        <RightColumn grow={checkoutDrawerOpen} bg={"blues.3"}>
           <Checkout />
-          <MobileBrandsNav
-            demodashStoreInventory={demodashStoreInventory}
-            display={r("flex -------> none")}
-          />
-          <Flex
-            transition="padding 0.3s"
-            flexDirection="column"
-            pl={r("1 3 --------> 4")}
-            pr={r("1 3 --------> 4")}
-            pt={r("3 -------> 4")}
-            mb={5}
-          >
-            <BrandInventory demodashStoreId={demodashStore.id} />
-          </Flex>
-          <Footer mt={5} />
+          {!checkoutDrawerOpen && (
+            <>
+              <MenuBar
+                demodashStore={demodashStore}
+                display={r("flex -------> none")}
+              />
+              <Nav
+                transition="padding 0.3s, color 0.2s"
+                pl={r("1 3 --------> 4")}
+                pr={r("1 3 --------> 4")}
+                pb={3}
+                pt={r("3 -------> 4")}
+                bg={r("whites.0  -------> unset")}
+                borderBottom={"1px solid"}
+                borderBottomColor={r("whites.3  -------> transparent")}
+                demodashStore={demodashStore}
+                cartButtonDisplay={r("none -------> flex")}
+              />
+              {demodashStore.description && (
+                <StoreDescription
+                  transition="padding 0.3s"
+                  pl={r("1 3 --------> 4")}
+                  pr={r("1 3 --------> 4")}
+                  borderBottom={"1px solid"}
+                  borderBottomColor={"whites.3"}
+                  demodashStore={demodashStore}
+                />
+              )}
+              <MobileBrandsNav
+                demodashStoreInventory={demodashStoreInventory}
+                display={r("flex -------> none")}
+              />
+              <Flex
+                transition="padding 0.3s"
+                flexDirection="column"
+                pl={r("1 3 --------> 4")}
+                pr={r("1 3 --------> 4")}
+                pt={r("3 -------> 4")}
+                mb={5}
+              >
+                <BrandInventory demodashStoreId={demodashStore.id} />
+              </Flex>
+              <Footer mt={5} />
+            </>
+          )}
         </RightColumn>
       </Flex>
     );
   }
   return <Box>Loading brands</Box>;
 };
+
+const Store = connect(
+  state => mapStateToProps(state, ["checkoutDrawerOpen"]),
+  null
+)(_Store);
 
 export default withdemodashStore(Store);

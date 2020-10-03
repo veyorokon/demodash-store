@@ -62,7 +62,7 @@ export function RightColumn(props) {
       justifyContent="flex-start"
       {...props}
     >
-      <Content w={r("100%")} h="fit-content">
+      <Content w={r("100%")} h={props.grow ? "100%" : "fit-content"}>
         {props.children}
       </Content>
     </Right>
