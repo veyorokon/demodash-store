@@ -121,7 +121,7 @@ const _Store = props => {
             )}
           </Flex>
         </LeftColumn>
-        <RightColumn grow={checkoutDrawerOpen} bg={"blues.3"}>
+        <RightColumn bg={"blues.3"}>
           <Checkout />
           {!checkoutDrawerOpen && (
             <>

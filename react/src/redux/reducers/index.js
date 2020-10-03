@@ -3,7 +3,7 @@ import {UPDATE_CART, TOGGLE_CHECKOUT_DRAWER} from "redux/constants";
 
 const initialState = {
   navOpen: false,
-  checkoutDrawerOpen: false,
+  checkoutDrawerOpen: true,
   cart: {}
 };
 
