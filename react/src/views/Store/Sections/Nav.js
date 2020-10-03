@@ -1,11 +1,9 @@
 import React from "react";
 import {Flex, Text} from "components";
 import {CartButton} from "views/Store/Components";
-import {toggleCheckoutDrawer} from "redux/actions";
-import {connect} from "react-redux";
 
-function _Nav(props) {
-  const {demodashStore, toggleCheckoutDrawer} = props;
+function Nav(props) {
+  const {demodashStore} = props;
   const {address} = demodashStore.account.profile;
   return (
     <Flex
@@ -45,21 +43,9 @@ function _Nav(props) {
           {address.city} {address.state}, {address.zip}
         </Text>
       </Flex>
-      <CartButton
-        onClick={() => toggleCheckoutDrawer()}
-        display={props.cartButtonDisplay}
-      />
+      <CartButton display={props.cartButtonDisplay} />
     </Flex>
   );
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleCheckoutDrawer: () => dispatch(toggleCheckoutDrawer())
-  };
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(_Nav);
+export default Nav;

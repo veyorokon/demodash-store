@@ -3,6 +3,7 @@ import {Flex, Icon, Text, BorderButton} from "components";
 import {Cart} from "@styled-icons/boxicons-regular/Cart";
 import {responsive as r} from "lib";
 import {connect} from "react-redux";
+import {toggleCheckoutDrawer} from "redux/actions";
 import {mapStateToProps} from "lib";
 
 function calculateCartTotal(cart) {
@@ -18,8 +19,10 @@ function calculateCartTotal(cart) {
 function _CartButton(props) {
   const [isHover, setHover] = useState(false);
   const total = calculateCartTotal(props.cart);
+  const {toggleCheckoutDrawer} = props;
   return (
     <BorderButton
+      onClick={() => toggleCheckoutDrawer()}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       br={2}
@@ -49,7 +52,13 @@ function _CartButton(props) {
   );
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleCheckoutDrawer: () => dispatch(toggleCheckoutDrawer())
+  };
+}
+
 export default connect(
   state => mapStateToProps(state, ["cart"]),
-  null
+  mapDispatchToProps
 )(_CartButton);
