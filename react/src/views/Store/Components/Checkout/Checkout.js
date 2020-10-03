@@ -1,5 +1,7 @@
 import {Flex} from "components";
 import React, {useState} from "react";
+import Header from "./Header";
+import Footer from "./Footer";
 import {Overview} from "./Sections";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
@@ -26,17 +28,20 @@ function _Checkout(props) {
   console.log(props);
   const [currentIndex, setCurrentIndex] = useState(0);
   return (
-    <Hide
-      onClick={() => {
-        let nextIndex = (currentIndex + 1) % props.children.length;
-        setCurrentIndex(nextIndex);
-      }}
-      bg={"whites.0"}
-      isShowing={props.checkoutDrawerOpen}
-    >
-      {props.children.map((component, index) => (
-        <>{currentIndex === index && component}</>
-      ))}
+    <Hide h={"100vh"} isShowing={props.checkoutDrawerOpen}>
+      <Flex flexDirection="column">
+        <Header />
+        <Flex flexBasis={"80vh"}>
+          {props.children.map((component, index) => (
+            <>{currentIndex === index && component}</>
+          ))}
+        </Flex>
+        <Footer
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          numChildren={props.children.length}
+        />
+      </Flex>
     </Hide>
   );
 }
