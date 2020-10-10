@@ -1,9 +1,9 @@
 import React from "react";
 import {Flex, Text} from "components";
 
-const Overview = () => (
+const Overview = props => (
   <Flex flexDirection="column">
-    <Text>Test 1</Text>
+    <Text>test 1</Text>
   </Flex>
 );
 

@@ -1,6 +1,7 @@
 import {Flex, Button, Text} from "components";
 import React from "react";
 import styled from "styled-components";
+import {responsive as r} from "lib";
 
 const CheckoutButton = styled(Button)`
   outline: none;
@@ -8,16 +9,19 @@ const CheckoutButton = styled(Button)`
 `;
 
 export default props => (
-  <Flex p={3} justifyContent="center" flexBasis={"10vh"} h={"fit-content"}>
+  <Flex p={3} justifyContent="center" h={"fit-content"} {...props}>
     <CheckoutButton
       h={5}
-      w="70%"
+      w={r("100% --> 70%")}
+      minWidth="26rem"
+      maxWidth="80rem"
+      bg="navys.1"
       onClick={() => {
         let nextIndex = (props.currentIndex + 1) % props.numChildren;
         props.setCurrentIndex(nextIndex);
       }}
     >
-      <Text fs={3} ml="auto" mr="auto">
+      <Text color="whites.0" fs={3} ml="auto" mr="auto">
         Continue
       </Text>
     </CheckoutButton>

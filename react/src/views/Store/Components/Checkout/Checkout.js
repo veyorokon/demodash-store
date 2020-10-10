@@ -1,11 +1,13 @@
-import {Flex} from "components";
+import {Flex, Span} from "components";
 import React, {useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Nav from "./Nav";
 import {Overview} from "./Sections";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
 import {mapStateToProps} from "lib";
+import {useSpring, animated} from "react-spring";
 
 const Hide = styled(Flex)`
   transition: opacity 0.8s ease-in-out;
@@ -13,6 +15,7 @@ const Hide = styled(Flex)`
   width: 0;
   opacity: 0;
   display: none;
+
   ${props =>
     props.isShowing &&
     css`
@@ -20,28 +23,47 @@ const Hide = styled(Flex)`
       opacity: 1;
       visibility: visible;
       display: flex;
-      flex-grow: 1;
     `}
+`;
+
+const AnimatedFlex = styled(animated.div)`
+  flex-direction: column;
+  width: 100%;
+  display: flex;
 `;
 
 function _Checkout(props) {
   console.log(props);
+  const {checkoutDrawerOpen} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const tranformSpring = useSpring({
+    transform: checkoutDrawerOpen
+      ? "translate3d(0, 0px, 0px)"
+      : "translate3d(50vw, 0px, 0px)",
+    from: {transform: "translate3d(50vw, 0px, 0px)"}
+  });
   return (
-    <Hide h={"100vh"} isShowing={props.checkoutDrawerOpen}>
-      <Flex flexDirection="column">
-        <Header />
-        <Flex flexBasis={"80vh"}>
+    <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
+      <AnimatedFlex style={tranformSpring}>
+        <Header
+          header={props.headers[currentIndex]}
+          flexGrow={0}
+          flexBasis={"10vh"}
+        />
+        <Nav currentIndex={currentIndex} flexBasis={"5vh"} />
+        <Flex flexBasis={"55vh"}>
           {props.children.map((component, index) => (
-            <>{currentIndex === index && component}</>
+            <Span key={index}>{currentIndex === index && component}</Span>
           ))}
         </Flex>
         <Footer
+          flexGrow={0}
+          flexBasis={"10vh"}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
           numChildren={props.children.length}
         />
-      </Flex>
+      </AnimatedFlex>
     </Hide>
   );
 }
@@ -52,7 +74,7 @@ const Checkout = connect(
 )(_Checkout);
 
 export default props => (
-  <Checkout>
+  <Checkout headers={["Overview", "Shipping"]}>
     <Overview />
     <Overview />
   </Checkout>

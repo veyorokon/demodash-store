@@ -1,14 +1,24 @@
-import {Flex, Text} from "components";
+import {Flex, Text, Icon} from "components";
 import React from "react";
+import {CloseCircle} from "@styled-icons/ionicons-outline/CloseCircle";
 import {connect} from "react-redux";
 import {toggleCheckoutDrawer} from "redux/actions";
 
 function _Footer(props) {
   const {toggleCheckoutDrawer} = props;
   return (
-    <Flex p={3} justifyContent="center" flexBasis={"10vh"} h={"fit-content"}>
-      <Text onClick={() => toggleCheckoutDrawer()} fs={3} ml="auto" mr="auto">
-        close
+    <Flex
+      alignItems="center"
+      p={3}
+      justifyContent="center"
+      h={"fit-content"}
+      {...props}
+    >
+      <Icon onClick={() => toggleCheckoutDrawer()} h={4}>
+        <CloseCircle />
+      </Icon>
+      <Text fs={3} ml="auto" mr="auto">
+        {props.header}
       </Text>
     </Flex>
   );
