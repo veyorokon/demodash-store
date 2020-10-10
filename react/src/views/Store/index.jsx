@@ -78,7 +78,6 @@ const Footer = props => (
 
 const _Store = props => {
   const {demodashStore, checkoutDrawerOpen} = props;
-  console.log(checkoutDrawerOpen);
   let {data} = useQuery(BRANDS, {
     variables: {demodashStoreId: parseInt(demodashStore.id)}
   });

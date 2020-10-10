@@ -72,3 +72,7 @@ export function getDemoerHandle() {
 export function getAnchor() {
   return window.location.hash.toLowerCase().replace("#", "");
 }
+
+export function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}

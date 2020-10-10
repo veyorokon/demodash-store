@@ -1,0 +1,20 @@
+{
+  "31": {
+    "12-17": {
+      "product": {
+        "id": "12",
+        "name": "Applicator",
+        "price": 7,
+        "description": "Precision applicator for hair fibers",
+        "images": [{
+          "id": "42",
+          "image": "account_31/products/account_31/products/products-applicator-thumbnail-compressed.jpg",
+          "variationOption": null
+        }],
+        "variations": []
+      },
+      "amount": 1,
+      "variationsChosen": {}
+    }
+  }
+}

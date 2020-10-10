@@ -21,7 +21,8 @@ import {
   formatErrorMessage,
   formatGQLErrorMessage,
   getDemoerHandle,
-  getAnchor
+  getAnchor,
+  isEmpty
 } from "./utility";
 import {STATES} from "./constants";
 import {mapStateToProps} from "./redux";
@@ -41,5 +42,6 @@ export {
   getDemoerHandle,
   getAnchor,
   mapStateToProps,
+  isEmpty,
   STATES
 };

@@ -33,7 +33,6 @@ const AnimatedFlex = styled(animated.div)`
 `;
 
 function _Checkout(props) {
-  console.log(props);
   const {checkoutDrawerOpen} = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const tranformSpring = useSpring({
