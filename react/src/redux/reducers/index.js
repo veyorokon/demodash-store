@@ -1,10 +1,109 @@
 import {updateState} from "lib";
 import {UPDATE_CART, TOGGLE_CHECKOUT_DRAWER} from "redux/constants";
 
+const PRODUCT_ONE = {
+  "31": {
+    "11-16-7-35-8-38": {
+      product: {
+        id: "11",
+        name: "Hair Filling Fibers",
+        price: 25,
+        description: "Add density to thinning hair.",
+        images: [
+          {
+            id: "41",
+            image: "account_31/products/account_31/products/bromane-brand.jpg",
+            variationOption: null
+          },
+          {
+            id: "43",
+            image: "account_31/products/account_31/products/medium-blonde.jpg",
+            variationOption: {
+              id: "35",
+              image: [
+                {
+                  id: "43",
+                  image:
+                    "account_31/products/account_31/products/medium-blonde.jpg"
+                }
+              ]
+            }
+          }
+        ],
+        variations: [
+          {
+            id: "7",
+            name: "Color",
+            options: [
+              {
+                id: "31",
+                option: "Black",
+                image: []
+              },
+              {
+                id: "32",
+                option: "Dark Brown",
+                image: []
+              },
+              {
+                id: "33",
+                option: "Medium Brown",
+                image: []
+              },
+              {
+                id: "34",
+                option: "Light Brown",
+                image: []
+              },
+              {
+                id: "35",
+                option: "Blonde",
+                image: [
+                  {
+                    id: "43",
+                    image:
+                      "account_31/products/account_31/products/medium-blonde.jpg"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: "8",
+            name: "Size",
+            options: [
+              {
+                id: "36",
+                option: "Small",
+                image: []
+              },
+              {
+                id: "37",
+                option: "Medium",
+                image: []
+              },
+              {
+                id: "38",
+                option: "Large",
+                image: []
+              }
+            ]
+          }
+        ]
+      },
+      amount: 1,
+      variationsChosen: {
+        "7": 35,
+        "8": 38
+      }
+    }
+  }
+};
+
 const initialState = {
   navOpen: false,
   checkoutDrawerOpen: true,
-  cart: {}
+  cart: {...PRODUCT_ONE}
 };
 
 function sortKeys(dict) {
