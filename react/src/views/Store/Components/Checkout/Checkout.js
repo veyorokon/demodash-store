@@ -1,4 +1,4 @@
-import {Flex, Span} from "components";
+import {Flex} from "components";
 import React, {useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -52,7 +52,13 @@ function _Checkout(props) {
         <Nav currentIndex={currentIndex} flexBasis={"5vh"} />
         <Flex flexBasis={"55vh"}>
           {props.children.map((component, index) => (
-            <Span key={index}>{currentIndex === index && component}</Span>
+            <Flex
+              w={currentIndex === index ? "100%" : "0"}
+              h={currentIndex === index ? "100%" : "0"}
+              key={index}
+            >
+              {currentIndex === index && component}
+            </Flex>
           ))}
         </Flex>
         <Footer

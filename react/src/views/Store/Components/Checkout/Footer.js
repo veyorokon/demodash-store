@@ -14,7 +14,7 @@ export default props => (
       h={5}
       w={r("100% --> 70%")}
       minWidth="26rem"
-      maxWidth="80rem"
+      maxWidth="60rem"
       bg="navys.1"
       onClick={() => {
         let nextIndex = (props.currentIndex + 1) % props.numChildren;

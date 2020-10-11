@@ -14,7 +14,7 @@ function _Footer(props) {
       h={"fit-content"}
       {...props}
     >
-      <Icon onClick={() => toggleCheckoutDrawer()} h={4}>
+      <Icon onClick={() => toggleCheckoutDrawer()} h={"3.6rem"}>
         <CloseCircle />
       </Icon>
       <Text fs={3} ml="auto" mr="auto">

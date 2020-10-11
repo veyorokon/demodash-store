@@ -1,8 +1,8 @@
 import React from "react";
-import {Flex, Text} from "components";
+import {Flex, Text, Span} from "components";
 import {CheckoutCard} from "views/Store/Components";
 import {connect} from "react-redux";
-import {mapStateToProps, isEmpty} from "lib";
+import {mapStateToProps, isEmpty, responsive as r} from "lib";
 
 function getCartItems(cart) {
   let cartItems = [];
@@ -20,10 +20,28 @@ function _Overview(props) {
   let cartItems = [];
   if (!isEmpty(cart)) cartItems = getCartItems(cart);
   return (
-    <Flex flexDirection="column">
-      {cartItems &&
-        cartItems.map((item, index) => <CheckoutCard key={index} {...item} />)}
-      <Text>test 1</Text>
+    <Flex
+      pl={r("2 ---> 4")}
+      pr={r("2 ---> 4")}
+      w={"100%"}
+      h={"100%"}
+      justifyContent="center"
+      transition="padding 0.3s"
+    >
+      <Flex
+        transition="max-width 0.3s"
+        maxWidth={r("100% -----> 60rem")}
+        flexDirection="column"
+      >
+        {cartItems &&
+          cartItems.map((item, index) => (
+            <>
+              <CheckoutCard key={index} {...item} />
+              <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
+            </>
+          ))}
+        <Text>Total: </Text>
+      </Flex>
     </Flex>
   );
 }
