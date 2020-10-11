@@ -12,7 +12,7 @@ export default props => (
   <Flex p={3} justifyContent="center" h={"fit-content"} {...props}>
     <CheckoutButton
       h={5}
-      w={r("100% --> 70%")}
+      w={r("100% --> 60rem")}
       minWidth="26rem"
       maxWidth="60rem"
       bg="navys.1"

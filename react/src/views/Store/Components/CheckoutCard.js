@@ -17,6 +17,38 @@ const CardText = styled(Text)`
   transition: margin 0.3s, font-size 0.3s;
 `;
 
+function getVariations(variations, variationsChosen = null) {
+  let variationChosenList = [];
+  if (!variationsChosen) return null;
+  //Create list of variations chosen
+  Object.keys(variationsChosen).forEach(function(variation) {
+    let variationOptionId = variationsChosen[variation];
+    let variationData = {
+      variationId: parseInt(variation),
+      variationOptionId: variationOptionId
+    };
+    variationChosenList.push(variationData);
+  });
+  let variationChosenData = [];
+  for (var index in variationChosenList) {
+    let chosenVariation = variationChosenList[index];
+    let productVariation = variations.filter(function(variation) {
+      return parseInt(variation.id) === chosenVariation.variationId;
+    })[0];
+    console.log(productVariation);
+    let productVariationOption = productVariation.options.filter(function(
+      variationOption
+    ) {
+      return parseInt(variationOption.id) === chosenVariation.variationOptionId;
+    })[0];
+    variationChosenData.push({
+      name: productVariation.name,
+      option: productVariationOption.option
+    });
+  }
+  return variationChosenData;
+}
+
 function getImage(images, variationsChosen = null) {
   let variationChosenList = [];
   if (!variationsChosen) return images[0];
@@ -34,20 +66,36 @@ function getImage(images, variationsChosen = null) {
   return images[0];
 }
 
+function Price(props) {
+  return (
+    <Flex {...props}>
+      <CardText mr={1} fs={r("1.4rem ---> 1.6rem")} mt={r("1 2")}>
+        $
+      </CardText>
+      <CardText fs={r("1.4rem ---> 1.6rem")} mt={r("1 2")}>
+        {props.price.toFixed(2)}
+      </CardText>
+    </Flex>
+  );
+}
+
 function CheckoutCard(props) {
   const {product, variationsChosen} = props;
   const checkoutImage = getImage(product.images, variationsChosen);
+  const variationData = getVariations(product.variations, variationsChosen);
+  let hasVariationData = false;
+  if (variationData && variationData.length) hasVariationData = true;
   return (
     <Flex
       flexGrow={0}
       mt={3}
-      mb={1}
+      mb={2}
       bg={"whites.0"}
       h={"fit-content"}
       minHeight={"fit-content"}
       w="100%"
       maxWidth="100%"
-      alignItems="flex-start"
+      alignItems="center"
       {...props}
     >
       <BackgroundImage
@@ -57,15 +105,42 @@ function CheckoutCard(props) {
         br={1}
         image={API_MEDIA + checkoutImage.image}
       />
-      <Box w={"fit-content"}>
-        <CardText fs={r("1.4rem ---> 1.6rem")}>{product.name}</CardText>
-        <CardText fs={r("1.2rem ---> 1.4rem")} color="greys.0" mt={r("1 2")}>
-          {product.description}
-        </CardText>
+      <Flex
+        pb={1}
+        h={"100%"}
+        flexDirection="column"
+        justifyContent="space-between"
+      >
+        <Box w={"fit-content"}>
+          <CardText fs={r("1.4rem ---> 1.6rem")}>{product.name}</CardText>
+          <CardText fs={r("1.2rem ---> 1.4rem")} color="greys.0" mt={r("1 2")}>
+            {product.description}
+          </CardText>
+          {hasVariationData && (
+            <Flex flexWrap="wrap">
+              {variationData.map((variation, index) => (
+                <Flex key={index} mt={r("1 ---> 2")}>
+                  <CardText fs={r("1.2rem ---> 1.4rem")} color="navys.0">
+                    {variation.name}:
+                  </CardText>
+                  <CardText
+                    mr={2}
+                    ml={1}
+                    fs={r("1.2rem ---> 1.4rem")}
+                    color="greys.0"
+                  >
+                    {variation.option}
+                  </CardText>
+                </Flex>
+              ))}
+            </Flex>
+          )}
+          <Price price={product.price} />
+        </Box>
         <CardText fs={r("1.4rem ---> 1.6rem")} mt={r("1 2")}>
           {props.amount}
         </CardText>
-      </Box>
+      </Flex>
     </Flex>
   );
 }

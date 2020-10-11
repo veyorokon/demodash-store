@@ -33,11 +33,17 @@ function _Overview(props) {
         maxWidth={r("100% -----> 60rem")}
         flexDirection="column"
       >
+        <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
         {cartItems &&
           cartItems.map((item, index) => (
             <>
               <CheckoutCard key={index} {...item} />
-              <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
+              <Span
+                key={index + "border"}
+                mt={2}
+                borderBottom="1px solid #e3e3ee"
+                w="100%"
+              />
             </>
           ))}
         <Text>Total: </Text>
