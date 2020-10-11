@@ -39,6 +39,7 @@ export const BRAND_INVENTORY = gql`
               id
               name
               price
+              shippingPrice
               description
               images {
                 id

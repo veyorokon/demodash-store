@@ -4,6 +4,16 @@ import {CheckoutCard} from "views/Store/Components";
 import {connect} from "react-redux";
 import {mapStateToProps, isEmpty, responsive as r} from "lib";
 
+function getCartTotal(cartItems = []) {
+  if (!cartItems.length) return 0;
+  let total = 0;
+  for (var index in cartItems) {
+    const item = cartItems[index];
+    total += (item.product.price + item.product.shippingPrice) * item.amount;
+  }
+  return total;
+}
+
 function getCartItems(cart) {
   let cartItems = [];
   Object.keys(cart).forEach(function(brandId) {
@@ -18,7 +28,12 @@ function getCartItems(cart) {
 function _Overview(props) {
   const {cart} = props;
   let cartItems = [];
-  if (!isEmpty(cart)) cartItems = getCartItems(cart);
+  let cartTotal = 0;
+  if (!isEmpty(cart)) {
+    cartItems = getCartItems(cart);
+    cartTotal = getCartTotal(cartItems);
+    console.log(cartTotal);
+  }
   return (
     <Flex
       pl={r("2 ---> 4")}

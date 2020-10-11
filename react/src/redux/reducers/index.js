@@ -8,6 +8,7 @@ const PRODUCT_ONE = {
         id: "11",
         name: "Hair Filling Fibers",
         price: 25,
+        shippingPrice: 2,
         description: "Add density to thinning hair.",
         images: [
           {

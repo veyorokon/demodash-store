@@ -1,7 +1,10 @@
 import React from "react";
-import {Box, Flex, Text} from "components";
+import {Box, Flex, Text, Icon} from "components";
 import styled from "styled-components";
 import {responsive as r} from "lib";
+import {Plus} from "@styled-icons/boxicons-regular/Plus";
+import {Minus} from "@styled-icons/boxicons-regular/Minus";
+
 import {API_MEDIA} from "api";
 
 const BackgroundImage = styled(Box)`
@@ -10,7 +13,7 @@ const BackgroundImage = styled(Box)`
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
-  transition: width 0.3s, height 0.3s;
+  transition: width 0.3s, height 0.3s, margin 0.3s;
 `;
 
 const CardText = styled(Text)`
@@ -35,7 +38,6 @@ function getVariations(variations, variationsChosen = null) {
     let productVariation = variations.filter(function(variation) {
       return parseInt(variation.id) === chosenVariation.variationId;
     })[0];
-    console.log(productVariation);
     let productVariationOption = productVariation.options.filter(function(
       variationOption
     ) {
@@ -101,7 +103,7 @@ function CheckoutCard(props) {
       <BackgroundImage
         w={r("10rem ---> 15rem")}
         h={r("10rem ---> 15rem")}
-        mr={2}
+        mr={r("2 ---> 3")}
         br={1}
         image={API_MEDIA + checkoutImage.image}
       />
@@ -112,7 +114,9 @@ function CheckoutCard(props) {
         justifyContent="space-between"
       >
         <Box w={"fit-content"}>
-          <CardText fs={r("1.4rem ---> 1.6rem")}>{product.name}</CardText>
+          <CardText fw={400} fs={r("1.4rem ---> 1.6rem")}>
+            {product.name}
+          </CardText>
           <CardText fs={r("1.2rem ---> 1.4rem")} color="greys.0" mt={r("1 2")}>
             {product.description}
           </CardText>
@@ -120,7 +124,7 @@ function CheckoutCard(props) {
             <Flex flexWrap="wrap">
               {variationData.map((variation, index) => (
                 <Flex key={index} mt={r("1 ---> 2")}>
-                  <CardText fs={r("1.2rem ---> 1.4rem")} color="navys.0">
+                  <CardText fs={r("1.2rem ---> 1.4rem")} color="navys.1">
                     {variation.name}:
                   </CardText>
                   <CardText
@@ -137,9 +141,17 @@ function CheckoutCard(props) {
           )}
           <Price price={product.price} />
         </Box>
-        <CardText fs={r("1.4rem ---> 1.6rem")} mt={r("1 2")}>
-          {props.amount}
-        </CardText>
+        <Flex mt={r("1 2")} alignItems="flex-end">
+          <Icon h={3}>
+            <Minus />
+          </Icon>
+          <CardText ml={2} mr={2} fs={r("1.2rem ---> 1.6rem")}>
+            {props.amount}
+          </CardText>
+          <Icon h={3}>
+            <Plus />
+          </Icon>
+        </Flex>
       </Flex>
     </Flex>
   );
