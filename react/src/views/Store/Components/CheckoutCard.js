@@ -157,6 +157,7 @@ function _CheckoutCard(props) {
         <Flex flexGrow={0} w="fit-content" mt={r("1 2")} alignItems="flex-end">
           <Icon
             h={3}
+            cursor={"pointer"}
             onClick={() =>
               props.updateCart({
                 update: {
@@ -177,6 +178,7 @@ function _CheckoutCard(props) {
           </CardText>
           <Icon
             h={3}
+            cursor={"pointer"}
             onClick={() =>
               props.updateCart({
                 update: {
