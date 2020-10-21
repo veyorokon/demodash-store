@@ -165,6 +165,7 @@ function updateCart(state, payload) {
     cart = addBrandToCart(state, payload);
   } else {
     let itemVariationInCart = state.cart[payload.brandId][itemCheckoutToken];
+
     if (!itemVariationInCart && update.amount >= 1)
       cart = {
         ...state.cart,
@@ -176,7 +177,7 @@ function updateCart(state, payload) {
           }
         }
       };
-    if (itemVariationInCart && update.amount >= 1) {
+    else if (itemVariationInCart && update.amount >= 1) {
       let prevAmount = itemVariationInCart.amount;
       cart = {
         ...state.cart,
@@ -190,10 +191,29 @@ function updateCart(state, payload) {
       };
     } else {
       //Handle deleting item
+      let prevAmount = itemVariationInCart.amount;
+      if (prevAmount + update.amount > 0) {
+        cart = {
+          ...state.cart,
+          [payload.brandId]: {
+            ...state.cart[payload.brandId],
+            [itemCheckoutToken]: {
+              ...update,
+              amount: prevAmount + update.amount
+            }
+          }
+        };
+      } else {
+        cart = {
+          ...state.cart,
+          [payload.brandId]: {
+            ...state.cart[payload.brandId]
+          }
+        };
+        delete cart[payload.brandId][itemCheckoutToken];
+      }
     }
   }
-
-  //update amount
   return cart;
 }
 

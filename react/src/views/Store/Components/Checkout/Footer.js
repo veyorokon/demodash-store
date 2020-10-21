@@ -16,6 +16,7 @@ export default props => (
       minWidth="26rem"
       maxWidth="60rem"
       bg="navys.1"
+      cursor={"pointer"}
       onClick={() => {
         let nextIndex = (props.currentIndex + 1) % props.numChildren;
         props.setCurrentIndex(nextIndex);

@@ -18,8 +18,13 @@ function getCartItems(cart) {
   let cartItems = [];
   Object.keys(cart).forEach(function(brandId) {
     Object.keys(cart[brandId]).forEach(function(checkoutToken) {
-      console.log(checkoutToken, cart[brandId][checkoutToken]);
-      cartItems.push({...cart[brandId][checkoutToken]});
+      let demoCommissionId = checkoutToken.split("-")[1]; //Hacky
+      cartItems.push({
+        brandId,
+        demoCommissionId,
+        checkoutToken,
+        ...cart[brandId][checkoutToken]
+      });
     });
   });
   return cartItems;
@@ -32,7 +37,7 @@ function _Overview(props) {
   if (!isEmpty(cart)) {
     cartItems = getCartItems(cart);
     cartTotal = getCartTotal(cartItems);
-    console.log(cartTotal);
+    console.log(cartItems);
   }
   return (
     <Flex
@@ -51,17 +56,23 @@ function _Overview(props) {
         <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
         {cartItems &&
           cartItems.map((item, index) => (
-            <>
-              <CheckoutCard key={index} {...item} />
-              <Span
-                key={index + "border"}
-                mt={2}
-                borderBottom="1px solid #e3e3ee"
-                w="100%"
-              />
-            </>
+            <Flex flexGrow={0} key={index} flexDirection="column">
+              <CheckoutCard {...item} />
+              <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
+            </Flex>
           ))}
-        <Text>Total: </Text>
+
+        <Flex flexGrow={0} flexDirection="column">
+          <Flex justifyContent="space-between" mb={3} mt={3}>
+            <Text fs={"1.6rem"} fw={500}>
+              Total:
+            </Text>
+            <Text fs={"1.6rem"} fw={500}>
+              ${cartTotal.toFixed(2)}
+            </Text>
+          </Flex>
+          <Span borderBottom="1px solid #e3e3ee" w="100%" />
+        </Flex>
       </Flex>
     </Flex>
   );

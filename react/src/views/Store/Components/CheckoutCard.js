@@ -2,6 +2,8 @@ import React from "react";
 import {Box, Flex, Text, Icon} from "components";
 import styled from "styled-components";
 import {responsive as r} from "lib";
+import {connect} from "react-redux";
+import {updateCart} from "redux/actions";
 import {Plus} from "@styled-icons/boxicons-regular/Plus";
 import {Minus} from "@styled-icons/boxicons-regular/Minus";
 
@@ -69,24 +71,35 @@ function getImage(images, variationsChosen = null) {
 }
 
 function Price(props) {
+  let hasShippingPrice = false;
+  if (props.shippingPrice && props.shippingPrice !== 0) hasShippingPrice = true;
   return (
-    <Flex {...props}>
-      <CardText mr={1} fs={r("1.4rem ---> 1.6rem")} mt={r("1 2")}>
+    <Flex mt={r("1 2")} {...props}>
+      <CardText mr={1} fs={r("1.4rem ---> 1.6rem")}>
         $
       </CardText>
-      <CardText fs={r("1.4rem ---> 1.6rem")} mt={r("1 2")}>
-        {props.price.toFixed(2)}
-      </CardText>
+      <CardText fs={r("1.4rem ---> 1.6rem")}>{props.price.toFixed(2)}</CardText>
+      {hasShippingPrice && (
+        <Flex ml={2}>
+          <CardText mr={2} fs={r("1.4rem ---> 1.6rem")}>
+            +
+          </CardText>
+          <CardText fs={r("1.4rem ---> 1.6rem")}>
+            ${props.shippingPrice.toFixed(2)}
+          </CardText>
+        </Flex>
+      )}
     </Flex>
   );
 }
 
-function CheckoutCard(props) {
+function _CheckoutCard(props) {
   const {product, variationsChosen} = props;
   const checkoutImage = getImage(product.images, variationsChosen);
   const variationData = getVariations(product.variations, variationsChosen);
   let hasVariationData = false;
   if (variationData && variationData.length) hasVariationData = true;
+  console.log(props);
   return (
     <Flex
       flexGrow={0}
@@ -139,16 +152,44 @@ function CheckoutCard(props) {
               ))}
             </Flex>
           )}
-          <Price price={product.price} />
+          <Price price={product.price} shippingPrice={product.shippingPrice} />
         </Box>
-        <Flex mt={r("1 2")} alignItems="flex-end">
-          <Icon h={3}>
+        <Flex flexGrow={0} w="fit-content" mt={r("1 2")} alignItems="flex-end">
+          <Icon
+            h={3}
+            onClick={() =>
+              props.updateCart({
+                update: {
+                  product: props.product,
+                  amount: -1,
+                  variationsChosen: props.variationsChosen
+                },
+                brandId: props.brandId,
+                productId: parseInt(props.product.id),
+                demoCommissionId: parseInt(props.demoCommissionId)
+              })
+            }
+          >
             <Minus />
           </Icon>
           <CardText ml={2} mr={2} fs={r("1.2rem ---> 1.6rem")}>
             {props.amount}
           </CardText>
-          <Icon h={3}>
+          <Icon
+            h={3}
+            onClick={() =>
+              props.updateCart({
+                update: {
+                  product: props.product,
+                  amount: 1,
+                  variationsChosen: props.variationsChosen
+                },
+                brandId: props.brandId,
+                productId: parseInt(props.product.id),
+                demoCommissionId: parseInt(props.demoCommissionId)
+              })
+            }
+          >
             <Plus />
           </Icon>
         </Flex>
@@ -156,5 +197,16 @@ function CheckoutCard(props) {
     </Flex>
   );
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateCart: payload => dispatch(updateCart(payload))
+  };
+}
+
+const CheckoutCard = connect(
+  null,
+  mapDispatchToProps
+)(_CheckoutCard);
 
 export default CheckoutCard;
