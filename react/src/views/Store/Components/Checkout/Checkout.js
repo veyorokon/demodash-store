@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Nav from "./Nav";
-import {Overview} from "./Sections";
+import {Overview, Shipping} from "./Sections";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
 import {mapStateToProps} from "lib";
@@ -34,7 +34,7 @@ const AnimatedFlex = styled(animated.div)`
 
 function _Checkout(props) {
   const {checkoutDrawerOpen} = props;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
       ? "translate3d(0, 0px, 0px)"
@@ -81,6 +81,6 @@ const Checkout = connect(
 export default props => (
   <Checkout headers={["Overview", "Shipping"]}>
     <Overview />
-    <Overview />
+    <Shipping />
   </Checkout>
 );
