@@ -1,5 +1,9 @@
 import {updateState} from "lib";
-import {UPDATE_CART, TOGGLE_CHECKOUT_DRAWER} from "redux/constants";
+import {
+  UPDATE_CART,
+  TOGGLE_CHECKOUT_DRAWER,
+  UPDATE_SHIPPING_FORM
+} from "redux/constants";
 
 const PRODUCT_ONE = {
   "31": {
@@ -104,7 +108,8 @@ const PRODUCT_ONE = {
 const initialState = {
   navOpen: false,
   checkoutDrawerOpen: true,
-  cart: {...PRODUCT_ONE}
+  cart: {...PRODUCT_ONE},
+  shippingForm: {}
 };
 
 function sortKeys(dict) {
@@ -231,6 +236,8 @@ export default function rootReducer(state = initialState, action) {
       let cart = updateCart(state, payload);
       newState = updateState(state, ["cart"], cart, false);
       return Object.assign({}, state, newState);
+    case UPDATE_SHIPPING_FORM:
+      return updateState(state, ["shippingForm"], payload, true);
     default:
       return state;
   }

@@ -58,6 +58,7 @@ const Input = themedComponent(
     transition: border-color 0.2s;
     ${borderRadius}
     ${borderFields}
+    background-clip: padding-box;
   `
 );
 Input.defaultProps = {

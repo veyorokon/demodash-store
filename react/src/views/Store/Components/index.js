@@ -4,4 +4,27 @@ import Card from "./Card";
 import Checkout from "./Checkout";
 import CheckoutCard from "./CheckoutCard";
 
-export {CartButton, ImageCard, Card, Checkout, CheckoutCard};
+import {
+  FlexInput,
+  FlexField,
+  FormSection,
+  FormGroup,
+  FlexTextArea,
+  FlexText,
+  FormButton
+} from "./Form";
+
+export {
+  CartButton,
+  ImageCard,
+  Card,
+  Checkout,
+  CheckoutCard,
+  FlexInput,
+  FlexField,
+  FormSection,
+  FormGroup,
+  FlexTextArea,
+  FlexText,
+  FormButton
+};
