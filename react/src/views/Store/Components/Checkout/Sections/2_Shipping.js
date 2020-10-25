@@ -10,12 +10,7 @@ function FormInput(props) {
 
 function FlexRow(props) {
   return (
-    <Flex
-      flexGrow={0}
-      flexDirection={r("column --> row")}
-      justifyContent="space-between"
-      {...props}
-    >
+    <Flex flexGrow={0} justifyContent="space-between" {...props}>
       {props.children}
     </Flex>
   );
@@ -32,7 +27,7 @@ function _Form(props) {
     >
       <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
       <FlexRow mt={2}>
-        <Flex mt={3} flexDirection="column">
+        <Flex w={"50%"} mt={3} flexDirection="column">
           <FormInput
             autocorrect="off"
             onChange={evt =>
@@ -42,11 +37,11 @@ function _Form(props) {
               })
             }
             value={shippingForm.firstName || ""}
-            mr={r("0 --> 3")}
+            mr={1}
           />
           <Text mt={1}>First name</Text>
         </Flex>
-        <Flex mt={3} flexDirection="column">
+        <Flex w={"50%"} mt={3} flexDirection="column">
           <FormInput
             autocorrect="off"
             onChange={evt =>
@@ -118,9 +113,9 @@ function _Form(props) {
         </Flex>
       </FlexRow>
       <FlexRow>
-        <Flex mt={3} flexDirection="column">
+        <Flex w={"50%"} mt={3} flexDirection="column">
           <FormInput
-            mr={r("0 --> 3")}
+            mr={1}
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
@@ -133,7 +128,7 @@ function _Form(props) {
             State
           </Text>
         </Flex>
-        <Flex mt={3} flexDirection="column">
+        <Flex w={"50%"} mt={3} flexDirection="column">
           <FormInput
             type="number"
             onChange={evt =>
@@ -165,8 +160,8 @@ const Form = connect(
 function Shipping(props) {
   return (
     <Flex
-      pl={r("3 ---> 4")}
-      pr={r("3 ---> 4")}
+      pl={r("2 3 -> 4 5")}
+      pr={r("2 3 -> 4 5")}
       w={"100%"}
       h={"100%"}
       justifyContent="center"

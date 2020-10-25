@@ -58,15 +58,53 @@ function _Form(props) {
       </FlexRow>
       <FlexRow mb={3} flexDirection="row">
         <Flex w={"33%"} mt={3} flexDirection="column">
-          <FormInput autocorrect="off" mr={r("1")} />
+          <FormInput
+            maxLength={2}
+            value={billingForm.expMonth || ""}
+            onChange={evt => {
+              let value = getEventVal(evt);
+              if (!isNaN(value))
+                return updateBillingForm({
+                  ...billingForm,
+                  expMonth: value
+                });
+            }}
+            autocorrect="off"
+            mr={r("1")}
+          />
           <Text mt={1}>Exp month</Text>
         </Flex>
         <Flex w={"33%"} mt={3} flexDirection="column">
-          <FormInput autocorrect="off" mr={r("1")} />
+          <FormInput
+            maxLength={4}
+            value={billingForm.expYear || ""}
+            onChange={evt => {
+              let value = getEventVal(evt);
+              if (!isNaN(value))
+                return updateBillingForm({
+                  ...billingForm,
+                  expYear: value
+                });
+            }}
+            autocorrect="off"
+            mr={r("1")}
+          />
           <Text mt={1}>Exp year</Text>
         </Flex>
         <Flex w={"33%"} mt={3} flexDirection="column">
-          <FormInput autocorrect="off" />
+          <FormInput
+            maxLength={3}
+            value={billingForm.cvc || ""}
+            onChange={evt => {
+              let value = getEventVal(evt);
+              if (!isNaN(value))
+                return updateBillingForm({
+                  ...billingForm,
+                  cvc: value
+                });
+            }}
+            autocorrect="off"
+          />
           <Text mt={1}>CVC</Text>
         </Flex>
       </FlexRow>
@@ -120,8 +158,8 @@ const Form = connect(
 function Shipping(props) {
   return (
     <Flex
-      pl={r("3 ---> 4")}
-      pr={r("3 ---> 4")}
+      pl={r("2 3 -> 4 5")}
+      pr={r("2 3 -> 4 5")}
       w={"100%"}
       h={"100%"}
       justifyContent="center"
