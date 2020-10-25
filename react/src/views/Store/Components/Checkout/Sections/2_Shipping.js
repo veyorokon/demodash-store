@@ -1,5 +1,5 @@
 import React from "react";
-import {Flex, Text, Input} from "components";
+import {Flex, Text, Input, Span} from "components";
 import {updateShippingForm} from "redux/actions";
 import {connect} from "react-redux";
 import {mapStateToProps, responsive as r, getEventVal} from "lib";
@@ -23,14 +23,15 @@ function FlexRow(props) {
 
 function _Form(props) {
   const {shippingForm, updateShippingForm} = props;
-  console.log(shippingForm);
   return (
     <Flex
       transition="max-width 0.3s"
       maxWidth={r("100% -----> 60rem")}
       flexDirection="column"
+      mb={3}
     >
-      <FlexRow>
+      <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
+      <FlexRow mt={2}>
         <Flex mt={3} flexDirection="column">
           <FormInput
             autocorrect="off"

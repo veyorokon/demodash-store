@@ -1,7 +1,8 @@
 import {
   UPDATE_CART,
   TOGGLE_CHECKOUT_DRAWER,
-  UPDATE_SHIPPING_FORM
+  UPDATE_SHIPPING_FORM,
+  UPDATE_BILLING_FORM
 } from "redux/constants";
 
 export function updateCart(payload) {
@@ -19,5 +20,11 @@ export function toggleCheckoutDrawer() {
 export function updateShippingForm(payload) {
   return function(dispatch) {
     return dispatch({type: UPDATE_SHIPPING_FORM, payload: payload});
+  };
+}
+
+export function updateBillingForm(payload) {
+  return function(dispatch) {
+    return dispatch({type: UPDATE_BILLING_FORM, payload: payload});
   };
 }

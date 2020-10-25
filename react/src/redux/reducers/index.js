@@ -2,7 +2,8 @@ import {updateState} from "lib";
 import {
   UPDATE_CART,
   TOGGLE_CHECKOUT_DRAWER,
-  UPDATE_SHIPPING_FORM
+  UPDATE_SHIPPING_FORM,
+  UPDATE_BILLING_FORM
 } from "redux/constants";
 
 const PRODUCT_ONE = {
@@ -109,7 +110,8 @@ const initialState = {
   navOpen: false,
   checkoutDrawerOpen: true,
   cart: {...PRODUCT_ONE},
-  shippingForm: {}
+  shippingForm: {},
+  billingForm: {}
 };
 
 function sortKeys(dict) {
@@ -196,27 +198,30 @@ function updateCart(state, payload) {
       };
     } else {
       //Handle deleting item
-      let prevAmount = itemVariationInCart.amount;
-      if (prevAmount + update.amount > 0) {
-        cart = {
-          ...state.cart,
-          [payload.brandId]: {
-            ...state.cart[payload.brandId],
-            [itemCheckoutToken]: {
-              ...update,
-              amount: prevAmount + update.amount
+      try {
+        //HACKY NEEDS TO BE FIXED
+        let prevAmount = itemVariationInCart.amount;
+        if (prevAmount + update.amount > 0) {
+          cart = {
+            ...state.cart,
+            [payload.brandId]: {
+              ...state.cart[payload.brandId],
+              [itemCheckoutToken]: {
+                ...update,
+                amount: prevAmount + update.amount
+              }
             }
-          }
-        };
-      } else {
-        cart = {
-          ...state.cart,
-          [payload.brandId]: {
-            ...state.cart[payload.brandId]
-          }
-        };
-        delete cart[payload.brandId][itemCheckoutToken];
-      }
+          };
+        } else {
+          cart = {
+            ...state.cart,
+            [payload.brandId]: {
+              ...state.cart[payload.brandId]
+            }
+          };
+          delete cart[payload.brandId][itemCheckoutToken];
+        }
+      } catch {}
     }
   }
   return cart;
@@ -238,6 +243,8 @@ export default function rootReducer(state = initialState, action) {
       return Object.assign({}, state, newState);
     case UPDATE_SHIPPING_FORM:
       return updateState(state, ["shippingForm"], payload, true);
+    case UPDATE_BILLING_FORM:
+      return updateState(state, ["billingForm"], payload, true);
     default:
       return state;
   }
