@@ -38,6 +38,7 @@ function _Form(props) {
         <Flex mt={3} flexDirection="column">
           <FormInput
             maxLength={19}
+            name="cardnumber"
             value={
               billingForm.cardNumber
                 ? format(billingForm.cardNumber.replace(/\s/g, ""))
@@ -70,7 +71,7 @@ function _Form(props) {
                 });
             }}
             autocorrect="off"
-            mr={r("1")}
+            mr={1}
           />
           <Text mt={1}>Exp month</Text>
         </Flex>
@@ -87,13 +88,14 @@ function _Form(props) {
                 });
             }}
             autocorrect="off"
-            mr={r("1")}
+            mr={1}
           />
           <Text mt={1}>Exp year</Text>
         </Flex>
         <Flex w={"33%"} mt={3} flexDirection="column">
           <FormInput
             maxLength={3}
+            name="cvc"
             value={billingForm.cvc || ""}
             onChange={evt => {
               let value = getEventVal(evt);

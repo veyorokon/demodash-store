@@ -29,36 +29,27 @@ function _Form(props) {
       <FlexRow mt={2}>
         <Flex w={"50%"} mt={3} flexDirection="column">
           <FormInput
+            name="name"
+            autocomplete="name"
             autocorrect="off"
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
-                firstName: getEventVal(evt)
+                name: getEventVal(evt)
               })
             }
-            value={shippingForm.firstName || ""}
+            value={shippingForm.name || ""}
             mr={1}
           />
-          <Text mt={1}>First name</Text>
-        </Flex>
-        <Flex w={"50%"} mt={3} flexDirection="column">
-          <FormInput
-            autocorrect="off"
-            onChange={evt =>
-              updateShippingForm({
-                ...shippingForm,
-                lastName: getEventVal(evt)
-              })
-            }
-            value={shippingForm.lastName || ""}
-          />
-          <Text mt={1}>Last name</Text>
+          <Text mt={1}>Name</Text>
         </Flex>
       </FlexRow>
       <FlexRow>
         <Flex mt={3} flexDirection="column">
           <FormInput
             type="email"
+            autocomplete="email"
+            name="email"
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
@@ -73,6 +64,7 @@ function _Form(props) {
       <FlexRow>
         <Flex mt={3} flexDirection="column">
           <FormInput
+            name="address-line1"
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
@@ -87,6 +79,7 @@ function _Form(props) {
       <FlexRow>
         <Flex mt={3} flexDirection="column">
           <FormInput
+            name="address-line2"
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
@@ -101,6 +94,7 @@ function _Form(props) {
       <FlexRow>
         <Flex mt={3} flexDirection="column">
           <FormInput
+            name="city"
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
@@ -116,6 +110,7 @@ function _Form(props) {
         <Flex w={"50%"} mt={3} flexDirection="column">
           <FormInput
             mr={1}
+            name="state"
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
@@ -131,6 +126,7 @@ function _Form(props) {
         <Flex w={"50%"} mt={3} flexDirection="column">
           <FormInput
             type="number"
+            name="zip"
             onChange={evt =>
               updateShippingForm({
                 ...shippingForm,

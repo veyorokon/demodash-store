@@ -34,7 +34,7 @@ const AnimatedFlex = styled(animated.div)`
 
 function _Checkout(props) {
   const {checkoutDrawerOpen} = props;
-  const [currentIndex, setCurrentIndex] = useState(2);
+  const [currentIndex, setCurrentIndex] = useState(1);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
       ? "translate3d(0, 0px, 0px)"
