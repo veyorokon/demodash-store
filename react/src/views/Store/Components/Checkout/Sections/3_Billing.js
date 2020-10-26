@@ -26,7 +26,6 @@ function FlexRow(props) {
 
 function _Form(props) {
   const {billingForm, updateBillingForm} = props;
-  console.log(billingForm);
   return (
     <Flex
       transition="max-width 0.3s"
@@ -38,7 +37,8 @@ function _Form(props) {
         <Flex mt={3} flexDirection="column">
           <FormInput
             maxLength={19}
-            name="cardnumber"
+            name="cardNumber"
+            id="cardNumber"
             value={
               billingForm.cardNumber
                 ? format(billingForm.cardNumber.replace(/\s/g, ""))
@@ -52,7 +52,6 @@ function _Form(props) {
                   cardNumber: value.replace(/\s/g, "")
                 });
             }}
-            autocorrect="off"
           />
           <Text mt={1}>Card number</Text>
         </Flex>
@@ -61,6 +60,7 @@ function _Form(props) {
         <Flex w={"33%"} mt={3} flexDirection="column">
           <FormInput
             maxLength={2}
+            id="cardExpirationMonth"
             value={billingForm.expMonth || ""}
             onChange={evt => {
               let value = getEventVal(evt);
@@ -70,7 +70,6 @@ function _Form(props) {
                   expMonth: value
                 });
             }}
-            autocorrect="off"
             mr={1}
           />
           <Text mt={1}>Exp month</Text>
@@ -78,6 +77,7 @@ function _Form(props) {
         <Flex w={"33%"} mt={3} flexDirection="column">
           <FormInput
             maxLength={4}
+            id="cardExpirationYear"
             value={billingForm.expYear || ""}
             onChange={evt => {
               let value = getEventVal(evt);
@@ -87,7 +87,6 @@ function _Form(props) {
                   expYear: value
                 });
             }}
-            autocorrect="off"
             mr={1}
           />
           <Text mt={1}>Exp year</Text>
@@ -96,6 +95,7 @@ function _Form(props) {
           <FormInput
             maxLength={3}
             name="cvc"
+            id="cardCsc"
             value={billingForm.cvc || ""}
             onChange={evt => {
               let value = getEventVal(evt);
@@ -105,7 +105,6 @@ function _Form(props) {
                   cvc: value
                 });
             }}
-            autocorrect="off"
           />
           <Text mt={1}>CVC</Text>
         </Flex>
@@ -157,7 +156,7 @@ const Form = connect(
   mapDispatchToProps
 )(_Form);
 
-function Shipping(props) {
+function Billing(props) {
   return (
     <Flex
       pl={r("2 3 -> 4 5")}
@@ -172,4 +171,4 @@ function Shipping(props) {
   );
 }
 
-export default Shipping;
+export default Billing;

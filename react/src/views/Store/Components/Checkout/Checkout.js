@@ -3,10 +3,10 @@ import React, {useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Nav from "./Nav";
-import {Overview, Shipping, Billing} from "./Sections";
+import {Overview, Shipping, Billing, Confirm} from "./Sections";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
-import {mapStateToProps} from "lib";
+import {mapStateToProps, responsive as r} from "lib";
 import {useSpring, animated} from "react-spring";
 
 const Hide = styled(Flex)`
@@ -34,7 +34,7 @@ const AnimatedFlex = styled(animated.div)`
 
 function _Checkout(props) {
   const {checkoutDrawerOpen} = props;
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(3);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
       ? "translate3d(0, 0px, 0px)"
@@ -63,6 +63,7 @@ function _Checkout(props) {
         </Flex>
         <Footer
           flexGrow={0}
+          footer={props.footers[currentIndex]}
           flexBasis={"10vh"}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
@@ -79,9 +80,13 @@ const Checkout = connect(
 )(_Checkout);
 
 export default props => (
-  <Checkout headers={["Overview", "Shipping", "Billing"]}>
+  <Checkout
+    headers={["Overview", "Shipping", "Billing", "Confirm"]}
+    footers={r("Continue --> Confirm")}
+  >
     <Overview />
     <Shipping />
     <Billing />
+    <Confirm />
   </Checkout>
 );

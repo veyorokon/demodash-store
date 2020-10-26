@@ -110,8 +110,20 @@ const initialState = {
   navOpen: false,
   checkoutDrawerOpen: true,
   cart: {...PRODUCT_ONE},
-  shippingForm: {},
-  billingForm: {}
+  shippingForm: {
+    name: "Test User",
+    addressLine1: "123 test street",
+    state: "OH",
+    city: "New Town",
+    zip: "12345",
+    email: "some@email.com"
+  },
+  billingForm: {
+    cardNumber: "4242424242424242",
+    expMonth: "12",
+    expYear: "2022",
+    cvc: "123"
+  }
 };
 
 function sortKeys(dict) {

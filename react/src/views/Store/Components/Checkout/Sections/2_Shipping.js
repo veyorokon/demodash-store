@@ -1,8 +1,8 @@
 import React from "react";
-import {Flex, Text, Input, Span} from "components";
+import {Flex, Text, Input, Span, DropDown} from "components";
 import {updateShippingForm} from "redux/actions";
 import {connect} from "react-redux";
-import {mapStateToProps, responsive as r, getEventVal} from "lib";
+import {STATES, mapStateToProps, responsive as r, getEventVal} from "lib";
 
 function FormInput(props) {
   return <Input p={2} h={"3.5rem"} flexGrow={0} {...props} />;
@@ -107,9 +107,18 @@ function _Form(props) {
         </Flex>
       </FlexRow>
       <FlexRow>
-        <Flex w={"50%"} mt={3} flexDirection="column">
-          <FormInput
-            mr={1}
+        <Flex
+          transition="width 0.3s"
+          mr={1}
+          w={r("66% ---> 60%")}
+          mt={3}
+          flexDirection="column"
+        >
+          <DropDown
+            br={2}
+            w="100%"
+            border={"1px solid "}
+            options={STATES}
             name="state"
             onChange={evt =>
               updateShippingForm({
@@ -119,11 +128,14 @@ function _Form(props) {
             }
             value={shippingForm.state || ""}
           />
-          <Text mr={r("0 --> 3")} mt={1}>
-            State
-          </Text>
+          <Text mt={1}>State</Text>
         </Flex>
-        <Flex w={"50%"} mt={3} flexDirection="column">
+        <Flex
+          transition="width 0.3s"
+          w={r("33% ---> 40%")}
+          mt={3}
+          flexDirection="column"
+        >
           <FormInput
             type="number"
             name="zip"

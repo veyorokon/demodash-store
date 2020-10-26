@@ -9,7 +9,14 @@ const CheckoutButton = styled(Button)`
 `;
 
 export default props => (
-  <Flex p={3} justifyContent="center" h={"fit-content"} {...props}>
+  <Flex
+    pl={r("2 3 -> 4 5")}
+    pr={r("2 3 -> 4 5")}
+    transition="padding 0.3s"
+    justifyContent="center"
+    h={"fit-content"}
+    {...props}
+  >
     <CheckoutButton
       h={5}
       w={r("100% --> 60rem")}
@@ -23,7 +30,7 @@ export default props => (
       }}
     >
       <Text color="whites.0" fs={3} ml="auto" mr="auto">
-        Continue
+        {props.footer}
       </Text>
     </CheckoutButton>
   </Flex>

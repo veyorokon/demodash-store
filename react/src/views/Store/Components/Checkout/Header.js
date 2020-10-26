@@ -8,6 +8,7 @@ function _Footer(props) {
   const {toggleCheckoutDrawer} = props;
   return (
     <Flex
+      position="relative"
       alignItems="center"
       p={3}
       justifyContent="center"
@@ -15,9 +16,12 @@ function _Footer(props) {
       {...props}
     >
       <Icon
+        position="absolute"
+        left={"5%"}
         cursor="pointer"
         onClick={() => toggleCheckoutDrawer()}
         h={"3.6rem"}
+        w={"3.6rem"}
       >
         <CloseCircle />
       </Icon>
