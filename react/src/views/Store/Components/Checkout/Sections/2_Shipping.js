@@ -39,7 +39,6 @@ function _Form(props) {
               })
             }
             value={shippingForm.name || ""}
-            mr={1}
           />
           <Text mt={1}>Name</Text>
         </Flex>
