@@ -15,6 +15,11 @@ const REQUIRED_FIELDS = [
 
 function _Form(props) {
   const {index, billingForm, updateBillingForm, updateCheckoutMaxIndex} = props;
+  let errorFields = checkRequiredFields(billingForm, REQUIRED_FIELDS);
+  if (!errorFields.length)
+    updateCheckoutMaxIndex({
+      checkoutMaxIndex: index + 1
+    });
   return (
     <Flex
       transition="max-width 0.3s"
