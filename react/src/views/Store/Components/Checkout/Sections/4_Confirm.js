@@ -3,19 +3,6 @@ import {Flex, Text, Span, Box, Link} from "components";
 import {connect} from "react-redux";
 import {mapStateToProps, responsive as r} from "lib";
 
-// function FlexRow(props) {
-//   return (
-//     <Flex
-//       flexGrow={0}
-//       flexDirection={r("column --> row")}
-//       justifyContent="space-between"
-//       {...props}
-//     >
-//       {props.children}
-//     </Flex>
-//   );
-// }
-
 function getCartItems(cart) {
   let cartItems = [];
   Object.keys(cart).forEach(function(brandId) {
@@ -69,7 +56,6 @@ function getCartTotal(cartItems = []) {
 function _Form(props) {
   const {cart, billingForm, shippingForm} = props;
   const cartItems = getCartItems(cart);
-  console.log(cartItems);
   const shippingPrice = getCartShipping(cartItems);
   const cartTotal = getCartTotal(cartItems);
   return (

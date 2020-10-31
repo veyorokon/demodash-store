@@ -32,6 +32,47 @@ const AnimatedFlex = styled(animated.div)`
   display: flex;
 `;
 
+function Body(props) {
+  const {checkoutMaxIndex} = props;
+  const [currentIndex, setCurrentIndex] = useState(2);
+  return (
+    <>
+      <Header
+        header={props.headers[currentIndex]}
+        flexGrow={0}
+        flexBasis={"10vh"}
+      />
+      <Nav
+        checkoutMaxIndex={checkoutMaxIndex}
+        handleUpdateIndex={setCurrentIndex}
+        currentIndex={currentIndex}
+        flexBasis={"5vh"}
+      />
+      <Flex flexBasis={"55vh"}>
+        {props.children.map((component, index) => (
+          <Flex
+            w={currentIndex === index ? "100%" : "0"}
+            h={currentIndex === index ? "100%" : "0"}
+            key={index}
+          >
+            {currentIndex === index &&
+              React.cloneElement(component, {index: index})}
+          </Flex>
+        ))}
+      </Flex>
+      <Footer
+        flexGrow={0}
+        disabled={currentIndex >= checkoutMaxIndex}
+        footer={props.footers[currentIndex]}
+        flexBasis={"10vh"}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+        maxLength={props.children.length}
+      />
+    </>
+  );
+}
+
 function _Checkout(props) {
   const {checkoutDrawerOpen, checkoutMaxIndex} = props;
   const [currentIndex, setCurrentIndex] = useState(2);
@@ -44,37 +85,13 @@ function _Checkout(props) {
   return (
     <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
       <AnimatedFlex style={tranformSpring}>
-        <Header
-          header={props.headers[currentIndex]}
-          flexGrow={0}
-          flexBasis={"10vh"}
-        />
-        <Nav
-          checkoutMaxIndex={checkoutMaxIndex}
-          handleUpdateIndex={setCurrentIndex}
-          currentIndex={currentIndex}
-          flexBasis={"5vh"}
-        />
-        <Flex flexBasis={"55vh"}>
-          {props.children.map((component, index) => (
-            <Flex
-              w={currentIndex === index ? "100%" : "0"}
-              h={currentIndex === index ? "100%" : "0"}
-              key={index}
-            >
-              {currentIndex === index &&
-                React.cloneElement(component, {index: index})}
-            </Flex>
-          ))}
-        </Flex>
-        <Footer
-          flexGrow={0}
+        <Body
           disabled={currentIndex >= checkoutMaxIndex}
           footer={props.footers[currentIndex]}
-          flexBasis={"10vh"}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
           maxLength={props.children.length}
+          {...props}
         />
       </AnimatedFlex>
     </Hide>
