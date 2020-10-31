@@ -37,8 +37,9 @@ function _Overview(props) {
   if (!isEmpty(cart)) {
     cartItems = getCartItems(cart);
     cartTotal = getCartTotal(cartItems);
-    console.log(cartItems);
+    // console.log(cartItems);
   }
+  console.log(props);
   return (
     <Flex
       pl={r("2 ---> 4")}
@@ -62,7 +63,7 @@ function _Overview(props) {
             </Flex>
           ))}
 
-        <Flex flexGrow={0} flexDirection="column">
+        <Flex mb={3} flexGrow={0} flexDirection="column">
           <Flex justifyContent="space-between" mb={3} mt={3}>
             <Text fs={"1.6rem"} fw={500}>
               Total:

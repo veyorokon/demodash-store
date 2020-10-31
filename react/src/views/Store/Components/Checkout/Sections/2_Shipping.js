@@ -1,6 +1,6 @@
 import React from "react";
 import {Flex, Text, Input, Span, DropDown} from "components";
-import {updateShippingForm} from "redux/actions";
+import {updateShippingForm, updateCheckoutMaxIndex} from "redux/actions";
 import {connect} from "react-redux";
 import {STATES, mapStateToProps, responsive as r, getEventVal} from "lib";
 
@@ -34,7 +34,12 @@ function checkRequiredFields(form, requiredFields = []) {
 }
 
 function _Form(props) {
-  const {shippingForm, updateShippingForm} = props;
+  const {
+    index,
+    shippingForm,
+    updateCheckoutMaxIndex,
+    updateShippingForm
+  } = props;
   const requiredFields = [
     "name",
     "addressLine1",
@@ -43,7 +48,7 @@ function _Form(props) {
     "zip",
     "email"
   ];
-  console.log(shippingForm);
+  console.log(props);
   return (
     <Flex
       transition="max-width 0.3s"
@@ -79,6 +84,9 @@ function _Form(props) {
                 ...shippingForm,
                 name: getEventVal(evt),
                 errorFields: errorFields
+              });
+              updateCheckoutMaxIndex({
+                checkoutMaxIndex: index + 1
               });
             }}
             value={shippingForm.name || ""}
@@ -204,7 +212,8 @@ function _Form(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateShippingForm: payload => dispatch(updateShippingForm(payload))
+    updateShippingForm: payload => dispatch(updateShippingForm(payload)),
+    updateCheckoutMaxIndex: payload => dispatch(updateCheckoutMaxIndex(payload))
   };
 }
 

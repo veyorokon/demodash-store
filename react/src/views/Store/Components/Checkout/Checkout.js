@@ -33,7 +33,7 @@ const AnimatedFlex = styled(animated.div)`
 `;
 
 function _Checkout(props) {
-  const {checkoutDrawerOpen} = props;
+  const {checkoutDrawerOpen, checkoutMaxIndex} = props;
   const [currentIndex, setCurrentIndex] = useState(1);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
@@ -41,6 +41,7 @@ function _Checkout(props) {
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
+  console.log(currentIndex < checkoutMaxIndex);
   return (
     <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
       <AnimatedFlex style={tranformSpring}>
@@ -50,6 +51,7 @@ function _Checkout(props) {
           flexBasis={"10vh"}
         />
         <Nav
+          checkoutMaxIndex={checkoutMaxIndex}
           handleUpdateIndex={setCurrentIndex}
           currentIndex={currentIndex}
           flexBasis={"5vh"}
@@ -61,17 +63,19 @@ function _Checkout(props) {
               h={currentIndex === index ? "100%" : "0"}
               key={index}
             >
-              {currentIndex === index && component}
+              {currentIndex === index &&
+                React.cloneElement(component, {index: index})}
             </Flex>
           ))}
         </Flex>
         <Footer
           flexGrow={0}
+          disabled={currentIndex >= checkoutMaxIndex}
           footer={props.footers[currentIndex]}
           flexBasis={"10vh"}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
-          numChildren={props.children.length}
+          maxLength={props.children.length}
         />
       </AnimatedFlex>
     </Hide>
@@ -79,7 +83,7 @@ function _Checkout(props) {
 }
 
 const Checkout = connect(
-  state => mapStateToProps(state, ["checkoutDrawerOpen"]),
+  state => mapStateToProps(state, ["checkoutDrawerOpen", "checkoutMaxIndex"]),
   null
 )(_Checkout);
 

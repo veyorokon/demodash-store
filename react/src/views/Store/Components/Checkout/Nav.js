@@ -14,19 +14,22 @@ const Spacer = () => (
 );
 
 export default props => {
-  const {currentIndex} = props;
+  const {checkoutMaxIndex, currentIndex} = props;
   return (
     <Flex
       alignItems="center"
       p={2}
       justifyContent="center"
       h={"fit-content"}
+      flexGrow={0}
       {...props}
     >
       <Icon
         cursor="pointer"
         color={currentIndex === 0 ? "navys.0" : "navys.3"}
-        onClick={() => props.handleUpdateIndex(0)}
+        onClick={() => {
+          if (0 <= checkoutMaxIndex) props.handleUpdateIndex(0);
+        }}
         h={4}
       >
         <Cart />
@@ -35,7 +38,9 @@ export default props => {
       <Icon
         cursor="pointer"
         color={currentIndex === 1 ? "navys.0" : "navys.3"}
-        onClick={() => props.handleUpdateIndex(1)}
+        onClick={() => {
+          if (1 <= checkoutMaxIndex) props.handleUpdateIndex(1);
+        }}
         h={4}
       >
         <Truck />
@@ -44,7 +49,9 @@ export default props => {
       <Icon
         cursor="pointer"
         color={currentIndex === 2 ? "navys.0" : "navys.3"}
-        onClick={() => props.handleUpdateIndex(2)}
+        onClick={() => {
+          if (2 <= checkoutMaxIndex) props.handleUpdateIndex(2);
+        }}
         h={4}
       >
         <Card />
@@ -53,7 +60,9 @@ export default props => {
       <Icon
         cursor="pointer"
         color={currentIndex === 3 ? "navys.0" : "navys.3"}
-        onClick={() => props.handleUpdateIndex(3)}
+        onClick={() => {
+          if (3 <= checkoutMaxIndex) props.handleUpdateIndex(3);
+        }}
         h={"2.6rem"}
       >
         <Clipboard />

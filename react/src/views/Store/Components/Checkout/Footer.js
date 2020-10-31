@@ -22,6 +22,7 @@ export default props => (
       w={r("100% --> 60rem")}
       minWidth="26rem"
       maxWidth={r("100% -----> 60rem")}
+      disabled={props.disabled}
       bg="navys.1"
       cursor={"pointer"}
       onClick={() => {

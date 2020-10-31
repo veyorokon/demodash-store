@@ -3,7 +3,8 @@ import {
   UPDATE_CART,
   TOGGLE_CHECKOUT_DRAWER,
   UPDATE_SHIPPING_FORM,
-  UPDATE_BILLING_FORM
+  UPDATE_BILLING_FORM,
+  UPDATE_CHECKOUT_MAX_INDEX
 } from "redux/constants";
 
 const PRODUCT_ONE = {
@@ -108,7 +109,7 @@ const PRODUCT_ONE = {
 
 const initialState = {
   navOpen: false,
-  checkoutDrawerOpen: true,
+  checkoutDrawerOpen: false,
   cart: {...PRODUCT_ONE},
   shippingForm: {
     name: "",
@@ -123,7 +124,8 @@ const initialState = {
     expMonth: "12",
     expYear: "2022",
     cvc: "123"
-  }
+  },
+  checkoutMaxIndex: 1
 };
 
 function sortKeys(dict) {
@@ -257,6 +259,9 @@ export default function rootReducer(state = initialState, action) {
       return updateState(state, ["shippingForm"], payload, true);
     case UPDATE_BILLING_FORM:
       return updateState(state, ["billingForm"], payload, true);
+    case UPDATE_CHECKOUT_MAX_INDEX:
+      const {checkoutMaxIndex} = payload;
+      return updateState(state, ["checkoutMaxIndex"], checkoutMaxIndex, true);
     default:
       return state;
   }
