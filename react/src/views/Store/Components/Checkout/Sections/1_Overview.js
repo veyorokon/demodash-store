@@ -39,7 +39,6 @@ function _Overview(props) {
     cartTotal = getCartTotal(cartItems);
     // console.log(cartItems);
   }
-  console.log(props);
   return (
     <Flex
       pl={r("2 ---> 4")}

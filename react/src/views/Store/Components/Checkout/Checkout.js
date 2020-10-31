@@ -34,14 +34,13 @@ const AnimatedFlex = styled(animated.div)`
 
 function _Checkout(props) {
   const {checkoutDrawerOpen, checkoutMaxIndex} = props;
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(2);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
       ? "translate3d(0, 0px, 0px)"
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
-  console.log(currentIndex < checkoutMaxIndex);
   return (
     <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
       <AnimatedFlex style={tranformSpring}>

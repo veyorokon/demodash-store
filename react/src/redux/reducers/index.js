@@ -109,10 +109,10 @@ const PRODUCT_ONE = {
 
 const initialState = {
   navOpen: false,
-  checkoutDrawerOpen: false,
+  checkoutDrawerOpen: true,
   cart: {...PRODUCT_ONE},
   shippingForm: {
-    name: "",
+    name: "Vahid Eyorokon",
     addressLine1: "123 test street",
     state: "OH",
     city: "New Town",
@@ -125,7 +125,7 @@ const initialState = {
     expYear: "2022",
     cvc: "123"
   },
-  checkoutMaxIndex: 1
+  checkoutMaxIndex: 2
 };
 
 function sortKeys(dict) {

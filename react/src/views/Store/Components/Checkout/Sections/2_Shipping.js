@@ -1,37 +1,19 @@
 import React from "react";
-import {Flex, Text, Input, Span, DropDown} from "components";
+import {Flex, Text, Span, DropDown} from "components";
+import {FlexRow, FormInput} from "./components";
+import {checkRequiredFields, removeFromList} from "./utils";
 import {updateShippingForm, updateCheckoutMaxIndex} from "redux/actions";
 import {connect} from "react-redux";
 import {STATES, mapStateToProps, responsive as r, getEventVal} from "lib";
 
-function FormInput(props) {
-  return <Input p={2} h={"3.5rem"} flexGrow={0} {...props} />;
-}
-
-function FlexRow(props) {
-  return (
-    <Flex flexGrow={0} justifyContent="space-between" {...props}>
-      {props.children}
-    </Flex>
-  );
-}
-
-function removeFromList(array, item) {
-  const index = array.indexOf(item);
-  if (index > -1) {
-    array.splice(index, 1);
-  }
-  return array;
-}
-
-function checkRequiredFields(form, requiredFields = []) {
-  let missing = [];
-  for (var i = 0; i < requiredFields.length; i++) {
-    const key = requiredFields[i];
-    if (!form[key]) missing.push(key);
-  }
-  return missing;
-}
+const REQUIRED_FIELDS = [
+  "name",
+  "addressLine1",
+  "state",
+  "city",
+  "zip",
+  "email"
+];
 
 function _Form(props) {
   const {
@@ -40,15 +22,7 @@ function _Form(props) {
     updateCheckoutMaxIndex,
     updateShippingForm
   } = props;
-  const requiredFields = [
-    "name",
-    "addressLine1",
-    "state",
-    "city",
-    "zip",
-    "email"
-  ];
-  console.log(props);
+
   return (
     <Flex
       transition="max-width 0.3s"
@@ -72,22 +46,28 @@ function _Form(props) {
             onChange={evt => {
               let errorFields = checkRequiredFields(
                 shippingForm,
-                requiredFields
+                REQUIRED_FIELDS
               );
               let val = getEventVal(evt);
               if (val) {
                 errorFields = removeFromList(errorFields, "name");
               } else {
-                errorFields = ["name"];
+                errorFields.push("name");
               }
+              console.log(errorFields);
               updateShippingForm({
                 ...shippingForm,
                 name: getEventVal(evt),
                 errorFields: errorFields
               });
-              updateCheckoutMaxIndex({
-                checkoutMaxIndex: index + 1
-              });
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
+                });
             }}
             value={shippingForm.name || ""}
           />
@@ -107,10 +87,30 @@ function _Form(props) {
                 : "navys.0"
             }
             onChange={evt => {
+              let errorFields = checkRequiredFields(
+                shippingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              if (val) {
+                errorFields = removeFromList(errorFields, "email");
+              } else {
+                errorFields.push("email");
+              }
+              console.log(errorFields);
               updateShippingForm({
                 ...shippingForm,
-                email: getEventVal(evt)
+                email: getEventVal(evt),
+                errorFields: errorFields
               });
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
+                });
             }}
             value={shippingForm.email || ""}
           />
@@ -121,12 +121,38 @@ function _Form(props) {
         <Flex mt={3} flexDirection="column">
           <FormInput
             name="address-line1"
-            onChange={evt =>
+            borderColor={
+              shippingForm.errorFields &&
+              shippingForm.errorFields.includes("addressLine1")
+                ? "oranges.0"
+                : "navys.0"
+            }
+            onChange={evt => {
+              let errorFields = checkRequiredFields(
+                shippingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              if (val) {
+                errorFields = removeFromList(errorFields, "addressLine1");
+              } else {
+                errorFields.push("addressLine1");
+              }
+              console.log(errorFields);
               updateShippingForm({
                 ...shippingForm,
-                addressLine1: getEventVal(evt)
-              })
-            }
+                addressLine1: getEventVal(evt),
+                errorFields: errorFields
+              });
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
+                });
+            }}
             value={shippingForm.addressLine1 || ""}
           />
           <Text mt={1}>Address line 1</Text>
@@ -151,12 +177,38 @@ function _Form(props) {
         <Flex mt={3} flexDirection="column">
           <FormInput
             name="city"
-            onChange={evt =>
+            borderColor={
+              shippingForm.errorFields &&
+              shippingForm.errorFields.includes("city")
+                ? "oranges.0"
+                : "navys.0"
+            }
+            onChange={evt => {
+              let errorFields = checkRequiredFields(
+                shippingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              if (val) {
+                errorFields = removeFromList(errorFields, "city");
+              } else {
+                errorFields.push("city");
+              }
+              console.log(errorFields);
               updateShippingForm({
                 ...shippingForm,
-                city: getEventVal(evt)
-              })
-            }
+                city: getEventVal(evt),
+                errorFields: errorFields
+              });
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
+                });
+            }}
             value={shippingForm.city || ""}
           />
           <Text mt={1}>City</Text>
@@ -173,15 +225,40 @@ function _Form(props) {
           <DropDown
             br={2}
             w="100%"
-            border={"1px solid "}
             options={STATES}
             name="state"
-            onChange={evt =>
+            borderColor={
+              shippingForm.errorFields &&
+              shippingForm.errorFields.includes("state")
+                ? "oranges.0"
+                : "navys.0"
+            }
+            onChange={evt => {
+              let errorFields = checkRequiredFields(
+                shippingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              if (val) {
+                errorFields = removeFromList(errorFields, "state");
+              } else {
+                errorFields.push("state");
+              }
+              console.log(errorFields);
               updateShippingForm({
                 ...shippingForm,
-                state: getEventVal(evt)
-              })
-            }
+                state: getEventVal(evt),
+                errorFields: errorFields
+              });
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
+                });
+            }}
             value={shippingForm.state || ""}
           />
           <Text mt={1}>State</Text>
@@ -195,12 +272,38 @@ function _Form(props) {
           <FormInput
             type="number"
             name="zip"
-            onChange={evt =>
+            borderColor={
+              shippingForm.errorFields &&
+              shippingForm.errorFields.includes("zip")
+                ? "oranges.0"
+                : "navys.0"
+            }
+            onChange={evt => {
+              let errorFields = checkRequiredFields(
+                shippingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              if (val) {
+                errorFields = removeFromList(errorFields, "zip");
+              } else {
+                errorFields.push("zip");
+              }
+              console.log(errorFields);
               updateShippingForm({
                 ...shippingForm,
-                zip: getEventVal(evt)
-              })
-            }
+                zip: getEventVal(evt),
+                errorFields: errorFields
+              });
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
+                });
+            }}
             value={shippingForm.zip || ""}
           />
           <Text mt={1}>Zip</Text>

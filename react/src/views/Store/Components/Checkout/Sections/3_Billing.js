@@ -1,28 +1,10 @@
 import React from "react";
-import {Flex, Text, Link, Input, Box, Span} from "components";
+import {Flex, Text, Link, Box, Span} from "components";
+import {FlexRow, FormInput} from "./components";
+import {format} from "./utils";
 import {updateBillingForm} from "redux/actions";
 import {connect} from "react-redux";
 import {mapStateToProps, responsive as r, getEventVal} from "lib";
-
-function format(s) {
-  return s.toString().replace(/\d{4}(?=.)/g, "$& ");
-}
-function FormInput(props) {
-  return <Input p={2} h={"3.5rem"} flexGrow={0} {...props} />;
-}
-
-function FlexRow(props) {
-  return (
-    <Flex
-      flexGrow={0}
-      flexDirection={r("column --> row")}
-      justifyContent="space-between"
-      {...props}
-    >
-      {props.children}
-    </Flex>
-  );
-}
 
 function _Form(props) {
   const {billingForm, updateBillingForm} = props;
