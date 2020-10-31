@@ -111,7 +111,7 @@ const initialState = {
   checkoutDrawerOpen: true,
   cart: {...PRODUCT_ONE},
   shippingForm: {
-    name: "Test User",
+    name: "",
     addressLine1: "123 test street",
     state: "OH",
     city: "New Town",

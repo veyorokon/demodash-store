@@ -16,14 +16,6 @@ function FlexRow(props) {
   );
 }
 
-function removeFromList(array, item) {
-  const index = array.indexOf(item);
-  if (index > -1) {
-    array.splice(index, 1);
-  }
-  return array;
-}
-
 function checkRequiredFields(form, requiredFields = []) {
   let missing = [];
   for (var i = 0; i < requiredFields.length; i++) {
@@ -69,12 +61,7 @@ function _Form(props) {
                 shippingForm,
                 requiredFields
               );
-              let val = getEventVal(evt);
-              if (val) {
-                errorFields = removeFromList(errorFields, "name");
-              } else {
-                errorFields = ["name"];
-              }
+              console.log(errorFields);
               updateShippingForm({
                 ...shippingForm,
                 name: getEventVal(evt),
@@ -92,18 +79,12 @@ function _Form(props) {
             type="email"
             autocomplete="email"
             name="email"
-            borderColor={
-              shippingForm.errorFields &&
-              shippingForm.errorFields.includes("email")
-                ? "oranges.0"
-                : "navys.0"
-            }
-            onChange={evt => {
+            onChange={evt =>
               updateShippingForm({
                 ...shippingForm,
                 email: getEventVal(evt)
-              });
-            }}
+              })
+            }
             value={shippingForm.email || ""}
           />
           <Text mt={1}>Email</Text>

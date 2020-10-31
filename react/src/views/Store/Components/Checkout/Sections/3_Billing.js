@@ -166,7 +166,7 @@ function Billing(props) {
       justifyContent="center"
       transition="padding 0.3s"
     >
-      <Form />
+      <Form {...props} />
     </Flex>
   );
 }

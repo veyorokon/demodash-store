@@ -72,8 +72,9 @@ function _Form(props) {
               let val = getEventVal(evt);
               if (val) {
                 errorFields = removeFromList(errorFields, "name");
+                console.log(errorFields);
               } else {
-                errorFields = ["name"];
+                errorFields.push("name");
               }
               updateShippingForm({
                 ...shippingForm,
@@ -99,9 +100,21 @@ function _Form(props) {
                 : "navys.0"
             }
             onChange={evt => {
+              let errorFields = checkRequiredFields(
+                shippingForm,
+                requiredFields
+              );
+              let val = getEventVal(evt);
+              if (val) {
+                errorFields = removeFromList(errorFields, "email");
+                console.log(errorFields);
+              } else {
+                errorFields.push("email");
+              }
               updateShippingForm({
                 ...shippingForm,
-                email: getEventVal(evt)
+                email: getEventVal(evt),
+                errorFields: errorFields
               });
             }}
             value={shippingForm.email || ""}
@@ -113,12 +126,30 @@ function _Form(props) {
         <Flex mt={3} flexDirection="column">
           <FormInput
             name="address-line1"
-            onChange={evt =>
+            borderColor={
+              shippingForm.errorFields &&
+              shippingForm.errorFields.includes("addressLine1")
+                ? "oranges.0"
+                : "navys.0"
+            }
+            onChange={evt => {
+              let errorFields = checkRequiredFields(
+                shippingForm,
+                requiredFields
+              );
+              let val = getEventVal(evt);
+              if (val) {
+                errorFields = removeFromList(errorFields, "addressLine1");
+                console.log(errorFields);
+              } else {
+                errorFields.push("addressLine1");
+              }
               updateShippingForm({
                 ...shippingForm,
-                addressLine1: getEventVal(evt)
-              })
-            }
+                addressLine1: getEventVal(evt),
+                errorFields: errorFields
+              });
+            }}
             value={shippingForm.addressLine1 || ""}
           />
           <Text mt={1}>Address line 1</Text>

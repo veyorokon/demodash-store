@@ -24,32 +24,36 @@ export default props => {
       {...props}
     >
       <Icon
+        cursor="pointer"
         color={currentIndex === 0 ? "navys.0" : "navys.3"}
-        onClick={() => console.log("here")}
+        onClick={() => props.handleUpdateIndex(0)}
         h={4}
       >
         <Cart />
       </Icon>
       <Spacer />
       <Icon
+        cursor="pointer"
         color={currentIndex === 1 ? "navys.0" : "navys.3"}
-        onClick={() => console.log("here")}
+        onClick={() => props.handleUpdateIndex(1)}
         h={4}
       >
         <Truck />
       </Icon>
       <Spacer />
       <Icon
+        cursor="pointer"
         color={currentIndex === 2 ? "navys.0" : "navys.3"}
-        onClick={() => console.log("here")}
+        onClick={() => props.handleUpdateIndex(2)}
         h={4}
       >
         <Card />
       </Icon>
       <Spacer />
       <Icon
+        cursor="pointer"
         color={currentIndex === 3 ? "navys.0" : "navys.3"}
-        onClick={() => console.log("here")}
+        onClick={() => props.handleUpdateIndex(3)}
         h={"2.6rem"}
       >
         <Clipboard />

@@ -1,5 +1,5 @@
 import React from "react";
-import {Flex, Text, Span} from "components";
+import {Flex, Text, Span, Box, Link} from "components";
 import {connect} from "react-redux";
 import {mapStateToProps, responsive as r} from "lib";
 
@@ -106,18 +106,24 @@ function _Form(props) {
             <Text mb={1} fw={500}>
               {shippingForm.name}
             </Text>
-            <Text mb={1}>{shippingForm.addressLine1}</Text>
+            <Text color={"navys.2"} mb={1}>
+              {shippingForm.addressLine1}
+            </Text>
             {shippingForm.addressLine2 && (
-              <Text mb={1}>{shippingForm.addressLine2}</Text>
+              <Text color={"navys.2"} mb={1}>
+                {shippingForm.addressLine2}
+              </Text>
             )}
-            <Text mb={1} display="inline">
+            <Text color={"navys.2"} mb={1} display="inline">
               {shippingForm.city}
             </Text>
             <Flex>
-              <Text mr={1} mb={1} display="inline">
+              <Text color={"navys.2"} mr={1} mb={1} display="inline">
                 {shippingForm.state},
               </Text>
-              <Text display="inline">{shippingForm.zip}</Text>
+              <Text color={"navys.2"} display="inline">
+                {shippingForm.zip}
+              </Text>
             </Flex>
           </Flex>
         </Flex>
@@ -159,6 +165,37 @@ function _Form(props) {
           </Flex>
         </Flex>
       </Flex>
+      <Box textAlign="center" mt={"auto"} mb={3}>
+        <Text fs={"1.2rem"} display="inline" color="greys.0">
+          By placing your order, you agree to demodash's
+        </Text>{" "}
+        <Link
+          cursor={"pointer"}
+          fs="1.2rem"
+          fw={"400"}
+          display="inline"
+          href="https://demodash.com/legal/terms"
+          target="_blank"
+        >
+          Terms and Conditions
+        </Link>{" "}
+        <Text fs={"1.2rem"} display="inline" color="greys.0">
+          and
+        </Text>{" "}
+        <Link
+          cursor={"pointer"}
+          fs="1.2rem"
+          fw={"400"}
+          display="inline"
+          href="https://demodash.com/legal/privacy"
+          target="_blank"
+        >
+          Privacy Policy
+        </Link>
+        <Text fs={"1.2rem"} display="inline" color="greys.0">
+          .
+        </Text>
+      </Box>
     </Flex>
   );
 }
@@ -178,7 +215,7 @@ function Confirm(props) {
       justifyContent="center"
       transition="padding 0.3s"
     >
-      <Form />
+      <Form {...props} />
     </Flex>
   );
 }

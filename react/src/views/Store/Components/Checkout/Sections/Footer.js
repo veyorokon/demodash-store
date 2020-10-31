@@ -21,11 +21,11 @@ export default props => (
       h={5}
       w={r("100% --> 60rem")}
       minWidth="26rem"
-      maxWidth="60rem"
+      maxWidth={r("100% -----> 60rem")}
       bg="navys.1"
       cursor={"pointer"}
       onClick={() => {
-        let nextIndex = (props.currentIndex + 1) % props.numChildren;
+        let nextIndex = (props.currentIndex + 1) % props.maxLength;
         props.setCurrentIndex(nextIndex);
       }}
     >

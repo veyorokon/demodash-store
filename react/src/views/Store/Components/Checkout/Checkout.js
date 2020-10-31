@@ -1,7 +1,6 @@
 import {Flex} from "components";
 import React, {useState} from "react";
 import Header from "./Header";
-import Footer from "./Footer";
 import Nav from "./Nav";
 import {Overview, Shipping, Billing, Confirm} from "./Sections";
 import {connect} from "react-redux";
@@ -34,7 +33,7 @@ const AnimatedFlex = styled(animated.div)`
 
 function _Checkout(props) {
   const {checkoutDrawerOpen} = props;
-  const [currentIndex, setCurrentIndex] = useState(3);
+  const [currentIndex, setCurrentIndex] = useState(1);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
       ? "translate3d(0, 0px, 0px)"
@@ -49,7 +48,11 @@ function _Checkout(props) {
           flexGrow={0}
           flexBasis={"10vh"}
         />
-        <Nav currentIndex={currentIndex} flexBasis={"5vh"} />
+        <Nav
+          handleUpdateIndex={setCurrentIndex}
+          currentIndex={currentIndex}
+          flexBasis={"5vh"}
+        />
         <Flex flexBasis={"55vh"}>
           {props.children.map((component, index) => (
             <Flex
@@ -61,14 +64,6 @@ function _Checkout(props) {
             </Flex>
           ))}
         </Flex>
-        <Footer
-          flexGrow={0}
-          footer={props.footers[currentIndex]}
-          flexBasis={"10vh"}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-          numChildren={props.children.length}
-        />
       </AnimatedFlex>
     </Hide>
   );
