@@ -1,6 +1,5 @@
 import React from "react";
 import {Flex, Text, Span} from "components";
-import Footer from "./Footer";
 import {CheckoutCard} from "views/Store/Components";
 import {connect} from "react-redux";
 import {mapStateToProps, isEmpty, responsive as r} from "lib";
@@ -31,7 +30,7 @@ function getCartItems(cart) {
   return cartItems;
 }
 
-function _Form(props) {
+function _Overview(props) {
   const {cart} = props;
   let cartItems = [];
   let cartTotal = 0;
@@ -42,59 +41,46 @@ function _Form(props) {
   }
   return (
     <Flex
-      transition="max-width 0.3s"
-      maxWidth={r("100% -----> 60rem")}
+      pl={r("2 ---> 4")}
+      pr={r("2 ---> 4")}
       w={"100%"}
-      flexDirection="column"
+      h={"100%"}
+      justifyContent="center"
+      transition="padding 0.3s"
     >
-      <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
-      {cartItems &&
-        cartItems.map((item, index) => (
-          <Flex flexGrow={0} key={index} flexDirection="column">
-            <CheckoutCard {...item} />
-            <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
-          </Flex>
-        ))}
+      <Flex
+        transition="max-width 0.3s"
+        maxWidth={r("100% -----> 60rem")}
+        flexDirection="column"
+      >
+        <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
+        {cartItems &&
+          cartItems.map((item, index) => (
+            <Flex flexGrow={0} key={index} flexDirection="column">
+              <CheckoutCard {...item} />
+              <Span mt={2} borderBottom="1px solid #e3e3ee" w="100%" />
+            </Flex>
+          ))}
 
-      <Flex flexGrow={0} flexDirection="column">
-        <Flex justifyContent="space-between" mb={3} mt={3}>
-          <Text fs={"1.6rem"} fw={500}>
-            Total:
-          </Text>
-          <Text fs={"1.6rem"} fw={500}>
-            ${cartTotal.toFixed(2)}
-          </Text>
+        <Flex flexGrow={0} flexDirection="column">
+          <Flex justifyContent="space-between" mb={3} mt={3}>
+            <Text fs={"1.6rem"} fw={500}>
+              Total:
+            </Text>
+            <Text fs={"1.6rem"} fw={500}>
+              ${cartTotal.toFixed(2)}
+            </Text>
+          </Flex>
+          <Span borderBottom="1px solid #e3e3ee" w="100%" />
         </Flex>
-        <Span borderBottom="1px solid #e3e3ee" w="100%" />
       </Flex>
     </Flex>
   );
 }
 
-const Form = connect(
+const Overview = connect(
   state => mapStateToProps(state, ["cart"]),
   null
-)(_Form);
-
-function Overview(props) {
-  return (
-    <>
-      <Flex
-        pl={r("2 3 -> 4 5")}
-        pr={r("2 3 -> 4 5")}
-        w={"100%"}
-        h={"100%"}
-        alignItems="center"
-        flexDirection="column"
-        transition="padding 0.3s"
-      >
-        <Form {...props} />
-      </Flex>
-    </>
-  );
-}
-Overview.footer = (
-  <Footer flexGrow={0} footer={"Continue"} flexBasis={"10vh"} />
-);
+)(_Overview);
 
 export default Overview;

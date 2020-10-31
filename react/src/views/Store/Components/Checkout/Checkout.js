@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import Header from "./Header";
 import Nav from "./Nav";
 import {Overview, Shipping, Billing, Confirm} from "./Sections";
+import Footer from "./Footer";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
 import {mapStateToProps, responsive as r} from "lib";
@@ -64,6 +65,14 @@ function _Checkout(props) {
             </Flex>
           ))}
         </Flex>
+        <Footer
+          flexGrow={0}
+          footer={props.footers[currentIndex]}
+          flexBasis={"10vh"}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          numChildren={props.children.length}
+        />
       </AnimatedFlex>
     </Hide>
   );
