@@ -54,7 +54,7 @@ function _Form(props) {
               } else {
                 errorFields.push("name");
               }
-              console.log(errorFields);
+              //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
                 name: getEventVal(evt),
@@ -97,7 +97,7 @@ function _Form(props) {
               } else {
                 errorFields.push("email");
               }
-              console.log(errorFields);
+              //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
                 email: getEventVal(evt),
@@ -138,7 +138,7 @@ function _Form(props) {
               } else {
                 errorFields.push("addressLine1");
               }
-              console.log(errorFields);
+              //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
                 addressLine1: getEventVal(evt),
@@ -194,7 +194,7 @@ function _Form(props) {
               } else {
                 errorFields.push("city");
               }
-              console.log(errorFields);
+              //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
                 city: getEventVal(evt),
@@ -244,7 +244,7 @@ function _Form(props) {
               } else {
                 errorFields.push("state");
               }
-              console.log(errorFields);
+              //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
                 state: getEventVal(evt),
@@ -289,7 +289,7 @@ function _Form(props) {
               } else {
                 errorFields.push("zip");
               }
-              console.log(errorFields);
+              //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
                 zip: getEventVal(evt),

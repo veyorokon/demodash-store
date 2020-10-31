@@ -121,8 +121,8 @@ const initialState = {
   },
   billingForm: {
     cardNumber: "4242424242424242",
-    expMonth: "12",
-    expYear: "2022",
+    cardExpirationMonth: "12",
+    cardExpirationYear: "2022",
     cvc: "123"
   },
   checkoutMaxIndex: 2

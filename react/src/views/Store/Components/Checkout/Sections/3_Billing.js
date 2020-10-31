@@ -1,13 +1,20 @@
 import React from "react";
 import {Flex, Text, Link, Box, Span} from "components";
 import {FlexRow, FormInput} from "./components";
-import {format} from "./utils";
-import {updateBillingForm} from "redux/actions";
+import {format, checkRequiredFields, removeFromList} from "./utils";
+import {updateBillingForm, updateCheckoutMaxIndex} from "redux/actions";
 import {connect} from "react-redux";
 import {mapStateToProps, responsive as r, getEventVal} from "lib";
 
+const REQUIRED_FIELDS = [
+  "cardNumber",
+  "cardExpirationMonth",
+  "cardExpirationYear",
+  "cvc"
+];
+
 function _Form(props) {
-  const {billingForm, updateBillingForm} = props;
+  const {index, billingForm, updateBillingForm, updateCheckoutMaxIndex} = props;
   return (
     <Flex
       transition="max-width 0.3s"
@@ -26,12 +33,38 @@ function _Form(props) {
                 ? format(billingForm.cardNumber.replace(/\s/g, ""))
                 : ""
             }
+            borderColor={
+              billingForm.errorFields &&
+              billingForm.errorFields.includes("cardNumber")
+                ? "oranges.0"
+                : "navys.0"
+            }
             onChange={evt => {
-              let value = getEventVal(evt);
-              if (!isNaN(value.replace(/\s/g, "")))
-                return updateBillingForm({
+              let errorFields = checkRequiredFields(
+                billingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              //checkRequiredFields
+              if (val) {
+                errorFields = removeFromList(errorFields, "cardNumber");
+              } else {
+                errorFields.push("cardNumber");
+              }
+              if (!isNaN(val.replace(/\s/g, ""))) {
+                updateBillingForm({
                   ...billingForm,
-                  cardNumber: value.replace(/\s/g, "")
+                  cardNumber: val.replace(/\s/g, ""),
+                  errorFields: errorFields
+                });
+              }
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
                 });
             }}
           />
@@ -43,16 +76,45 @@ function _Form(props) {
           <FormInput
             maxLength={2}
             id="cardExpirationMonth"
-            value={billingForm.expMonth || ""}
+            value={billingForm.cardExpirationMonth || ""}
+            mr={1}
+            borderColor={
+              billingForm.errorFields &&
+              billingForm.errorFields.includes("cardExpirationMonth")
+                ? "oranges.0"
+                : "navys.0"
+            }
             onChange={evt => {
-              let value = getEventVal(evt);
-              if (!isNaN(value))
-                return updateBillingForm({
+              let errorFields = checkRequiredFields(
+                billingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              //checkRequiredFields
+              if (val) {
+                errorFields = removeFromList(
+                  errorFields,
+                  "cardExpirationMonth"
+                );
+              } else {
+                errorFields.push("cardExpirationMonth");
+              }
+              if (!isNaN(val.replace(/\s/g, ""))) {
+                updateBillingForm({
                   ...billingForm,
-                  expMonth: value
+                  cardExpirationMonth: val,
+                  errorFields: errorFields
+                });
+              }
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
                 });
             }}
-            mr={1}
           />
           <Text mt={1}>Exp month</Text>
         </Flex>
@@ -60,16 +122,42 @@ function _Form(props) {
           <FormInput
             maxLength={4}
             id="cardExpirationYear"
-            value={billingForm.expYear || ""}
+            value={billingForm.cardExpirationYear || ""}
+            mr={1}
+            borderColor={
+              billingForm.errorFields &&
+              billingForm.errorFields.includes("cardExpirationYear")
+                ? "oranges.0"
+                : "navys.0"
+            }
             onChange={evt => {
-              let value = getEventVal(evt);
-              if (!isNaN(value))
-                return updateBillingForm({
+              let errorFields = checkRequiredFields(
+                billingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              //checkRequiredFields
+              if (val) {
+                errorFields = removeFromList(errorFields, "cardExpirationYear");
+              } else {
+                errorFields.push("cardExpirationYear");
+              }
+              if (!isNaN(val.replace(/\s/g, ""))) {
+                updateBillingForm({
                   ...billingForm,
-                  expYear: value
+                  cardExpirationYear: val,
+                  errorFields: errorFields
+                });
+              }
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
                 });
             }}
-            mr={1}
           />
           <Text mt={1}>Exp year</Text>
         </Flex>
@@ -79,12 +167,37 @@ function _Form(props) {
             name="cvc"
             id="cardCsc"
             value={billingForm.cvc || ""}
+            borderColor={
+              billingForm.errorFields && billingForm.errorFields.includes("cvc")
+                ? "oranges.0"
+                : "navys.0"
+            }
             onChange={evt => {
-              let value = getEventVal(evt);
-              if (!isNaN(value))
-                return updateBillingForm({
+              let errorFields = checkRequiredFields(
+                billingForm,
+                REQUIRED_FIELDS
+              );
+              let val = getEventVal(evt);
+              //checkRequiredFields
+              if (val) {
+                errorFields = removeFromList(errorFields, "cvc");
+              } else {
+                errorFields.push("cvc");
+              }
+              if (!isNaN(val.replace(/\s/g, ""))) {
+                updateBillingForm({
                   ...billingForm,
-                  cvc: value
+                  cvc: val,
+                  errorFields: errorFields
+                });
+              }
+              if (!errorFields.length)
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index + 1
+                });
+              else
+                updateCheckoutMaxIndex({
+                  checkoutMaxIndex: index
                 });
             }}
           />
@@ -129,7 +242,8 @@ function _Form(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateBillingForm: payload => dispatch(updateBillingForm(payload))
+    updateBillingForm: payload => dispatch(updateBillingForm(payload)),
+    updateCheckoutMaxIndex: payload => dispatch(updateCheckoutMaxIndex(payload))
   };
 }
 
