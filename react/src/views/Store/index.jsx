@@ -78,8 +78,9 @@ const Footer = props => (
 
 const _Store = props => {
   const {demodashStore, checkoutDrawerOpen} = props;
+  const demodashStoreId = parseInt(demodashStore.id);
   let {data} = useQuery(BRANDS, {
-    variables: {demodashStoreId: parseInt(demodashStore.id)}
+    variables: {demodashStoreId: demodashStoreId}
   });
   if (data) {
     const {demodashStoreInventory} = data;
@@ -121,7 +122,7 @@ const _Store = props => {
           </Flex>
         </LeftColumn>
         <RightColumn bg={checkoutDrawerOpen ? "whites.0" : "blues.3"}>
-          <Checkout />
+          <Checkout demodashStoreId={demodashStoreId} />
           {!checkoutDrawerOpen && (
             <>
               <MenuBar

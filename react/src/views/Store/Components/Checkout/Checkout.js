@@ -2,7 +2,7 @@ import {Flex} from "components";
 import React, {useState} from "react";
 import Header from "./Header";
 import Nav from "./Nav";
-import {Overview, Shipping, Billing, Confirm} from "./Sections";
+import {Overview, Shipping, Billing, Confirm, Success} from "./Sections";
 import Footer from "./Footer";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
@@ -33,8 +33,8 @@ const AnimatedFlex = styled(animated.div)`
 `;
 
 function Body(props) {
-  const {checkoutMaxIndex} = props;
-  const [currentIndex, setCurrentIndex] = useState(2);
+  const {demodashStoreId, checkoutMaxIndex} = props;
+  const [currentIndex, setCurrentIndex] = useState(4);
   return (
     <>
       <Header
@@ -62,6 +62,7 @@ function Body(props) {
       </Flex>
       <Footer
         flexGrow={0}
+        demodashStoreId={demodashStoreId}
         disabled={currentIndex >= checkoutMaxIndex}
         footer={props.footers[currentIndex]}
         flexBasis={"10vh"}
@@ -74,7 +75,12 @@ function Body(props) {
 }
 
 function _Checkout(props) {
-  const {checkoutDrawerOpen, checkoutMaxIndex} = props;
+  const {
+    checkoutSuccessful,
+    demodashStoreId,
+    checkoutDrawerOpen,
+    checkoutMaxIndex
+  } = props;
   const [currentIndex, setCurrentIndex] = useState(2);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
@@ -82,10 +88,13 @@ function _Checkout(props) {
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
+  console.log(checkoutSuccessful);
+  if (checkoutSuccessful) return <Success />;
   return (
     <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
       <AnimatedFlex style={tranformSpring}>
         <Body
+          demodashStoreId={demodashStoreId}
           disabled={currentIndex >= checkoutMaxIndex}
           footer={props.footers[currentIndex]}
           currentIndex={currentIndex}
@@ -99,7 +108,12 @@ function _Checkout(props) {
 }
 
 const Checkout = connect(
-  state => mapStateToProps(state, ["checkoutDrawerOpen", "checkoutMaxIndex"]),
+  state =>
+    mapStateToProps(state, [
+      "checkoutDrawerOpen",
+      "checkoutMaxIndex",
+      "checkoutSuccessful"
+    ]),
   null
 )(_Checkout);
 
@@ -107,6 +121,7 @@ export default props => (
   <Checkout
     headers={["Overview", "Shipping", "Billing", "Confirm"]}
     footers={r("Continue --> Confirm")}
+    {...props}
   >
     <Overview />
     <Shipping />

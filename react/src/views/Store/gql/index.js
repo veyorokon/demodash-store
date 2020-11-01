@@ -94,3 +94,27 @@ export const BRANDS = gql`
     }
   }
 `;
+
+export const CREATE_PURCHASE = gql`
+  mutation createPurchase(
+    $cartCheckouts: [Checkout]!
+    $billingForm: BillingForm!
+    $shippingForm: ShippingForm!
+    $demodashStoreId: Int!
+  ) {
+    createPurchase(
+      cartCheckouts: $cartCheckouts
+      billingForm: $billingForm
+      shippingForm: $shippingForm
+      demodashStoreId: $demodashStoreId
+    ) {
+      purchase {
+        id
+        receipt {
+          id
+          uid
+        }
+      }
+    }
+  }
+`;
