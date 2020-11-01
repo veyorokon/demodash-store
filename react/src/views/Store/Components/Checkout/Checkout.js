@@ -88,8 +88,15 @@ function _Checkout(props) {
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
-  console.log(checkoutSuccessful);
-  if (checkoutSuccessful) return <Success />;
+  if (checkoutSuccessful)
+    return (
+      <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
+        <AnimatedFlex style={tranformSpring}>
+          <Header header={"Success"} flexGrow={0} flexBasis={"10vh"} />
+          <Success />
+        </AnimatedFlex>
+      </Hide>
+    );
   return (
     <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
       <AnimatedFlex style={tranformSpring}>

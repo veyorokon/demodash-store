@@ -1,32 +1,41 @@
 import React from "react";
 import {Flex, Text} from "components";
+import ShippingIcon from "assets/icons/ShippingIcon";
 import {responsive as r} from "lib";
-
-function SuccessBody(props) {
-  return (
-    <Flex
-      transition="max-width 0.3s"
-      maxWidth={r("100% -----> 60rem")}
-      flexDirection="column"
-    >
-      <Flex flexDirection="column" flexGrow={0}>
-        <Text>Congrats!</Text>
-      </Flex>
-    </Flex>
-  );
-}
 
 function Success(props) {
   return (
     <Flex
-      pl={r("2 3 -> 4 5")}
-      pr={r("2 3 -> 4 5")}
-      w={"100%"}
+      p={2}
+      pt={4}
+      pb={4}
+      flexDirection="column"
       h={"100%"}
-      justifyContent="center"
-      transition="padding 0.3s"
+      justifyContent="space-between"
+      alignItems="center"
     >
-      <SuccessBody {...props} />
+      <Flex p={3} flexGrow={0} flexDirection="column" alignItems="center">
+        <Text textAlign="center" mt={2} fs={"2.4rem"} fw={600}>
+          Your payment was successful
+        </Text>
+        <Text
+          textAlign="center"
+          color="navys.0"
+          mt={2}
+          fs={r("1.8rem ---> 2rem")}
+        >
+          It'll be packaged and shipped to your door.
+        </Text>
+      </Flex>
+      <Flex p={3} alignItems="center" h={"fit-content"}>
+        <ShippingIcon />
+      </Flex>
+      <Flex p={3} flexGrow={0} flexDirection="column" alignItems="center">
+        <Text textAlign="center" color={"greys.0"} mt={2} fs={"1.6rem"}>
+          Thank you for your payment. You'll receive an email with your receipt
+          and tracking number.
+        </Text>
+      </Flex>
     </Flex>
   );
 }
