@@ -1,6 +1,6 @@
 import React from "react";
 import {Flex, Text} from "components";
-import ShippingIcon from "assets/icons/ShippingIcon";
+import OrderConfirmed from "assets/icons/OrderConfirmed";
 import {responsive as r} from "lib";
 
 function Success(props) {
@@ -28,7 +28,7 @@ function Success(props) {
         </Text>
       </Flex>
       <Flex p={3} alignItems="center" h={"fit-content"}>
-        <ShippingIcon />
+        <OrderConfirmed />
       </Flex>
       <Flex p={3} flexGrow={0} flexDirection="column" alignItems="center">
         <Text textAlign="center" color={"greys.0"} mt={2} fs={"1.6rem"}>

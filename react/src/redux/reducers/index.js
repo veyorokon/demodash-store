@@ -112,7 +112,6 @@ const PRODUCT_ONE = {
 
 const initialState = {
   navOpen: false,
-  checkoutDrawerOpen: true,
   cart: {}, //{...PRODUCT_ONE},
   shippingForm: {
     name: "Vahid Eyorokon",
@@ -130,6 +129,7 @@ const initialState = {
     cardExpirationYear: "2022",
     cvc: "123"
   },
+  checkoutDrawerOpen: true,
   checkoutIndex: 0,
   checkoutMaxIndex: 2,
   checkoutSuccessful: false
