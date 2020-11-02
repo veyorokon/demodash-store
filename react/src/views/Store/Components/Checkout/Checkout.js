@@ -1,8 +1,8 @@
-import {Flex, Text} from "components";
+import {Flex} from "components";
 import React from "react";
 import Header from "./Header";
 import Nav from "./Nav";
-import {Overview, Shipping, Billing, Confirm, Success} from "./Sections";
+import {Overview, Shipping, Billing, Confirm, Success, Empty} from "./Sections";
 import Footer from "./Footer";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
@@ -97,11 +97,11 @@ function _Checkout(props) {
         <AnimatedFlex style={tranformSpring}>
           <Header
             wasSuccessful={checkoutSuccessful}
-            header={"Nothing to see here..."}
+            header={""}
             flexGrow={0}
             flexBasis={"10vh"}
           />
-          <Text>Empty</Text>
+          <Empty />
         </AnimatedFlex>
       </Hide>
     );

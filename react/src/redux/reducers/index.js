@@ -113,7 +113,7 @@ const PRODUCT_ONE = {
 const initialState = {
   navOpen: false,
   checkoutDrawerOpen: true,
-  cart: {...PRODUCT_ONE},
+  cart: {}, //{...PRODUCT_ONE},
   shippingForm: {
     name: "Vahid Eyorokon",
     addressLine1: "123 test street",

@@ -8,6 +8,7 @@ import {
   setCheckoutSuccessful,
   clearCart
 } from "redux/actions";
+import {responsive as r} from "lib";
 
 function _Header(props) {
   const {
@@ -45,7 +46,7 @@ function _Header(props) {
       >
         <CloseCircle />
       </Icon>
-      <Text fs={3} ml="auto" mr="auto">
+      <Text fs={r("2 -> 3")} ml="auto" mr="auto">
         {props.header}
       </Text>
     </Flex>
