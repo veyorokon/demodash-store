@@ -36,8 +36,8 @@ function _Header(props) {
             setCheckoutSuccessful({
               checkoutSuccessful: false
             });
+            clearCart();
           }
-          clearCart();
           toggleCheckoutDrawer();
         }}
         h={"3.6rem"}

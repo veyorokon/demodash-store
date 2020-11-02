@@ -85,7 +85,7 @@ function _Footer(props) {
         cursor={"pointer"}
         onClick={() => {
           let nextIndex = checkoutIndex + 1;
-          if (nextIndex < props.maxLength) {
+          if (cartCheckouts.length && nextIndex < props.maxLength) {
             setCheckoutIndex({checkoutIndex: nextIndex % props.maxLength});
           } else {
             const variables = {

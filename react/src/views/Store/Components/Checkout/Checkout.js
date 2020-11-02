@@ -1,4 +1,4 @@
-import {Flex} from "components";
+import {Flex, Text} from "components";
 import React from "react";
 import Header from "./Header";
 import Nav from "./Nav";
@@ -31,6 +31,16 @@ const AnimatedFlex = styled(animated.div)`
   width: 100%;
   display: flex;
 `;
+
+function calculateCartTotal(cart) {
+  let amount = 0;
+  for (const [, checkoutItem] of Object.entries(cart)) {
+    for (const [, item] of Object.entries(checkoutItem)) {
+      amount += item.amount;
+    }
+  }
+  return amount;
+}
 
 function Body(props) {
   const {demodashStoreId, checkoutMaxIndex, checkoutIndex} = props;
@@ -72,7 +82,8 @@ function _Checkout(props) {
     demodashStoreId,
     checkoutDrawerOpen,
     checkoutMaxIndex,
-    checkoutIndex
+    checkoutIndex,
+    cart
   } = props;
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
@@ -80,7 +91,21 @@ function _Checkout(props) {
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
-  if (checkoutSuccessful)
+  if (!calculateCartTotal(cart)) {
+    return (
+      <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
+        <AnimatedFlex style={tranformSpring}>
+          <Header
+            wasSuccessful={checkoutSuccessful}
+            header={"Nothing to see here..."}
+            flexGrow={0}
+            flexBasis={"10vh"}
+          />
+          <Text>Empty</Text>
+        </AnimatedFlex>
+      </Hide>
+    );
+  } else if (checkoutSuccessful)
     return (
       <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
         <AnimatedFlex style={tranformSpring}>
@@ -116,7 +141,8 @@ const Checkout = connect(
       "checkoutDrawerOpen",
       "checkoutMaxIndex",
       "checkoutSuccessful",
-      "checkoutIndex"
+      "checkoutIndex",
+      "cart"
     ]),
   null
 )(_Checkout);
