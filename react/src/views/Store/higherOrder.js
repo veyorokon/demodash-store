@@ -10,6 +10,7 @@ export default WrappedComponent => {
     let {data, loading: demodashStoreLoading} = useQuery(DEMODASH_STORE, {
       variables: {handle: getDemoerHandle()}
     });
+    if (demodashStoreLoading) return <Loading />;
     if (data) {
       const {demodashStore} = data;
       return (
@@ -18,7 +19,6 @@ export default WrappedComponent => {
         </Section>
       );
     }
-    if (demodashStoreLoading) return <Loading />;
     return <NotFound />;
   };
 };
