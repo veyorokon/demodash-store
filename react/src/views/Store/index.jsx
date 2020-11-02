@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, Box, Svg, LogoIcon} from "components";
+import {Text, Svg, LogoIcon} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex} from "components";
 import {
@@ -8,7 +8,8 @@ import {
   MobileBrandsNav,
   BrandInventory,
   StoreDescription,
-  Footer
+  Footer,
+  Loading
 } from "./Sections";
 import {Checkout} from "./Components";
 import {API_MEDIA} from "api";
@@ -136,7 +137,7 @@ const _Store = props => {
       </Flex>
     );
   }
-  return <Box>Loading brands</Box>;
+  return <Loading />;
 };
 
 const Store = connect(

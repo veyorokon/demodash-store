@@ -6,10 +6,11 @@ import {responsive as r} from "lib";
 
 function Success(props) {
   return (
-    <Flex flexDirection="column" h={"100vh"} pt={3}>
+    <Flex bg="blues.3" flexDirection="column" h={"100vh"} pt={3}>
       <Flex>
         <Flex display={r("none -----> flex")} flexGrow={0}>
           <Flex
+            bg="whites.0"
             p={4}
             h={"100%"}
             w="fit-content"
