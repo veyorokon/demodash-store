@@ -114,7 +114,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 const Footer = connect(
-  state => mapStateToProps(state, ["cart", "billingForm", "shippingForm"]),
+  state =>
+    mapStateToProps(state, [
+      "cart",
+      "billingForm",
+      "shippingForm",
+      "checkoutIndex"
+    ]),
   mapDispatchToProps
 )(_Footer);
 

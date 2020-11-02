@@ -41,11 +41,7 @@ function Body(props) {
         flexGrow={0}
         flexBasis={"10vh"}
       />
-      <Nav
-        checkoutMaxIndex={checkoutMaxIndex}
-        checkoutIndex={checkoutIndex}
-        flexBasis={"5vh"}
-      />
+      <Nav checkoutMaxIndex={checkoutMaxIndex} flexBasis={"5vh"} />
       <Flex flexBasis={"55vh"}>
         {props.children.map((component, index) => (
           <Flex
@@ -64,7 +60,6 @@ function Body(props) {
         disabled={checkoutIndex >= checkoutMaxIndex}
         footer={props.footers[checkoutIndex]}
         flexBasis={"10vh"}
-        checkoutIndex={checkoutIndex}
         maxLength={props.children.length}
       />
     </>
@@ -85,6 +80,7 @@ function _Checkout(props) {
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
+  console.log(checkoutIndex);
   if (checkoutSuccessful)
     return (
       <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
@@ -106,7 +102,7 @@ function _Checkout(props) {
           demodashStoreId={demodashStoreId}
           disabled={checkoutIndex >= checkoutMaxIndex}
           footer={props.footers[checkoutIndex]}
-          currentIndex={checkoutIndex}
+          checkoutIndex={checkoutIndex}
           maxLength={props.children.length}
           {...props}
         />
