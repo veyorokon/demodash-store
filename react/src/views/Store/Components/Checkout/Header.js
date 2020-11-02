@@ -59,7 +59,9 @@ function _Header(props) {
           color="oranges.1"
           onClick={() => {
             const conf = window.confirm("Empty your cart?");
-            if (conf) clearCart();
+            if (conf) {
+              clearCart();
+            }
           }}
           h={"3rem"}
           w={"3rem"}
