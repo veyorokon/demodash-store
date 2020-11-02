@@ -1,5 +1,5 @@
 import {Flex} from "components";
-import React, {useState} from "react";
+import React from "react";
 import Header from "./Header";
 import Nav from "./Nav";
 import {Overview, Shipping, Billing, Confirm, Success} from "./Sections";
@@ -33,29 +33,27 @@ const AnimatedFlex = styled(animated.div)`
 `;
 
 function Body(props) {
-  const {demodashStoreId, checkoutMaxIndex} = props;
-  const [currentIndex, setCurrentIndex] = useState(4);
+  const {demodashStoreId, checkoutMaxIndex, checkoutIndex} = props;
   return (
     <>
       <Header
-        header={props.headers[currentIndex]}
+        header={props.headers[checkoutIndex]}
         flexGrow={0}
         flexBasis={"10vh"}
       />
       <Nav
         checkoutMaxIndex={checkoutMaxIndex}
-        handleUpdateIndex={setCurrentIndex}
-        currentIndex={currentIndex}
+        checkoutIndex={checkoutIndex}
         flexBasis={"5vh"}
       />
       <Flex flexBasis={"55vh"}>
         {props.children.map((component, index) => (
           <Flex
-            w={currentIndex === index ? "100%" : "0"}
-            h={currentIndex === index ? "100%" : "0"}
+            w={checkoutIndex === index ? "100%" : "0"}
+            h={checkoutIndex === index ? "100%" : "0"}
             key={index}
           >
-            {currentIndex === index &&
+            {checkoutIndex === index &&
               React.cloneElement(component, {index: index})}
           </Flex>
         ))}
@@ -63,11 +61,10 @@ function Body(props) {
       <Footer
         flexGrow={0}
         demodashStoreId={demodashStoreId}
-        disabled={currentIndex >= checkoutMaxIndex}
-        footer={props.footers[currentIndex]}
+        disabled={checkoutIndex >= checkoutMaxIndex}
+        footer={props.footers[checkoutIndex]}
         flexBasis={"10vh"}
-        currentIndex={currentIndex}
-        setCurrentIndex={setCurrentIndex}
+        checkoutIndex={checkoutIndex}
         maxLength={props.children.length}
       />
     </>
@@ -79,9 +76,9 @@ function _Checkout(props) {
     checkoutSuccessful,
     demodashStoreId,
     checkoutDrawerOpen,
-    checkoutMaxIndex
+    checkoutMaxIndex,
+    checkoutIndex
   } = props;
-  const [currentIndex, setCurrentIndex] = useState(2);
   const tranformSpring = useSpring({
     transform: checkoutDrawerOpen
       ? "translate3d(0, 0px, 0px)"
@@ -92,7 +89,12 @@ function _Checkout(props) {
     return (
       <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
         <AnimatedFlex style={tranformSpring}>
-          <Header header={"Success"} flexGrow={0} flexBasis={"10vh"} />
+          <Header
+            wasSuccessful={checkoutSuccessful}
+            header={"Success"}
+            flexGrow={0}
+            flexBasis={"10vh"}
+          />
           <Success />
         </AnimatedFlex>
       </Hide>
@@ -102,10 +104,9 @@ function _Checkout(props) {
       <AnimatedFlex style={tranformSpring}>
         <Body
           demodashStoreId={demodashStoreId}
-          disabled={currentIndex >= checkoutMaxIndex}
-          footer={props.footers[currentIndex]}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
+          disabled={checkoutIndex >= checkoutMaxIndex}
+          footer={props.footers[checkoutIndex]}
+          currentIndex={checkoutIndex}
           maxLength={props.children.length}
           {...props}
         />
@@ -119,7 +120,8 @@ const Checkout = connect(
     mapStateToProps(state, [
       "checkoutDrawerOpen",
       "checkoutMaxIndex",
-      "checkoutSuccessful"
+      "checkoutSuccessful",
+      "checkoutIndex"
     ]),
   null
 )(_Checkout);

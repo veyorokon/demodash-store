@@ -4,6 +4,7 @@ import {useMutation} from "@apollo/client";
 import styled from "styled-components";
 import {mapStateToProps, responsive as r} from "lib";
 import {connect} from "react-redux";
+import {setCheckoutIndex, setCheckoutSuccessful} from "redux/actions";
 import {CREATE_PURCHASE} from "views/Store/gql";
 
 const CheckoutButton = styled(Button)`
@@ -40,7 +41,15 @@ function formatCheckouts(cart) {
 }
 
 function _Footer(props) {
-  const {cart, demodashStoreId, billingForm, shippingForm} = props;
+  const {
+    cart,
+    demodashStoreId,
+    billingForm,
+    shippingForm,
+    checkoutIndex,
+    setCheckoutIndex,
+    setCheckoutSuccessful
+  } = props;
   const [
     createPurchase,
     {
@@ -48,10 +57,14 @@ function _Footer(props) {
       data
     }
   ] = useMutation(CREATE_PURCHASE);
-  let disabled = props.disabled && props.currentIndex !== props.maxLength - 1;
+  let disabled = props.disabled && checkoutIndex !== props.maxLength - 1;
   disabled = disabled || (mutationLoading || data !== undefined);
   const cartCheckouts = formatCheckouts(cart);
-  //If data exists -> show successs page
+  if (data) {
+    setCheckoutSuccessful({
+      checkoutSuccessful: true
+    });
+  }
   return (
     <Flex
       pl={r("2 3 -> 4 5")}
@@ -71,9 +84,9 @@ function _Footer(props) {
         transition="background 0.3s"
         cursor={"pointer"}
         onClick={() => {
-          let nextIndex = props.currentIndex + 1;
+          let nextIndex = checkoutIndex + 1;
           if (nextIndex < props.maxLength) {
-            props.setCurrentIndex(nextIndex % props.maxLength);
+            setCheckoutIndex({checkoutIndex: nextIndex % props.maxLength});
           } else {
             const variables = {
               cartCheckouts,
@@ -93,9 +106,16 @@ function _Footer(props) {
   );
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    setCheckoutIndex: payload => dispatch(setCheckoutIndex(payload)),
+    setCheckoutSuccessful: payload => dispatch(setCheckoutSuccessful(payload))
+  };
+}
+
 const Footer = connect(
   state => mapStateToProps(state, ["cart", "billingForm", "shippingForm"]),
-  null
+  mapDispatchToProps
 )(_Footer);
 
 export default Footer;

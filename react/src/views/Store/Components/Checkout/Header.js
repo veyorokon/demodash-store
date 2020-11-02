@@ -2,10 +2,14 @@ import {Flex, Text, Icon} from "components";
 import React from "react";
 import {CloseCircle} from "@styled-icons/ionicons-outline/CloseCircle";
 import {connect} from "react-redux";
-import {toggleCheckoutDrawer} from "redux/actions";
+import {
+  setCheckoutIndex,
+  toggleCheckoutDrawer,
+  setCheckoutSuccessful
+} from "redux/actions";
 
-function _Footer(props) {
-  const {toggleCheckoutDrawer} = props;
+function _Header(props) {
+  const {toggleCheckoutDrawer, setCheckoutSuccessful, wasSuccessful} = props;
   return (
     <Flex
       position="relative"
@@ -19,7 +23,15 @@ function _Footer(props) {
         position="absolute"
         left={"5%"}
         cursor="pointer"
-        onClick={() => toggleCheckoutDrawer()}
+        onClick={() => {
+          setCheckoutIndex({checkoutIndex: 0});
+          if (wasSuccessful) {
+            setCheckoutSuccessful({
+              checkoutSuccessful: false
+            });
+          }
+          toggleCheckoutDrawer();
+        }}
         h={"3.6rem"}
         w={"3.6rem"}
       >
@@ -34,11 +46,13 @@ function _Footer(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleCheckoutDrawer: () => dispatch(toggleCheckoutDrawer())
+    toggleCheckoutDrawer: () => dispatch(toggleCheckoutDrawer()),
+    setCheckoutSuccessful: payload => dispatch(setCheckoutSuccessful(payload)),
+    setCheckoutIndex: payload => dispatch(setCheckoutIndex(payload))
   };
 }
 
 export default connect(
   null,
   mapDispatchToProps
-)(_Footer);
+)(_Header);

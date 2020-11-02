@@ -8,13 +8,7 @@ export default props => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g
-      id="Page-1"
-      stroke="none"
-      stroke-width="1"
-      fill="none"
-      fill-rule="evenodd"
-    >
+    <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="Artboard" transform="translate(-374.000000, -649.000000)">
         <g id="Group-5" transform="translate(371.000000, 631.000000)">
           <g
@@ -86,8 +80,8 @@ export default props => (
               y2="149.481655"
               id="Path"
               stroke="#FED385"
-              stroke-width="5"
-              stroke-linecap="round"
+              strokeWidth="5"
+              strokeLinecap="round"
             ></line>
             <line
               x1="141.406877"
@@ -96,14 +90,14 @@ export default props => (
               y2="118.482513"
               id="Path"
               stroke="#FED385"
-              stroke-width="5"
-              stroke-linecap="round"
+              strokeWidth="5"
+              strokeLinecap="round"
             ></line>
             <g
               id="Group-2"
               transform="translate(108.312321, 0.000000)"
               fill="#FD8369"
-              fill-rule="nonzero"
+              fillRule="nonzero"
             >
               <ellipse
                 id="Oval"
@@ -122,7 +116,7 @@ export default props => (
             <ellipse
               id="Oval"
               fill="#74D5DE"
-              fill-rule="nonzero"
+              fillRule="nonzero"
               transform="translate(253.849515, 102.226945) rotate(-64.050000) translate(-253.849515, -102.226945) "
               cx="253.849515"
               cy="102.226945"
@@ -133,7 +127,7 @@ export default props => (
               id="Group"
               transform="translate(98.442221, 110.127387) rotate(-35.000000) translate(-98.442221, -110.127387) translate(31.250244, 34.627387)"
               fill="#FED385"
-              fill-rule="nonzero"
+              fillRule="nonzero"
             >
               <ellipse
                 id="Oval"
@@ -155,19 +149,19 @@ export default props => (
               y2="105.483429"
               id="Path"
               stroke="#FED385"
-              stroke-width="5"
-              stroke-linecap="round"
+              strokeWidth="5"
+              strokeLinecap="round"
             ></line>
             <path
               d="M220.626895,163.815565 L219.493056,179.535214 C219.429562,180.480311 218.847526,181.319765 217.96838,181.734211 C217.089235,182.148658 216.048134,182.074381 215.241159,181.539641 L201.776818,172.725654 C200.969344,172.198743 200.514001,171.294101 200.582743,170.353357 C200.651486,169.412614 201.233839,168.579121 202.109883,168.167642 L216.729323,161.26198 C217.602359,160.853873 218.633602,160.92646 219.436561,161.452537 C220.23952,161.978614 220.692943,162.87874 220.626895,163.815565 Z"
               id="Path"
               fill="#74D5DE"
-              fill-rule="nonzero"
+              fillRule="nonzero"
             ></path>
             <g
               id="Box"
               transform="translate(3.011461, 221.000000)"
-              fill-rule="nonzero"
+              fillRule="nonzero"
             >
               <polygon
                 id="Rectangle"

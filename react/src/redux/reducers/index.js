@@ -4,7 +4,9 @@ import {
   TOGGLE_CHECKOUT_DRAWER,
   UPDATE_SHIPPING_FORM,
   UPDATE_BILLING_FORM,
-  UPDATE_CHECKOUT_MAX_INDEX
+  UPDATE_CHECKOUT_MAX_INDEX,
+  SET_CHECKOUT_SUCCESSFUL,
+  SET_CHECKOUT_INDEX
 } from "redux/constants";
 
 const PRODUCT_ONE = {
@@ -127,8 +129,9 @@ const initialState = {
     cardExpirationYear: "2022",
     cvc: "123"
   },
+  checkoutIndex: 0,
   checkoutMaxIndex: 2,
-  checkoutSuccessful: true
+  checkoutSuccessful: false
 };
 
 function sortKeys(dict) {
@@ -265,6 +268,17 @@ export default function rootReducer(state = initialState, action) {
     case UPDATE_CHECKOUT_MAX_INDEX:
       const {checkoutMaxIndex} = payload;
       return updateState(state, ["checkoutMaxIndex"], checkoutMaxIndex, true);
+    case SET_CHECKOUT_SUCCESSFUL:
+      const {checkoutSuccessful} = payload;
+      return updateState(
+        state,
+        ["checkoutSuccessful"],
+        checkoutSuccessful,
+        true
+      );
+    case SET_CHECKOUT_INDEX:
+      const {checkoutIndex} = payload;
+      return updateState(state, ["checkoutIndex"], checkoutIndex, true);
     default:
       return state;
   }

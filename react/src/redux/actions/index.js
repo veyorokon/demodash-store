@@ -3,7 +3,9 @@ import {
   TOGGLE_CHECKOUT_DRAWER,
   UPDATE_SHIPPING_FORM,
   UPDATE_BILLING_FORM,
-  UPDATE_CHECKOUT_MAX_INDEX
+  UPDATE_CHECKOUT_MAX_INDEX,
+  SET_CHECKOUT_SUCCESSFUL,
+  SET_CHECKOUT_INDEX
 } from "redux/constants";
 
 export function updateCart(payload) {
@@ -33,5 +35,17 @@ export function updateBillingForm(payload) {
 export function updateCheckoutMaxIndex(payload) {
   return function(dispatch) {
     return dispatch({type: UPDATE_CHECKOUT_MAX_INDEX, payload: payload});
+  };
+}
+
+export function setCheckoutSuccessful(payload) {
+  return function(dispatch) {
+    return dispatch({type: SET_CHECKOUT_SUCCESSFUL, payload: payload});
+  };
+}
+
+export function setCheckoutIndex(payload) {
+  return function(dispatch) {
+    return dispatch({type: SET_CHECKOUT_INDEX, payload: payload});
   };
 }
