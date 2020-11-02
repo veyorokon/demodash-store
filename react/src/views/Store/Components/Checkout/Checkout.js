@@ -80,7 +80,6 @@ function _Checkout(props) {
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
-  console.log(checkoutIndex);
   if (checkoutSuccessful)
     return (
       <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>

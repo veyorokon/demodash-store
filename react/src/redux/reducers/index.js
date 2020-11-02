@@ -6,7 +6,8 @@ import {
   UPDATE_BILLING_FORM,
   UPDATE_CHECKOUT_MAX_INDEX,
   SET_CHECKOUT_SUCCESSFUL,
-  SET_CHECKOUT_INDEX
+  SET_CHECKOUT_INDEX,
+  CLEAR_CART
 } from "redux/constants";
 
 const PRODUCT_ONE = {
@@ -279,6 +280,11 @@ export default function rootReducer(state = initialState, action) {
     case SET_CHECKOUT_INDEX:
       const {checkoutIndex} = payload;
       return updateState(state, ["checkoutIndex"], checkoutIndex, true);
+    case CLEAR_CART:
+      newState = updateState(state, ["cart"], {}, false);
+      newState = updateState(newState, ["shippingForm"], {}, false);
+      newState = updateState(newState, ["billingForm"], {}, false);
+      return Object.assign({}, state, newState);
     default:
       return state;
   }

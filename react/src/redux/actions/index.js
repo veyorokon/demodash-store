@@ -5,7 +5,8 @@ import {
   UPDATE_BILLING_FORM,
   UPDATE_CHECKOUT_MAX_INDEX,
   SET_CHECKOUT_SUCCESSFUL,
-  SET_CHECKOUT_INDEX
+  SET_CHECKOUT_INDEX,
+  CLEAR_CART
 } from "redux/constants";
 
 export function updateCart(payload) {
@@ -47,5 +48,11 @@ export function setCheckoutSuccessful(payload) {
 export function setCheckoutIndex(payload) {
   return function(dispatch) {
     return dispatch({type: SET_CHECKOUT_INDEX, payload: payload});
+  };
+}
+
+export function clearCart(payload) {
+  return function(dispatch) {
+    return dispatch({type: CLEAR_CART, payload: {}});
   };
 }

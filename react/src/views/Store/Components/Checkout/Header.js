@@ -5,7 +5,8 @@ import {connect} from "react-redux";
 import {
   setCheckoutIndex,
   toggleCheckoutDrawer,
-  setCheckoutSuccessful
+  setCheckoutSuccessful,
+  clearCart
 } from "redux/actions";
 
 function _Header(props) {
@@ -13,7 +14,8 @@ function _Header(props) {
     toggleCheckoutDrawer,
     setCheckoutIndex,
     setCheckoutSuccessful,
-    wasSuccessful
+    wasSuccessful,
+    clearCart
   } = props;
   return (
     <Flex
@@ -35,6 +37,7 @@ function _Header(props) {
               checkoutSuccessful: false
             });
           }
+          clearCart();
           toggleCheckoutDrawer();
         }}
         h={"3.6rem"}
@@ -53,7 +56,8 @@ function mapDispatchToProps(dispatch) {
   return {
     toggleCheckoutDrawer: () => dispatch(toggleCheckoutDrawer()),
     setCheckoutSuccessful: payload => dispatch(setCheckoutSuccessful(payload)),
-    setCheckoutIndex: payload => dispatch(setCheckoutIndex(payload))
+    setCheckoutIndex: payload => dispatch(setCheckoutIndex(payload)),
+    clearCart: () => dispatch(clearCart())
   };
 }
 

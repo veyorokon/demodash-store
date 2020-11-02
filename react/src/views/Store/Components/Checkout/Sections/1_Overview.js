@@ -37,7 +37,6 @@ function _Overview(props) {
   if (!isEmpty(cart)) {
     cartItems = getCartItems(cart);
     cartTotal = getCartTotal(cartItems);
-    // console.log(cartItems);
   }
   return (
     <Flex
