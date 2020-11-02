@@ -4,6 +4,9 @@ import Nav from "./Nav";
 import MenuBar from "./MenuBar";
 import MobileBrandsNav from "./MobileBrandsNav";
 import StoreDescription from "./StoreDescription";
+import NotFound from "./NotFound";
+import Loading from "./Loading";
+import Footer from "./Footer";
 
 export {
   BrandInventory,
@@ -11,5 +14,8 @@ export {
   Nav,
   MenuBar,
   MobileBrandsNav,
-  StoreDescription
+  StoreDescription,
+  NotFound,
+  Loading,
+  Footer
 };

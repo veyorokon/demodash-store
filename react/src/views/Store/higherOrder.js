@@ -1,16 +1,13 @@
 import React from "react";
-import {Section, Box} from "components";
+import {Section} from "components";
+import {NotFound, Loading} from "./Sections";
 import {useQuery} from "@apollo/client";
 import {DEMODASH_STORE} from "views/Store/gql";
 import {getDemoerHandle} from "lib";
 
 export default WrappedComponent => {
   return () => {
-    let {
-      data
-      // error: demodashStoreError,
-      // loading: demodashStoreLoading
-    } = useQuery(DEMODASH_STORE, {
+    let {data, loading: demodashStoreLoading} = useQuery(DEMODASH_STORE, {
       variables: {handle: getDemoerHandle()}
     });
     if (data) {
@@ -21,6 +18,7 @@ export default WrappedComponent => {
         </Section>
       );
     }
-    return <Box>Test</Box>;
+    if (demodashStoreLoading) return <Loading />;
+    return <NotFound />;
   };
 };

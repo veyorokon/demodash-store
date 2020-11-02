@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, Box, Svg, LogoIcon, Link} from "components";
+import {Text, Box, Svg, LogoIcon} from "components";
 import {LeftColumn, RightColumn} from "./layout";
 import {Flex} from "components";
 import {
@@ -7,7 +7,8 @@ import {
   MenuBar,
   MobileBrandsNav,
   BrandInventory,
-  StoreDescription
+  StoreDescription,
+  Footer
 } from "./Sections";
 import {Checkout} from "./Components";
 import {API_MEDIA} from "api";
@@ -38,43 +39,6 @@ const Brand = props => {
     </Flex>
   );
 };
-
-const Footer = props => (
-  <Flex
-    mb={4}
-    alignItems={"flex-end"}
-    w={"fit-content"}
-    ml={"auto"}
-    mr={"auto"}
-    flexGrow={0}
-    {...props}
-  >
-    <Link target="_blank" mr={3} h="fit-content" href="https://demodash.com">
-      <Text hoverColor={"#212C39"} fw={500} color="navys.2">
-        &copy; demodash
-      </Text>
-    </Link>
-    <Link
-      target="_blank"
-      mr={3}
-      h="fit-content"
-      href="https://demodash.com/legal/privacy"
-    >
-      <Text hoverColor={"#212C39"} fw={500} color="navys.2">
-        Privacy
-      </Text>
-    </Link>
-    <Link
-      target="_blank"
-      h="fit-content"
-      href="https://demodash.com/legal/terms"
-    >
-      <Text hoverColor={"#212C39"} fw={500} color="navys.2">
-        Terms
-      </Text>
-    </Link>
-  </Flex>
-);
 
 const _Store = props => {
   const {demodashStore, checkoutDrawerOpen} = props;
