@@ -15,7 +15,7 @@ const initialState = {
   cart: {},
   shippingForm: {},
   billingForm: {},
-  checkoutDrawerOpen: true,
+  checkoutDrawerOpen: false,
   checkoutIndex: 0,
   checkoutMaxIndex: 1,
   checkoutSuccessful: false
