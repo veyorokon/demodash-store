@@ -99,7 +99,7 @@ function _Footer(props) {
         }}
       >
         <Text color="whites.0" fs={3} ml="auto" mr="auto">
-          {disabled ? "Loading..." : props.footer}
+          {disabled && mutationLoading ? "Loading..." : props.footer}
         </Text>
       </CheckoutButton>
     </Flex>

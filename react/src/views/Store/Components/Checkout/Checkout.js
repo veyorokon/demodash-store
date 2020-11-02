@@ -96,6 +96,7 @@ function _Checkout(props) {
       <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
         <AnimatedFlex style={tranformSpring}>
           <Header
+            isEmpty
             wasSuccessful={checkoutSuccessful}
             header={""}
             flexGrow={0}

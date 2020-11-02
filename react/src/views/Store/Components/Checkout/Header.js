@@ -1,6 +1,7 @@
 import {Flex, Text, Icon} from "components";
 import React from "react";
 import {CloseCircle} from "@styled-icons/ionicons-outline/CloseCircle";
+import {Trash} from "@styled-icons/octicons/Trash";
 import {connect} from "react-redux";
 import {
   setCheckoutIndex,
@@ -16,7 +17,8 @@ function _Header(props) {
     setCheckoutIndex,
     setCheckoutSuccessful,
     wasSuccessful,
-    clearCart
+    clearCart,
+    isEmpty
   } = props;
   return (
     <Flex
@@ -49,6 +51,22 @@ function _Header(props) {
       <Text fs={r("2 -> 3")} ml="auto" mr="auto">
         {props.header}
       </Text>
+      {!isEmpty && (
+        <Icon
+          position="absolute"
+          right={"5%"}
+          cursor="pointer"
+          color="oranges.1"
+          onClick={() => {
+            const conf = window.confirm("Empty your cart?");
+            if (conf) clearCart();
+          }}
+          h={"3rem"}
+          w={"3rem"}
+        >
+          <Trash />
+        </Icon>
+      )}
     </Flex>
   );
 }

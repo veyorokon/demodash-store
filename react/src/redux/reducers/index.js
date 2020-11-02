@@ -112,7 +112,7 @@ const PRODUCT_ONE = {
 
 const initialState = {
   navOpen: false,
-  cart: {}, //{...PRODUCT_ONE},
+  cart: {...PRODUCT_ONE}, //{...PRODUCT_ONE},
   shippingForm: {
     name: "Vahid Eyorokon",
     addressLine1: "123 test street",
@@ -124,13 +124,13 @@ const initialState = {
     country: "US"
   },
   billingForm: {
-    cardNumber: "4242424242424242",
-    cardExpirationMonth: "12",
-    cardExpirationYear: "2022",
-    cvc: "123"
+    // cardNumber: "4242424242424242",
+    // cardExpirationMonth: "12",
+    // cardExpirationYear: "2022",
+    // cvc: "123"
   },
   checkoutDrawerOpen: true,
-  checkoutIndex: 0,
+  checkoutIndex: 2,
   checkoutMaxIndex: 2,
   checkoutSuccessful: false
 };
