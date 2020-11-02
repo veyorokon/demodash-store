@@ -9,7 +9,12 @@ import {
 } from "redux/actions";
 
 function _Header(props) {
-  const {toggleCheckoutDrawer, setCheckoutSuccessful, wasSuccessful} = props;
+  const {
+    toggleCheckoutDrawer,
+    setCheckoutIndex,
+    setCheckoutSuccessful,
+    wasSuccessful
+  } = props;
   return (
     <Flex
       position="relative"
