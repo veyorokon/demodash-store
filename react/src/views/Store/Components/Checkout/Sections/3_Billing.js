@@ -59,8 +59,7 @@ function _Form(props) {
               if (!isNaN(val.replace(/\s/g, ""))) {
                 updateBillingForm({
                   ...billingForm,
-                  cardNumber: val.replace(/\s/g, ""),
-                  errorFields: errorFields
+                  cardNumber: val.replace(/\s/g, "")
                 });
               }
               if (!errorFields.length)
@@ -107,8 +106,7 @@ function _Form(props) {
               if (!isNaN(val.replace(/\s/g, ""))) {
                 updateBillingForm({
                   ...billingForm,
-                  cardExpirationMonth: val,
-                  errorFields: errorFields
+                  cardExpirationMonth: val
                 });
               }
               if (!errorFields.length)
@@ -150,8 +148,7 @@ function _Form(props) {
               if (!isNaN(val.replace(/\s/g, ""))) {
                 updateBillingForm({
                   ...billingForm,
-                  cardExpirationYear: val,
-                  errorFields: errorFields
+                  cardExpirationYear: val
                 });
               }
               if (!errorFields.length)
@@ -192,8 +189,7 @@ function _Form(props) {
               if (!isNaN(val.replace(/\s/g, ""))) {
                 updateBillingForm({
                   ...billingForm,
-                  cvc: val,
-                  errorFields: errorFields
+                  cvc: val
                 });
               }
               if (!errorFields.length)

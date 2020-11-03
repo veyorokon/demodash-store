@@ -51,7 +51,7 @@ function _Header(props) {
       <Text fs={r("2 -> 3")} ml="auto" mr="auto">
         {props.header}
       </Text>
-      {!isEmpty && (
+      {!isEmpty && !wasSuccessful && (
         <Icon
           position="absolute"
           right={"5%"}

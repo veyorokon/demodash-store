@@ -57,8 +57,7 @@ function _Form(props) {
               //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
-                name: getEventVal(evt),
-                errorFields: errorFields
+                name: getEventVal(evt)
               });
               if (!errorFields.length)
                 updateCheckoutMaxIndex({
@@ -100,8 +99,7 @@ function _Form(props) {
               //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
-                email: getEventVal(evt),
-                errorFields: errorFields
+                email: getEventVal(evt)
               });
               if (!errorFields.length)
                 updateCheckoutMaxIndex({
@@ -141,8 +139,7 @@ function _Form(props) {
               //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
-                addressLine1: getEventVal(evt),
-                errorFields: errorFields
+                addressLine1: getEventVal(evt)
               });
               if (!errorFields.length)
                 updateCheckoutMaxIndex({
@@ -197,8 +194,7 @@ function _Form(props) {
               //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
-                city: getEventVal(evt),
-                errorFields: errorFields
+                city: getEventVal(evt)
               });
               if (!errorFields.length)
                 updateCheckoutMaxIndex({
@@ -247,8 +243,7 @@ function _Form(props) {
               //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
-                state: getEventVal(evt),
-                errorFields: errorFields
+                state: getEventVal(evt)
               });
               if (!errorFields.length)
                 updateCheckoutMaxIndex({
@@ -292,8 +287,7 @@ function _Form(props) {
               //checkRequiredFields
               updateShippingForm({
                 ...shippingForm,
-                zip: getEventVal(evt),
-                errorFields: errorFields
+                zip: getEventVal(evt)
               });
               if (!errorFields.length)
                 updateCheckoutMaxIndex({

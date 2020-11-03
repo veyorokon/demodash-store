@@ -113,9 +113,23 @@ const PRODUCT_ONE = {
 const initialState = {
   navOpen: false,
   cart: {...PRODUCT_ONE},
-  shippingForm: {},
-  billingForm: {},
-  checkoutDrawerOpen: true,
+  shippingForm: {
+    name: "Vahid Eyorokon",
+    addressLine1: "123 test street",
+    addressLine2: "",
+    state: "OH",
+    city: "New Town",
+    zip: "12345",
+    email: "some@email.com",
+    country: "US"
+  },
+  billingForm: {
+    cardNumber: "4242424242424242",
+    cardExpirationMonth: "12",
+    cardExpirationYear: "2022",
+    cvc: "123"
+  },
+  checkoutDrawerOpen: false,
   checkoutIndex: 0,
   checkoutMaxIndex: 1,
   checkoutSuccessful: false

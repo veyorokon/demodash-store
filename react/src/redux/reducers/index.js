@@ -18,7 +18,7 @@ const initialState = {
   checkoutDrawerOpen: false,
   checkoutIndex: 0,
   checkoutMaxIndex: 1,
-  checkoutSuccessful: false
+  checkoutSuccessful: true
 };
 
 function sortKeys(dict) {
