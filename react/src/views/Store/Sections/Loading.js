@@ -8,7 +8,7 @@ function Success(props) {
   return (
     <Flex bg="blues.3" flexDirection="column" h={"100vh"} pt={3}>
       <Flex>
-        <Flex display={r("none -----> flex")} flexGrow={0}>
+        <Flex display={r("none ------> flex")} flexGrow={0}>
           <Flex
             bg="whites.0"
             p={4}
