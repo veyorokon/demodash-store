@@ -13,12 +13,12 @@ import {
 const initialState = {
   navOpen: false,
   cart: {},
-  shippingForm: {},
+  shippingForm: {country: "US"},
   billingForm: {},
   checkoutDrawerOpen: false,
   checkoutIndex: 0,
   checkoutMaxIndex: 1,
-  checkoutSuccessful: true
+  checkoutSuccessful: false
 };
 
 function sortKeys(dict) {
@@ -168,7 +168,12 @@ export default function rootReducer(state = initialState, action) {
       return updateState(state, ["checkoutIndex"], checkoutIndex, true);
     case CLEAR_CART:
       newState = updateState(state, ["cart"], {}, false);
-      newState = updateState(newState, ["shippingForm"], {}, false);
+      newState = updateState(
+        newState,
+        ["shippingForm"],
+        {country: "US"},
+        false
+      );
       newState = updateState(newState, ["billingForm"], {}, false);
       newState = updateState(newState, ["checkoutMaxIndex"], 1, false);
       newState = updateState(newState, ["checkoutIndex"], 0, false);
