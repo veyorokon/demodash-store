@@ -31,13 +31,21 @@ const MobileBrandNav = props => {
       >
         Brands:
       </Text>
-      <Flex pl={1} pr={1}>
-        <BorderButton borderColor={"whites.3"} br={2} p={1}>
+      <Flex overflow="hidden" pl={1} pr={1}>
+        <Flex w="fit-content" overflowX={"scroll"}>
           {demodashStoreInventory.length &&
             demodashStoreInventory.map((brandInventory, index) => (
-              <Brand key={"mBrand_" + index} {...brandInventory} />
+              <BorderButton
+                key={"mBrand_" + index}
+                borderColor={"whites.3"}
+                br={2}
+                p={1}
+                mr={3}
+              >
+                <Brand {...brandInventory} />
+              </BorderButton>
             ))}
-        </BorderButton>
+        </Flex>
       </Flex>
     </Flex>
   );

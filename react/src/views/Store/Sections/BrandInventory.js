@@ -32,7 +32,7 @@ const Brands = props => {
 
         const {demodashStoreInventory} = data;
         return (
-          <Flex w="100%" {...props}>
+          <Flex flexDirection="column" w="100%" {...props}>
             {demodashStoreInventory.length ? (
               demodashStoreInventory.map(brandInventory => (
                 <Box

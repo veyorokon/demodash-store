@@ -110,7 +110,7 @@ export const CREATE_PURCHASE = gql`
     ) {
       purchase {
         id
-        receipt {
+        receipts {
           id
           uid
         }
