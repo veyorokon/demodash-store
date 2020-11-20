@@ -1,4 +1,4 @@
-import {updateState} from "lib";
+import {updateState, isEmpty} from "lib";
 import {
   UPDATE_CART,
   TOGGLE_CHECKOUT_DRAWER,
@@ -22,16 +22,13 @@ const initialState = {
 };
 
 function sortKeys(dict) {
-  var keys = Object.keys(dict); // or loop over the object to get the array
+  let keys = Object.keys({...dict}); // or loop over the object to get the array
   return keys.sort(); // maybe use custom sort, to change direction use
 }
 
-function getItemToken(productId, demoCommissionId) {
-  return `${productId}-${demoCommissionId}`;
-}
-
 function getVariationToken(variationsChosen) {
-  if (!variationsChosen) return null;
+  console.log(variationsChosen);
+  if (isEmpty(variationsChosen)) return "";
   //iter over all variations chosen in order of key
   let token = "";
   let sortedKeys = sortKeys(variationsChosen);
@@ -39,98 +36,38 @@ function getVariationToken(variationsChosen) {
     // now lets iterate in sort order
     let key = sortedKeys[i];
     let value = variationsChosen[key];
-    //Removes the trailing -
     token += `${key}-${value}-`;
   }
+  //Removes the trailing -
   return token.substring(0, token.length - 1);
 }
 
-function getBrandItemCheckoutToken(payload) {
-  const {update} = payload;
-  let itemToken = getItemToken(payload.productId, payload.demoCommissionId);
-  let variationToken = getVariationToken(update.variationsChosen);
-  let token = `${itemToken}-${variationToken}`;
+function getItemCheckoutToken(payload) {
+  const {update, brandId, productId, demoCommissionId} = payload;
+  let variationToken = getVariationToken({...update.variationsChosen});
+  let token = `${brandId}-${demoCommissionId}-${productId}-${variationToken}`;
   if (!variationToken) return token.substring(0, token.length - 1);
   return token;
 }
 
-function addBrandToCart(state, payload) {
-  const {update} = payload;
-  let itemCheckoutToken = getBrandItemCheckoutToken(payload);
-  return {
-    ...state.cart,
-    [payload.brandId]: {
+function updateCart(cart, payload) {
+  const update = {...payload.update};
+  let itemCheckoutToken;
+  itemCheckoutToken = getItemCheckoutToken(payload);
+  console.log(`Variation Token: ${itemCheckoutToken}`);
+  let prevAmount = 0;
+  if (itemCheckoutToken in cart) prevAmount = cart[itemCheckoutToken].amount;
+  if (prevAmount + update.amount > 0) {
+    cart = {
+      ...cart,
       [itemCheckoutToken]: {
         ...update,
-        amount: update.amount
+        amount: prevAmount + update.amount,
+        variationsChosen: {...update.variationsChosen},
+        token: itemCheckoutToken
       }
-    }
-  };
-}
-
-function updateCart(state, payload) {
-  let cart;
-  const {update} = payload;
-  let itemCheckoutToken = getBrandItemCheckoutToken(payload);
-  let brandIsInCart = state.cart[payload.brandId];
-
-  if (!brandIsInCart) {
-    //check if brandId doesnt exists
-    cart = addBrandToCart(state, payload);
-  } else {
-    let itemVariationInCart = state.cart[payload.brandId][itemCheckoutToken];
-
-    if (!itemVariationInCart && update.amount >= 1)
-      cart = {
-        ...state.cart,
-        [payload.brandId]: {
-          ...state.cart[payload.brandId],
-          [itemCheckoutToken]: {
-            ...update,
-            amount: update.amount
-          }
-        }
-      };
-    else if (itemVariationInCart && update.amount >= 1) {
-      let prevAmount = itemVariationInCart.amount;
-      cart = {
-        ...state.cart,
-        [payload.brandId]: {
-          ...state.cart[payload.brandId],
-          [itemCheckoutToken]: {
-            ...update,
-            amount: prevAmount + update.amount
-          }
-        }
-      };
-    } else {
-      //Handle deleting item
-      try {
-        //HACKY NEEDS TO BE FIXED
-        let prevAmount = itemVariationInCart.amount;
-        if (prevAmount + update.amount > 0) {
-          cart = {
-            ...state.cart,
-            [payload.brandId]: {
-              ...state.cart[payload.brandId],
-              [itemCheckoutToken]: {
-                ...update,
-                amount: prevAmount + update.amount
-              }
-            }
-          };
-        } else {
-          cart = {
-            ...state.cart,
-            [payload.brandId]: {
-              ...state.cart[payload.brandId]
-            }
-          };
-          delete cart[payload.brandId][itemCheckoutToken];
-        }
-      } catch {}
-    }
-  }
+    };
+  } else delete cart[itemCheckoutToken];
   return cart;
 }
 
@@ -145,9 +82,9 @@ export default function rootReducer(state = initialState, action) {
         !state.checkoutDrawerOpen
       );
     case UPDATE_CART:
-      let cart = updateCart(state, payload);
-      newState = updateState(state, ["cart"], cart, false);
-      return Object.assign({}, state, newState);
+      let cart = updateCart(state.cart, payload);
+      console.log(cart);
+      return updateState(state, ["cart"], {...cart}, true);
     case UPDATE_SHIPPING_FORM:
       return updateState(state, ["shippingForm"], payload, true);
     case UPDATE_BILLING_FORM:

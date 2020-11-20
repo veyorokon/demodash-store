@@ -6,7 +6,7 @@ import {Overview, Shipping, Billing, Confirm, Success, Empty} from "./Sections";
 import Footer from "./Footer";
 import {connect} from "react-redux";
 import styled, {css} from "styled-components";
-import {mapStateToProps, responsive as r} from "lib";
+import {mapStateToProps, responsive as r, isEmpty} from "lib";
 import {useSpring, animated} from "react-spring";
 
 const Hide = styled(Flex)`
@@ -31,16 +31,6 @@ const AnimatedFlex = styled(animated.div)`
   width: 100%;
   display: flex;
 `;
-
-function calculateCartTotal(cart) {
-  let amount = 0;
-  for (const [, checkoutItem] of Object.entries(cart)) {
-    for (const [, item] of Object.entries(checkoutItem)) {
-      amount += item.amount;
-    }
-  }
-  return amount;
-}
 
 function Body(props) {
   const {demodashStoreId, checkoutMaxIndex, checkoutIndex} = props;
@@ -91,7 +81,7 @@ function _Checkout(props) {
       : "translate3d(50vw, 0px, 0px)",
     from: {transform: "translate3d(50vw, 0px, 0px)"}
   });
-  if (!calculateCartTotal(cart)) {
+  if (isEmpty(cart)) {
     return (
       <Hide h={"85vh"} isShowing={checkoutDrawerOpen}>
         <AnimatedFlex style={tranformSpring}>

@@ -5,15 +5,15 @@ import {mapStateToProps, responsive as r} from "lib";
 
 function getCartItems(cart) {
   let cartItems = [];
-  Object.keys(cart).forEach(function(brandId) {
-    Object.keys(cart[brandId]).forEach(function(checkoutToken) {
-      let demoCommissionId = checkoutToken.split("-")[1]; //Hacky
-      cartItems.push({
-        brandId,
-        demoCommissionId,
-        checkoutToken,
-        ...cart[brandId][checkoutToken]
-      });
+  Object.keys(cart).forEach(function(checkoutToken) {
+    let tokens = checkoutToken.split("-");
+    let brandId = tokens[0];
+    let demoCommissionId = tokens[1];
+    cartItems.push({
+      brandId,
+      demoCommissionId,
+      checkoutToken,
+      ...cart[checkoutToken]
     });
   });
   return cartItems;

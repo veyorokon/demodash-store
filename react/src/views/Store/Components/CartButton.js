@@ -8,10 +8,8 @@ import {mapStateToProps} from "lib";
 
 function calculateCartTotal(cart) {
   let amount = 0;
-  for (const [, checkoutItem] of Object.entries(cart)) {
-    for (const [, item] of Object.entries(checkoutItem)) {
-      amount += item.amount;
-    }
+  for (const [, item] of Object.entries(cart)) {
+    amount += item.amount;
   }
   return amount;
 }

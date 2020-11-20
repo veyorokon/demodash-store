@@ -14,20 +14,31 @@ const CheckoutButton = styled(Button)`
 
 function formatCheckouts(cart) {
   let checkouts = [];
-  Object.keys(cart).forEach(function(brandId) {
+  let checkoutTokens = Object.keys(cart);
+  let keys = new Set(
+    checkoutTokens.map(checkoutToken => {
+      let tokens = checkoutToken.split("-");
+      let brandId = tokens[0];
+      return brandId;
+    })
+  );
+  let brands = Array.from(keys);
+  brands.forEach(function(brandId) {
+    let brandItems = checkoutTokens.filter(function(token) {
+      return token.indexOf(brandId) === 0;
+    });
     let checkoutItems = [];
-    Object.keys(cart[brandId]).forEach(function(checkoutToken) {
-      let demoCommissionId = checkoutToken.split("-")[1]; //Hacky
-      const checkout = cart[brandId][checkoutToken];
-      //console.log(checkout)
-      const {variationsChosen} = checkout;
+    brandItems.forEach(function(token) {
+      const item = cart[token];
+      let demoCommissionId = token.split("-")[1];
+      const {variationsChosen} = item;
       let itemVariations = Object.keys(variationsChosen).map(key => {
         return {variationId: parseInt(variationsChosen[key])};
       });
       checkoutItems.push({
         demoCommissionId: parseInt(demoCommissionId),
-        productId: parseInt(checkout.product.id),
-        quantity: parseInt(checkout.amount),
+        productId: parseInt(item.product.id),
+        quantity: parseInt(item.amount),
         itemVariations
       });
     });
@@ -65,6 +76,8 @@ function _Footer(props) {
       checkoutSuccessful: true
     });
   }
+  console.log(cart);
+  console.log(cartCheckouts);
   return (
     <Flex
       pl={r("2 3 -> 4 5")}

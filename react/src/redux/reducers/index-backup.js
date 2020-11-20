@@ -10,125 +10,11 @@ import {
   CLEAR_CART
 } from "redux/constants";
 
-const PRODUCT_ONE = {
-  "31": {
-    "11-16-7-35-8-38": {
-      product: {
-        id: "11",
-        name: "Hair Filling Fibers",
-        price: 25,
-        shippingPrice: 2,
-        description: "Add density to thinning hair.",
-        images: [
-          {
-            id: "41",
-            image: "account_31/products/account_31/products/bromane-brand.jpg",
-            variationOption: null
-          },
-          {
-            id: "43",
-            image: "account_31/products/account_31/products/medium-blonde.jpg",
-            variationOption: {
-              id: "35",
-              image: [
-                {
-                  id: "43",
-                  image:
-                    "account_31/products/account_31/products/medium-blonde.jpg"
-                }
-              ]
-            }
-          }
-        ],
-        variations: [
-          {
-            id: "7",
-            name: "Color",
-            options: [
-              {
-                id: "31",
-                option: "Black",
-                image: []
-              },
-              {
-                id: "32",
-                option: "Dark Brown",
-                image: []
-              },
-              {
-                id: "33",
-                option: "Medium Brown",
-                image: []
-              },
-              {
-                id: "34",
-                option: "Light Brown",
-                image: []
-              },
-              {
-                id: "35",
-                option: "Blonde",
-                image: [
-                  {
-                    id: "43",
-                    image:
-                      "account_31/products/account_31/products/medium-blonde.jpg"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            id: "8",
-            name: "Size",
-            options: [
-              {
-                id: "36",
-                option: "Small",
-                image: []
-              },
-              {
-                id: "37",
-                option: "Medium",
-                image: []
-              },
-              {
-                id: "38",
-                option: "Large",
-                image: []
-              }
-            ]
-          }
-        ]
-      },
-      amount: 1,
-      variationsChosen: {
-        "7": 35,
-        "8": 38
-      }
-    }
-  }
-};
-
 const initialState = {
   navOpen: false,
-  cart: {...PRODUCT_ONE},
-  shippingForm: {
-    name: "Vahid Eyorokon",
-    addressLine1: "123 test street",
-    addressLine2: "",
-    state: "OH",
-    city: "New Town",
-    zip: "12345",
-    email: "some@email.com",
-    country: "US"
-  },
-  billingForm: {
-    cardNumber: "4242424242424242",
-    cardExpirationMonth: "12",
-    cardExpirationYear: "2022",
-    cvc: "123"
-  },
+  cart: {},
+  shippingForm: {country: "US"},
+  billingForm: {},
   checkoutDrawerOpen: false,
   checkoutIndex: 0,
   checkoutMaxIndex: 1,
@@ -153,9 +39,9 @@ function getVariationToken(variationsChosen) {
     // now lets iterate in sort order
     let key = sortedKeys[i];
     let value = variationsChosen[key];
-    //Removes the trailing -
     token += `${key}-${value}-`;
   }
+  //Removes the trailing -
   return token.substring(0, token.length - 1);
 }
 
@@ -168,9 +54,8 @@ function getBrandItemCheckoutToken(payload) {
   return token;
 }
 
-function addBrandToCart(state, payload) {
+function addBrandToCart(state, payload, itemCheckoutToken) {
   const {update} = payload;
-  let itemCheckoutToken = getBrandItemCheckoutToken(payload);
   return {
     ...state.cart,
     [payload.brandId]: {
@@ -185,16 +70,19 @@ function addBrandToCart(state, payload) {
 function updateCart(state, payload) {
   let cart;
   const {update} = payload;
-  let itemCheckoutToken = getBrandItemCheckoutToken(payload);
-  let brandIsInCart = state.cart[payload.brandId];
+  const itemCheckoutToken = getBrandItemCheckoutToken(payload);
+  console.log(`Checkout Token: ${itemCheckoutToken}`);
+  const brandIsInCart = payload.brandId in state.cart;
 
   if (!brandIsInCart) {
     //check if brandId doesnt exists
-    cart = addBrandToCart(state, payload);
+    console.log("ADDING NEW BRAND");
+    cart = addBrandToCart(state, payload, itemCheckoutToken);
   } else {
-    let itemVariationInCart = state.cart[payload.brandId][itemCheckoutToken];
-
-    if (!itemVariationInCart && update.amount >= 1)
+    const itemVariationInCart =
+      itemCheckoutToken in state.cart[payload.brandId];
+    if (!itemVariationInCart && update.amount >= 1) {
+      console.log("ADDING NEW BRAND ITEM VARIATION");
       cart = {
         ...state.cart,
         [payload.brandId]: {
@@ -205,7 +93,8 @@ function updateCart(state, payload) {
           }
         }
       };
-    else if (itemVariationInCart && update.amount >= 1) {
+    } else if (itemVariationInCart && update.amount >= 1) {
+      console.log("ADDING NEW BRAND ITEM VARIATION AMOUNT");
       let prevAmount = itemVariationInCart.amount;
       cart = {
         ...state.cart,
@@ -259,6 +148,7 @@ export default function rootReducer(state = initialState, action) {
         !state.checkoutDrawerOpen
       );
     case UPDATE_CART:
+      console.log(payload);
       let cart = updateCart(state, payload);
       newState = updateState(state, ["cart"], cart, false);
       return Object.assign({}, state, newState);
@@ -282,7 +172,12 @@ export default function rootReducer(state = initialState, action) {
       return updateState(state, ["checkoutIndex"], checkoutIndex, true);
     case CLEAR_CART:
       newState = updateState(state, ["cart"], {}, false);
-      newState = updateState(newState, ["shippingForm"], {}, false);
+      newState = updateState(
+        newState,
+        ["shippingForm"],
+        {country: "US"},
+        false
+      );
       newState = updateState(newState, ["billingForm"], {}, false);
       newState = updateState(newState, ["checkoutMaxIndex"], 1, false);
       newState = updateState(newState, ["checkoutIndex"], 0, false);
