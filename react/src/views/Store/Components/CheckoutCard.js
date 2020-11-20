@@ -99,7 +99,6 @@ function _CheckoutCard(props) {
   const variationData = getVariations(product.variations, variationsChosen);
   let hasVariationData = false;
   if (variationData && variationData.length) hasVariationData = true;
-  console.log(props.brandId);
   return (
     <Flex
       flexGrow={0}

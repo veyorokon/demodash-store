@@ -76,8 +76,6 @@ function _Footer(props) {
       checkoutSuccessful: true
     });
   }
-  console.log(cart);
-  console.log(cartCheckouts);
   return (
     <Flex
       pl={r("2 3 -> 4 5")}

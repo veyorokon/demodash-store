@@ -27,7 +27,6 @@ function sortKeys(dict) {
 }
 
 function getVariationToken(variationsChosen) {
-  console.log(variationsChosen);
   if (isEmpty(variationsChosen)) return "";
   //iter over all variations chosen in order of key
   let token = "";
@@ -54,7 +53,6 @@ function updateCart(cart, payload) {
   const update = {...payload.update};
   let itemCheckoutToken;
   itemCheckoutToken = getItemCheckoutToken(payload);
-  console.log(`Variation Token: ${itemCheckoutToken}`);
   let prevAmount = 0;
   if (itemCheckoutToken in cart) prevAmount = cart[itemCheckoutToken].amount;
   if (prevAmount + update.amount > 0) {
@@ -83,7 +81,6 @@ export default function rootReducer(state = initialState, action) {
       );
     case UPDATE_CART:
       let cart = updateCart(state.cart, payload);
-      console.log(cart);
       return updateState(state, ["cart"], {...cart}, true);
     case UPDATE_SHIPPING_FORM:
       return updateState(state, ["shippingForm"], payload, true);
