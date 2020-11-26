@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demodash-store-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
+    ingress.kubernetes.io/proxy-body-size: 500m
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - demodash.com
+    secretName: demodash-com
+  rules:
+  - host: demodash.com
+    http:
+      paths:
+      - path: /s/
+        pathType: Prefix
+        backend:
+          service:
+            name: demodash-store
+            port:
+              number: 8080
