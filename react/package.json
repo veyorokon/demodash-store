@@ -1,5 +1,5 @@
 {
-  "name": "demodash-dashboard",
+  "name": "demodashStore",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,7 +11,6 @@
     "apollo-client": "^2.6.9",
     "apollo-link-http": "^1.5.15",
     "graphql": "^15.0.0",
-    "mo-js": "^0.288.2",
     "moment": "^2.27.0",
     "public-ip": "^4.0.2",
     "rc-collapse": "^2.0.0",
@@ -24,7 +23,7 @@
     "react-moment": "^0.9.7",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^4.0.0",
     "react-spring": "^8.0.27",
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
@@ -36,7 +35,7 @@
     "svg-inline-react": "^3.2.0"
   },
   "scripts": {
-    "start": "PORT=3030 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
