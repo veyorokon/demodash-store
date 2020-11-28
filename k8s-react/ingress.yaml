@@ -11,13 +11,13 @@ metadata:
 spec:
   tls:
   - hosts:
-    - demodash.com
-    secretName: demodash-com
+    - shop.demodash.com
+    secretName: shop.demodash-com
   rules:
-  - host: demodash.com
+  - host: shop.demodash.com
     http:
       paths:
-      - path: /s/
+      - path: /
         pathType: Prefix
         backend:
           service:

@@ -66,7 +66,9 @@ export function formatGQLErrorMessage(error, defaultMessage = "") {
 }
 
 export function getDemoerHandle() {
-  return window.location.href.split("/s/")[1].split("#")[0];
+  let n = window.location.href.lastIndexOf("/");
+  let result = window.location.href.substring(n + 1);
+  return result;
 }
 
 export function getAnchor() {
