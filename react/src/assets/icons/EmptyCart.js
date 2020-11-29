@@ -1,5 +1,5 @@
 import React from "react";
-export default props => (
+const EmptyCart = props => (
   <svg
     id="b0613604-cb64-4fd5-a4c3-be829c572cfc"
     data-name="Layer 1"
@@ -335,3 +335,4 @@ export default props => (
     />
   </svg>
 );
+export default EmptyCart;
