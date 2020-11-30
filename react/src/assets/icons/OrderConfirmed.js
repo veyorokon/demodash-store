@@ -1,5 +1,5 @@
 import React from "react";
-export default props => (
+const OrderConfirmed = props => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="100%"
@@ -345,3 +345,4 @@ export default props => (
     </g>
   </svg>
 );
+export default OrderConfirmed;
