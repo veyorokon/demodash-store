@@ -40,7 +40,9 @@ function Nav(props) {
           fs={"1.4rem"}
           color="navys.1"
         >
-          {address.city} {address.state}, {address.zip}
+          {address && address.city && address.city}{" "}
+          {address && address.state && address.state},{" "}
+          {address && address.zip && address.zip}
         </Text>
       </Flex>
       <CartButton display={props.cartButtonDisplay} />
