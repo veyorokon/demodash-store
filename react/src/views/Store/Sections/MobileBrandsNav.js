@@ -31,7 +31,12 @@ const MobileBrandNav = props => {
       >
         Brands:
       </Text>
-      <Flex overflow="hidden" pl={1} pr={1}>
+      <Flex
+        display={demodashStoreInventory.length ? "flex" : "none"}
+        overflow="hidden"
+        pl={1}
+        pr={1}
+      >
         <Flex w="fit-content" overflowX={"scroll"}>
           {demodashStoreInventory.length &&
             demodashStoreInventory.map((brandInventory, index) => (
