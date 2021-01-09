@@ -122,6 +122,7 @@ function _CheckoutCard(props) {
       <Flex
         pb={1}
         h={"100%"}
+        w={"min-content"}
         flexDirection="column"
         justifyContent="space-between"
       >
